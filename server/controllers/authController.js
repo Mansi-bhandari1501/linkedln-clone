@@ -144,12 +144,13 @@ export const loginController = async (req, res) => {
         body: req.body.body,
       };
 
-      let newPost = await new postModel(newPostData);
+      let newPost = await new postModel(newPostData).save();
       // console.log(req.body);
-      const user =await UserModel.findById(req.user.id);
+      const user =await UserModel.findById(req.body.userid);
       // let result =  data.save();
       // console.log(user)
-      user.posts.push(postData._id)
+      user.posts.unshift(newPost._id)
+      user.save()
       // res.send("POSTED");
       res.status(201).json({
         success:true,
