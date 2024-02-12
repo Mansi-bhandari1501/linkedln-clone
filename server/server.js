@@ -1,7 +1,7 @@
 import express from 'express';
 import colors from "colors";
 import dotenv from 'dotenv';
-import morgon from 'morgan';
+// import morgon from 'morgan';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoute.js'
 import cors from 'cors';
@@ -23,17 +23,11 @@ app.get('/',(req,res)=>{
 //middlewares
 app.use(cors())
 app.use(express.json())
-app.use(morgon('dev'))
+// app.use(morgon('dev'))
 
-//routes
-// app.use('/auth',authRoutes);
+// routes
+app.use('/',authRoutes);
 
-app.post ("/",async (req,res)=>{
-    let data = await new UserModel(req.body);
-    console.log(req.body);
-    let result =  data.save();
-    res.send(result);
-});
 //Port
 const PORT = process.env.PORT || 8080 ;
 
