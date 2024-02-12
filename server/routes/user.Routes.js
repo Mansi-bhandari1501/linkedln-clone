@@ -1,5 +1,5 @@
 import express  from "express";
-import {loginController, postController, registerController} from '../controllers/authController.js'
+import {loginController, postController, registerController} from '../controllers/user.Controllers.js'
 import {requireSignIn,} from "../middlewares/authMiddleware.js";
 //router object
 const router = express.Router()
@@ -11,7 +11,8 @@ const router = express.Router()
  //LOGIN || 
  router.post('/login', loginController)
 
- router.post('/posts',requireSignIn,postController)
+//  router.post('/posts',requireSignIn,postController)
+//  router.get('/posts',requireSignIn,fetchPOST)
  //test routes
 //  router.get('/test',requireSignIn,isAdmin,testController);
 

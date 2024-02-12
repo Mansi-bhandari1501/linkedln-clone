@@ -164,6 +164,11 @@ export const loginController = async (req, res) => {
       })
     }
     }
+
+    export const fetchPosts= async(req,res)=>{
+      console.log(req.body)
+      const getpost= await postModel.findById(req.body.userid)
+    }
 //   app.post ("/",async (req,res)=>{
 //     let data = await new UserModel(req.body);
 //     console.log(req.body);
