@@ -1,0 +1,69 @@
+import mongoose from "mongoose";
+
+const usersSchema = new mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    username:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    address:{
+        street:{
+            type:String,
+            required:true
+        },
+        suite:{
+            type:String,
+            required:true
+        },
+        city:{
+            type:String,
+            required:true
+        },
+        Zipcode:{
+            type:String,
+            required:true
+        },
+        geo:{
+            lat:{
+                type:String,
+                required:true
+            },
+            lng:{
+                type:String,
+                requried:true
+            }
+        }
+    },
+    phone:{
+        type:String,
+        required:true,
+    },
+    website:{
+        type:String,
+        required:true,
+    },
+    company:{
+        companyname:{
+            type:String,
+            required:true
+        },
+        catchPhrase:{
+            type:String,
+            required:true,
+        },
+        bs:{
+            type:String,
+            required:true,
+        }
+    }
+})
+const UserModel =  mongoose.model('Users', usersSchema);
+export default UserModel;
