@@ -9,22 +9,21 @@ import Footer from "./footer";
 
 function Signup() 
 {
-  const [name,setName] =  useState("")  
+  const [username,setUsername] =  useState("")  
   const [email,setEmail] =  useState("")
   const [password,setPassword] =  useState("")
-  const [phone,setPhone] =  useState("")
+  // const [phone,setPhone] =  useState("")
   const navigate = useNavigate();
   // form function
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/api/v1/auth/register", {
-        name,
+      const res = await axios.post("http://localhost:8080/users/register", {
+        username,
         email,
-        password,
-        phone,
-         
+        password, 
       });
+      console.log(username,email, password);
       if (res && res.data.success) {
         // toast.success(res.data && res.data.message);
         alert(res.data && res.data.message);
@@ -56,11 +55,11 @@ function Signup()
                 <input
                   className="input-name"
                   type="text"
-                  value={name}
-                  onChange={(e)=> setName(e.target.value)}
+                  value={username}
+                  onChange={(e)=> setUsername(e.target.value)}
                   name="name"
-                  //   onChange={getdata}
-                  placeholder="Enter name"
+                    // onChange={getdata}
+                  placeholder="Enter username"
                   required
                   autoFocus
                   />
@@ -93,7 +92,7 @@ function Signup()
                   
                   />
               </label>
-              <label>
+              {/* <label>
                 <input
                   className="input-phone"
                   type="phone"
@@ -104,7 +103,7 @@ function Signup()
                   //   onChange={getdata}
                   placeholder="phone"
                   />
-              </label>
+              </label> */}
               <p className="terms-policy">
                 By clicking Agree & Join or Continue, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.
                 </p>
@@ -118,7 +117,8 @@ function Signup()
             </form>
             <p className="quote">
 
-            Already on LinkedIn? {" "}<span><NavLink to="/login">Sign-in</NavLink></span>
+            Already on LinkedIn? {" "}
+            <span><NavLink to="/login">Sign-in</NavLink></span>
             </p>
           </div>
         </section>

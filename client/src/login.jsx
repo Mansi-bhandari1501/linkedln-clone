@@ -4,12 +4,12 @@ import "./sign-up.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
-import{useAuth} from '../src/context/auth'
+// import{useAuth} from '../src/context/auth'
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [auth, setAuth] = useAuth();
+  // const [auth, setAuth] = useAuth("");
 
   const navigate = useNavigate();
   const location = useLocation();

@@ -1,7 +1,7 @@
 import express from 'express';
 import colors from "colors";
 import dotenv from 'dotenv';
-// import morgon from 'morgan';
+import morgon from 'morgan';
 import connectDB from './config/db.js';
 import authRoutes from './routes/index.js'
 import cors from 'cors';
@@ -23,7 +23,7 @@ app.get('/',(req,res)=>{
 //middlewares
 app.use(cors())
 app.use(express.json())
-// app.use(morgon('dev'))
+app.use(morgon('dev'))
 
 // routes
 app.use('/',authRoutes);

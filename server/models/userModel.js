@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const usersSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        // required: true
     },
     username: {
         type: String,
-        required: true
+        // required: true
     },
     email: {
         type: String,
@@ -60,10 +60,6 @@ const usersSchema = new mongoose.Schema({
             }
         }
     },
-    posts:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Posts"
-    }],
     phone: {
         type: String,
         default:null
@@ -97,6 +93,6 @@ const usersSchema = new mongoose.Schema({
             // required:true,
         }
     }
-})
+},{timestamps:true})
 const UserModel = mongoose.model('Users', usersSchema);
 export default UserModel;

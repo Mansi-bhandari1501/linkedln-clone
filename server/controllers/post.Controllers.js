@@ -1,7 +1,5 @@
-import { comparePassword, hashPassword } from '../helpers/authHelper.js'
 import postModel from '../models/postModel.js';
 import UserModel from '../models/userModel.js';
-import JWT from "jsonwebtoken";
 
 export const postController =async(req,res)=>{
     try{
@@ -16,9 +14,7 @@ export const postController =async(req,res)=>{
       // console.log(req.body);
       const user =await UserModel.findById(req.body.userid);
       // let result =  data.save();
-      // console.log(user)
-      user.posts.unshift(newPost._id)
-      user.save()
+      // console.log(user)      user.save()
       // res.send("POSTED");
       res.status(201).json({
         success:true,

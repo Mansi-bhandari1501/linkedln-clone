@@ -17,10 +17,7 @@ const postSchema = new mongoose.Schema({
         public_id :String,
         URL: String
     },
-    createdAt:{
-        type:Date,
-        default:Date.now,
-    },
+   
     likes:{
         user:[{
             type: mongoose.Schema.Types.ObjectId,
@@ -39,6 +36,6 @@ const postSchema = new mongoose.Schema({
         },  
     }],
     
-})
+},{timestamps:true})
 const postModel =  mongoose.model('Posts', postSchema);
 export default postModel;
