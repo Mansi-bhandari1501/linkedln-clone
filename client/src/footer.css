@@ -1,0 +1,22 @@
+.footer-container{
+    height: 50px;
+    margin-top: 10vh;
+    color: azure;
+    font-size: 10px;
+    margin-top: 15vh;
+
+}
+.footer-content{
+    display: flex;
+    flex-direction: row;
+    gap:2vw;
+    justify-content: center;
+    font-size: 15px;
+
+}
+.logoo{
+    width: 60px;
+    height: 65px;
+    margin-top: -20px;
+    size:50px;
+}

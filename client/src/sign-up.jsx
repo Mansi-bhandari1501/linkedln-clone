@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./sign-up.css";
+import { ReactComponent as IconMenu } from './logo.svg'
+import Footer from "./footer";
 
 function Signup() 
 {
@@ -26,7 +28,7 @@ function Signup()
       if (res && res.data.success) {
         // toast.success(res.data && res.data.message);
         alert(res.data && res.data.message);
-        navigate("/loginpage");
+        navigate("/login");
       } else {
         // toast.error(res.data.message);
         alert(res.data.message);
@@ -42,14 +44,12 @@ function Signup()
   return (
     <>
       <div className="signup-page">
+      <IconMenu className="logo" />
         <section className="signin-container ">
           <div className="signup-data">
-            <h3 className="signup-heading">Create a new account .</h3>
-            <p className="login-link">
-              Already Have an Account{" "}
-              <span>
-                <NavLink to="/loginpage">Sign-in</NavLink>
-              </span>
+            <h3 className="signup-heading">  Sign up</h3>
+            <p className="quote">
+            Make the most of your professional life
             </p>
             <form onSubmit={handleSubmit}> 
               <label>
@@ -59,11 +59,11 @@ function Signup()
                   value={name}
                   onChange={(e)=> setName(e.target.value)}
                   name="name"
-                //   onChange={getdata}
+                  //   onChange={getdata}
                   placeholder="Enter name"
                   required
                   autoFocus
-                />
+                  />
               </label>
               <label>
                 <input
@@ -71,13 +71,13 @@ function Signup()
                   type="email"
                   value={email}
                   onChange={(e)=> setEmail(e.target.value)}
-
+                  
                   name="email"
-                //   onChange={getdata}
+                  //   onChange={getdata}
                   placeholder="Enter Email"
                   required
-
-                />
+                  
+                  />
               </label>
               <label>
                 <input
@@ -85,37 +85,45 @@ function Signup()
                   type="password"
                   value={password}
                   onChange={(e)=> setPassword(e.target.value)}
-
+                  
                   name="password"
-                //   onChange={getdata}
+                  //   onChange={getdata}
                   placeholder="password"
                   required
-
-                />
+                  
+                  />
               </label>
               <label>
                 <input
-                  className="input-date"
+                  className="input-phone"
                   type="phone"
                   value={phone}
                   onChange={(e)=> setPhone(e.target.value)}
                   required
                   name="phone"
-                //   onChange={getdata}
+                  //   onChange={getdata}
                   placeholder="phone"
-                />
+                  />
               </label>
+              <p className="terms-policy">
+                By clicking Agree & Join or Continue, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.
+                </p>
               <input
                 className="input-submit"
                 type="submit"
                 // onClick={addData}
-                value="Create account"
-              />
+                value="Agree & Join"
+                />
               {/* <Button className="btn" variant="contained">submit</Button> */}
             </form>
+            <p className="quote">
+
+            Already on LinkedIn? {" "}<span><NavLink to="/login">Sign-in</NavLink></span>
+            </p>
           </div>
         </section>
       </div>
+      <Footer />
           </>
   );
 }

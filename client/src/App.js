@@ -12,7 +12,7 @@ function App() {
       
       {/* <Route path='/' element={<Section1 />}/> */}
       <Route path='/' element={<Signup />}/>
-      <Route path='/login' element={<Login />}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='/page' element={<Page />}/>
 {/* <ToastContainer /> */}
 
