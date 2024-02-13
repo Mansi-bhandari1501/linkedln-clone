@@ -1,4 +1,5 @@
-import { commentModel } from "../models/commentModel.js";
+import { commentModel } from "../models/comment.model.js";
+import { comment_service } from '../service/index.js';
 
 export const commentController = async(req,res)=>{
     try{
@@ -57,4 +58,14 @@ export const fetchAllComments= async(req,res)=>{
     console.log(req.params)
     const getpost= await commentModel.findById(req.params);
     res.send(getpost);
+  }
+
+  export const  getAllcomments=async(req, res)=> {
+    let page = req.query.page //starts from 0
+    let comments= await comment_service.getCommentPaginated(page)
+    if (comments && comments.length > 0) {
+      res.json(comments)
+    } else {
+      res.json("comments not found")
+    }
   }

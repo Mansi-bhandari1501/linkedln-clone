@@ -1,5 +1,5 @@
-import postModel from '../models/postModel.js';
-import UserModel from '../models/userModel.js';
+import postModel from '../models/post.model.js';
+import UserModel from '../models/user.model.js';
 
 export const postController =async(req,res)=>{
     try{
@@ -12,7 +12,7 @@ export const postController =async(req,res)=>{
 
       let newPost = await new postModel(newPostData).save();
       // console.log(req.body);
-      const user =await UserModel.findById(req.body.userid);
+      // const user =await UserModel.findById(req.body.userid);
       // let result =  data.save();
       // console.log(user)      user.save()
       // res.send("POSTED");
@@ -31,7 +31,7 @@ export const postController =async(req,res)=>{
 
     export const fetchAllPosts= async(req,res)=>{
       console.log(req.body)
-      const getposts= await postModel.find();
+      const getposts= await postModel.find().populate("user");
       res.send(getposts);
     }
     export const fetchPost= async(req,res)=>{

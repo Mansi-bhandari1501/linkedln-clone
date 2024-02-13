@@ -1,9 +1,8 @@
 import express  from "express";
-import {deletePost, fetchAllPosts, postController, updatePost} from '../controllers/post.Controllers.js'
 import {requireSignIn,} from "../middlewares/authMiddleware.js";
-import { fetchPost } from "../controllers/post.Controllers.js";
+import { deletePost, fetchAllPosts, fetchPost, postController, updatePost } from "../controllers/post.controller.js";
 
-const router = express.Router()
+const router = express.Router();
 
 router.post('/create',requireSignIn,postController)
 router.get('/fetchAllposts',requireSignIn,fetchAllPosts)

@@ -5,7 +5,7 @@ import morgon from 'morgan';
 import connectDB from './config/db.js';
 import authRoutes from './routes/index.js'
 import cors from 'cors';
-import UserModel from './models/userModel.js';
+// import UserModel from './models/userModel.js';
 //configure env
 dotenv.config()
 
@@ -14,11 +14,6 @@ connectDB();
 
 // rest object 
 const app = express();
-
-//rest api
-app.get('/',(req,res)=>{
-    res.send('<h1>welcome to e-commerce app...</h1>')
-})
 
 //middlewares
 app.use(cors())

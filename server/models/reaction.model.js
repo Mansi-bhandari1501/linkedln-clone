@@ -10,9 +10,9 @@ const reactionSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Posts"
     },
-    body:{
+    type:{
         type:String,
-        required:true
+        enum:['like','celebrate','support','love','insightful','funny'],
     }
 },{timestamps:true})
 export const reactionModel = mongoose.model('reaction',reactionSchema) ;
