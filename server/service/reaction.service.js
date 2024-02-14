@@ -5,11 +5,11 @@ import {reactionModel} from '../models/reaction.model.js'
 export const saveReaction = async (req) => {
     try{ 
         const {postId} = req.params
-        const {userId, emoji} = req.body
+        const {userId, type} = req.body
         const reaction = new reactionModel({
             postId: postId,
             userId,
-            emoji
+            type
         })
         await reaction.save()
         return reaction
@@ -24,19 +24,17 @@ export const getReactions = async () => {
         const reactions = await reactionModel.find()
         return reactions
     }
-    catch(err){
-        
-    }
+    catch(err){}
 }
 
 export const updateReaction = async (req) => {
     const {reactionId} = req.params
-    const {userId, emoji} = req.body
+    const {userId, type} = req.body
     const currentUserId = await reactionModel.findById(reactionId)
 
     try{
         if(userId == currentUserId.userId ){
-            const edit = await reactionModel.findByIdAndUpdate(reactionId, {emoji}, {new: true})
+            const edit = await reactionModel.findByIdAndUpdate(reactionId, {type}, {new: true})
             return edit
         }   
         else {

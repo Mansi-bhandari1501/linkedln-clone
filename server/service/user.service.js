@@ -2,6 +2,7 @@
 import { hash_password } from '../helpers/auth.helper.js'
 import UserModel from '../models/user.model.js';
 import JWT from "jsonwebtoken";
+import { comparePassword } from '../helpers/auth.helper.js'
 
 const registerController = async (payload) => {
     try {
@@ -37,30 +38,16 @@ export const loginController = async (payload) => {
       const { email, password } = payload.body;
       //validation
       if (!email || !password) {
-       
-        throw Object.assign(new Error(), {name:"CONFLICT", message: 'Invalid email or password'});
-        // return res.status(404).send({
-        //   success: false,
-        //   message: "Invalid email or password",
-        // });
+        return res.send({ error: "Invalid email or password" })
       }
       //check user
       const user = await UserModel.findOne({ email });
       if (!user) {
-        throw Object.assign(new Error(), {name:"CONFLICT", message: 'Email is not registered'});
-        // return res.status(404).send({
-        //   success: false,
-        //   message: "Email is not registerd",
-        // });
+        return res.send({ error: "Email is not registerd" });
       }
       const match = await comparePassword(password, user.password);
       if (!match) {
-        throw Object.assign(new Error(), {name:"CONFLICT", message: 'Invalid Password'});
-
-        // return res.status(401).send({
-        //   success: false,
-        //   message: "Invalid Password",
-        // });
+        return res.send({ error: "Invalid Password" })
       }
       //TOKEN
       const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -71,6 +58,8 @@ export const loginController = async (payload) => {
         throw error;
     }
 }
+
+
 export const getUsersPaginated = async (page) => {
     let resultsPerPage = 10
   

@@ -22,7 +22,6 @@ import { reactionModel } from "../models/reaction.model.js";
 //     }
 import {reaction_service} from '../service/index.js'
 export const saveReactions = async (req, res) => {
-    console.log("wcwe")
     try{
         const response = await reaction_service.saveReaction(req)
         
