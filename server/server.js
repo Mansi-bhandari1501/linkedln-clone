@@ -6,11 +6,8 @@ import connectDB from './config/db.js';
 import routes from './routes/index.js'
 import cors from 'cors';
 import path from "path";
-// import UserModel from './models/userModel.js';
-//configure env
-dotenv.config()
 
-//database config
+dotenv.config()
 connectDB();
 
 // rest object 

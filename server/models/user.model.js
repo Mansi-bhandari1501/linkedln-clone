@@ -72,7 +72,7 @@ const usersSchema = new mongoose.Schema({
 
         // required:true,
     },
-    company: {
+    company: [{
         
         companyname: {
             type: String,
@@ -92,7 +92,7 @@ const usersSchema = new mongoose.Schema({
             default:0
             // required:true,
         }
-    }
+    }]
 },{timestamps:true})
 const UserModel = mongoose.model('Users', usersSchema);
 export default UserModel;
