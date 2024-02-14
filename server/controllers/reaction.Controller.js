@@ -62,3 +62,9 @@ export const removeReaction = async (req, res) => {
         return res.status(400).send(err)
     }
 }
+export default{
+    removeReaction,
+    updateReaction,
+    getReactions,
+    saveReactions,
+}

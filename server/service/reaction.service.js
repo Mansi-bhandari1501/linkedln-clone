@@ -6,12 +6,20 @@ export const saveReaction = async (req) => {
     try{ 
         const {postId} = req.params
         const {userId, type} = req.body
-        const reaction = new reactionModel({
-            postId: postId,
-            userId,
-            type
-        })
-        await reaction.save()
+
+        const existinReaction = await reactionModel.findOne({userid:userId, postid:postId});
+        
+        let reaction;
+        if(existinReaction) {
+            reaction = await reactionModel.findOneAndUpdate({postid:postId,userid:userId,type},{new: true})
+        } else {
+            reaction = new reactionModel({
+                postId: postId,
+                userId,
+                type
+            })
+            await reaction.save()
+        }
         return reaction
     }catch(err){
         console.log(err)

@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 router.use("/users",userRoutes );
 router.use("/posts",postRoutes );
 router.use("/comments",commentRoutes );
-router.use("/react",reactionRoutes );
+router.use("/reactions",reactionRoutes );
 
 export default router;
 

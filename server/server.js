@@ -3,8 +3,9 @@ import colors from "colors";
 import dotenv from 'dotenv';
 import morgon from 'morgan';
 import connectDB from './config/db.js';
-import authRoutes from './routes/index.js'
+import routes from './routes/index.js'
 import cors from 'cors';
+import path from "path";
 // import UserModel from './models/userModel.js';
 //configure env
 dotenv.config()
@@ -18,10 +19,13 @@ const app = express();
 //middlewares
 app.use(cors())
 app.use(express.json())
-app.use(morgon('dev'))
+app.use(morgon('dev'));
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
 
 // routes
-app.use('/',authRoutes);
+app.use('/',routes);
 
 //Port
 const PORT = process.env.PORT || 8080 ;

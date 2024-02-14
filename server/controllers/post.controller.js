@@ -1,24 +1,13 @@
 import postModel from '../models/post.model.js';
-import UserModel from '../models/user.model.js';
+import post_service from '../service/post.service.js';
 
-export const postController =async(req,res)=>{
+
+export const createPost =async(req,res)=>{
     try{
-
-      const newPostData ={
-        userid:req.body.userid,
-        title: req.body.title,
-        body: req.body.body,
-      };
-
-      let newPost = await new postModel(newPostData).save();
-      // console.log(req.body);
-      // const user =await UserModel.findById(req.body.userid);
-      // let result =  data.save();
-      // console.log(user)      user.save()
-      // res.send("POSTED");
+      const response = await post_service.postController(req);
       res.status(201).json({
         success:true,
-        post:newPost,
+        post:response.newPost,
       });
     }
     catch(error){
@@ -30,36 +19,73 @@ export const postController =async(req,res)=>{
     }
 
     export const fetchAllPosts= async(req,res)=>{
-      console.log(req.body)
-      const getposts= await postModel.find().populate("user");
-      res.send(getposts);
+      try{const response = await post_service.fetchAllPosts(req);
+      res.status(201).json({
+        success:true,
+        getposts:response.getposts,
+      });}
+      catch(error){
+        res.status(500).json({
+          success:false,
+          message:error.message,
+        })
+      }
+      
     }
     export const fetchPost= async(req,res)=>{
-      console.log(req.params)
-      const getpost= await postModel.findById(req.params);
-      res.send(getpost);
-    }
+      // console.log(req.params)
+      // const getpost= await postModel.findById(req.params);
+      // res.send(getpost);
+      try{const response = await post_service.fetchPost(req);
+        res.status(201).json({
+          success:true,
+          getpost:response.getpost,
+        });}
+        catch(error){
+          res.status(500).json({
+            success:false,
+            message:error.message,
+          })
+        }
+        
+      }
+    
 
     export const deletePost = async(req,res)=>{
-        let data = await postModel.findByIdAndDelete(req.params)
-        res.send(data);
-    }
+      try{
+        const response = await post_service.deletePost(req);
+        res.status(200).send({
+          success: true,
+          message: "post deleted",
+          data: response.data,
+        });
+      }
+      catch (error) {
+        handle_error(res,error);
+      }}
+      
+      
+        // let data = await postModel.findByIdAndDelete(req.params)
+    
+
+
     export const updatePost = async(req,res)=>{
         try{
-            let data = await postModel.findByIdAndUpdate
-        (
-            req.params,{
-                $set:req.body
-            }
-        );
-        console.log(data)
-        res.send(data);
-    }
-    catch(error){
+          const response = await post_service.updatePost(req);
+          console.log(response.data)
+          res.send(response.data);
+    }catch(error){
         res.status(500).json({
           success:false,
           message:error.message,
         })
       }
     
+    }
+    export default {
+      updatePost,
+      deletePost,
+      fetchAllPosts,
+      fetchPost,
+      createPost
     }

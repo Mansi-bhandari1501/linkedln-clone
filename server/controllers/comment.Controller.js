@@ -1,21 +1,14 @@
 import { commentModel } from "../models/comment.model.js";
 import { comment_service } from '../service/index.js';
 
-export const commentController = async(req,res)=>{
+export const createComment = async(req,res)=>{
     try{
-
-        const newCommentData ={
-          userid:req.body.userid,
-          postid: req.body.postid,
-          body: req.body.body,
-        };
-  
-        let newComment = await new commentModel(newCommentData).save();
+      const response = await post_service.deletePost(req);
         console.log(req.body);      
         res.send("commented");
         res.status(201).json({
           success:true,
-          post:newComment,
+          comment:response.newComment,
         });
       }
       catch(error){
@@ -26,41 +19,98 @@ export const commentController = async(req,res)=>{
       }
 }
 export const deleteComment = async(req,res)=>{
-    let data = await commentModel.findByIdAndDelete(req.params)
-    res.send(data);
+  try{
+    const response = await post_service.deleteComment(req);
+      console.log(req.body);      
+      res.status(201).json({
+        success:true,
+        data:response.data,
+      });
+    }
+    catch(error){
+      res.status(500).json({
+        success:false,
+        message:error.message,
+      })
+    }
+    // let data = await commentModel.findByIdAndDelete(req.params)
+    // res.send(data);
 }
 
 export const updateComment = async(req,res)=>{
-    try{
-        let data = await commentModel.findByIdAndUpdate
-    (
-        req.params,{
-            $set:req.body
-        }
-    );
-    console.log(req.body)
-    res.send(data);
-}
-catch(error){
-    res.status(500).json({
-      success:false,
-      message:error.message,
-    })
-  }
+  try{
+    const response = await post_service.updateComment(req);
+      console.log(req.body);      
+      res.status(201).json({
+        success:true,
+        data:response.data,
+      });
+    }
+    catch(error){
+      res.status(500).json({
+        success:false,
+        message:error.message,
+      })
+    } 
+//   try{
+//         let data = await commentModel.findByIdAndUpdate
+//     (
+//         req.params,{
+//             $set:req.body
+//         }
+//     );
+//     console.log(req.body)
+//     res.send(data);
+// }
+// catch(error){
+//     res.status(500).json({
+//       success:false,
+//       message:error.message,
+//     })
+//   }
 
 }
 export const fetchAllComments= async(req,res)=>{
-    console.log(req.body)
-    const getposts= await commentModel.find();
-    res.send(getposts);
+  try{
+    const response = await post_service.fetchAllComments(req);
+      console.log(req.body);      
+      res.status(201).json({
+        success:true,
+        getposts:response.getposts,
+      });
+    }
+    catch(error){
+      res.status(500).json({
+        success:false,
+        message:error.message,
+      })
+    } 
+    // console.log(req.body)
+    // const getposts= await commentModel.find();
+    // res.send(getposts);
   }
   export const fetchComment= async(req,res)=>{
-    console.log(req.params)
-    const getpost= await commentModel.findById(req.params);
-    res.send(getpost);
+    try{
+      const response = await post_service.fetchAllComments(req);
+        console.log(req.body);      
+        res.status(201).json({
+          success:true,
+          getpost:response.getpost,
+        });
+      }
+      catch(error){
+        res.status(500).json({
+          success:false,
+          message:error.message,
+        })
+      } 
+    // console.log(req.params)
+    // const getpost= await commentModel.findById(req.params);
+    // res.send(getpost);
   }
 
   export const  getAllcomments=async(req, res)=> {
+    
     let page = req.query.page //starts from 0
     let comments= await comment_service.getCommentPaginated(page)
     if (comments && comments.length > 0) {
@@ -68,4 +118,12 @@ export const fetchAllComments= async(req,res)=>{
     } else {
       res.json("comments not found")
     }
+  }
+  export default {
+   getAllcomments,
+   updateComment,
+   fetchAllComments,
+   fetchComment,
+   createComment,
+   deleteComment,
   }
