@@ -8,13 +8,19 @@ const registerController = async (payload) => {
     try {
         const { username, email, password } = payload.body      
         if (!username) {
-            return res.send({ error: 'Name is required' })
+          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Name is required'});
+
+            // return res.send({ error: 'Name is required' })
         }
         if (!email) {
-            return res.send({ error: 'email is required' })
+          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
+
+            // return res.send({ error: 'email is required' })
         }
         if (!password) {
-            return res.send({ error: 'password is required' })
+          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
+
+            // return res.send({ error: 'password is required' })
         }
        
         const existingUser = await UserModel.findOne({ email });
@@ -38,16 +44,22 @@ export const loginController = async (payload) => {
       const { email, password } = payload.body;
       //validation
       if (!email || !password) {
-        return res.send({ error: "Invalid email or password" })
+        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Invalid email or password'});
+
+        // return res.send({ error: "Invalid email or password" })
       }
       //check user
       const user = await UserModel.findOne({ email });
       if (!user) {
-        return res.send({ error: "Email is not registerd" });
-      }
+        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Email is not registerd'});
+
+      }        // return res.send({ error: "Email is not registerd" });
+
       const match = await comparePassword(password, user.password);
       if (!match) {
-        return res.send({ error: "Invalid Password" })
+        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Invalid Password'});
+
+        // return res.send({ error: "Invalid Password" })
       }
       //TOKEN
       const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {

@@ -21,9 +21,8 @@ export const saveReaction = async (req) => {
             await reaction.save()
         }
         return reaction
-    }catch(err){
-        console.log(err)
-        return err 
+    }catch(error) {
+        throw error;
     }
 }
 
@@ -32,7 +31,9 @@ export const getReactions = async () => {
         const reactions = await reactionModel.find()
         return reactions
     }
-    catch(err){}
+    catch(error) {
+        throw error;
+    }
 }
 
 export const updateReaction = async (req) => {
@@ -46,11 +47,10 @@ export const updateReaction = async (req) => {
             return edit
         }   
         else {
-            return "Unauthorized User"
+            throw Object.assign(new Error(), {name:"Unauthorized", message: 'Unauthorized User'});
         }
-    }
-    catch(err){
-        console.log(err)
+    }catch(error) {
+        throw error;
     }
 }
 
@@ -65,11 +65,11 @@ export const removeReaction = async (req) => {
             return edit
         }   
         else {
-            return "Unauthorized User"
+            // return "Unauthorized User"
+        throw Object.assign(new Error(), {name:"Unauthorized", message: 'Unauthorized User'});
         }
-    }
-    catch(err){
-        console.log(err)
+    }catch(error) {
+        throw error;
     }
 }
 const reaction_service = {

@@ -28,6 +28,7 @@ export const postController =async(payload)=>{
 export const deletePost = async(payload)=>{
         try{
             let data = await postModel.findByIdAndDelete(payload.params)
+            // const deletedBy = data.userid
             return {data};
         } catch(error) {
             throw error;

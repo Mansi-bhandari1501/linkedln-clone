@@ -1,7 +1,7 @@
 import { commentModel } from "../models/comment.model.js"
 
 
-export const commentController = async (payload) => {
+export const createComment = async (payload) => {
   try {
 
     const newCommentData = {
@@ -40,22 +40,19 @@ export const updateComment = async (payload) => {
     return { data };
   }
   catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    })
+    throw error;
   }
 
 }
 export const fetchAllComments = async (payload) => {
   console.log(payload.body)
-  const getposts = await commentModel.find();
-  return { getposts };
+  const getComments = await commentModel.find();
+  return { getComments };
 }
 export const fetchComment = async (payload) => {
   console.log(payload.params)
-  const getpost = await commentModel.findById(payload.params);
-  return { getpost };
+  const getComment = await commentModel.findById(payload.params);
+  return { getComment };
 }
 
 
@@ -76,7 +73,7 @@ const comment_service = {
   fetchAllComments,
   updateComment,
   deleteComment,
-  commentController,
+  createComment,
 }
 
 export default comment_service;

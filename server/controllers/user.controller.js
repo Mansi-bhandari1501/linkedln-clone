@@ -4,15 +4,16 @@ import postModel from '../models/post.model.js';
 import UserModel from '../models/user.model.js';
 import JWT from "jsonwebtoken";
 import { user_service } from '../service/index.js';
+import handle_error from '../lib/utils.js';
 
-const handle_error = (res,error) => {
-  if(error.name === 'CONFLICT') {
-    return res.status(409).send({
-      success: false,
-      message: error.message,
-    })
-  }
-}
+// const handle_error = (res,error) => {
+//   if(error.name === 'CONFLICT') {
+//     return res.status(409).send({
+//       success: false,
+//       message: error.message,
+//     })
+//   }
+// }
 
 export const  getAllUsers =async(req, res)=> {
   let page = req.query.page //starts from 0
