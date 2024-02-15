@@ -1,16 +1,13 @@
 import React from "react";
 import "./footer.css";
-import { ReactComponent as Logo } from './linkedin-logo.svg'
+import { ReactComponent as Logo } from '../../utils/linkedin-logo.svg'
 
 const Footer = () => {
   return (
     <div className="footer-container" >
 
        <ul className="footer-content" type="none">
-        <li>
-        <Logo className="logoo"/>
-
-        </li>
+        <li><Logo className="logoo"/></li>
         <li>© 2024 </li>  
         <li>About</li>
         <li>Accessibility</li>

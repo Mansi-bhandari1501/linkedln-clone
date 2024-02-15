@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./sign-up.css";
+import "../Signup/sign-up.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";

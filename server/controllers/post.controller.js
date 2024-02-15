@@ -17,6 +17,9 @@ export const createPost = async (req, res) => {
 export const fetchAllPosts = async (req, res) => {
   try {
     const response = await post_service.fetchAllPosts(req);
+    if(!response || response.getposts.length === 0) {
+      res.status(204)
+    }
     res.status(201).json({
       success: true,
       getposts: response.getposts,

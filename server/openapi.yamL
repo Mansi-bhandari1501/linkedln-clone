@@ -3,8 +3,8 @@ info:
   title: LinkedIn Clone
 
   version: "1.0.0"
-security:
-     - JWT: []
+# security:
+#      - JWT: []
 servers:
   - url: http://localhost:8080
 paths:
@@ -116,10 +116,19 @@ paths:
         - Posts
       summary: create new post 
       description: create new post 
+      parameters:
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       requestBody:
         description: Request to create new post
         content:
-          application/json:
+          application/form-data:
             schema:
               $ref: '#/components/schemas/createPostRequest'
         required: true
@@ -147,10 +156,10 @@ paths:
       summary: Get all posts
       description: Get an existing test
       parameters:
-        - name: JWT token
+        - name: 'Authorization'
           in: header
           required: true
-          description: The UUID of the test
+          description: JWT token
           schema:
             type: string
             format: string
@@ -217,6 +226,15 @@ paths:
             type: string
             format: string
             example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
+
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       tags:
         - Posts
       # parameters:
@@ -277,6 +295,14 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: update the existing post
       description: update the existing post
       responses:
@@ -333,6 +359,15 @@ paths:
           schema:
             type: string
             format: uuid
+
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: Delete the post
       description: Deletes the post and set the status to inactive. Returns a message after deleting the post
       requestBody:
@@ -393,10 +428,19 @@ paths:
         - Comments
       summary: Create a comment
       description: Creates a new comment
+      parameters:
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       requestBody:
         description: Request to create new user
         content:
-          application/json:
+           application/json:
             schema:
               $ref: '#/components/schemas/createCommentRequest'
         required: true
@@ -423,6 +467,15 @@ paths:
       summary: Get a list of all comments
       description: Returns an array containing all the comments
       operationId: getUsers
+      parameters:
+        - name: 'Authentication'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       tags:
         - Comments
       responses:
@@ -456,6 +509,15 @@ paths:
           in: path
           required: true
           description: The UUID of the comment
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
+       
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
           schema:
             type: string
             format: string
@@ -520,6 +582,15 @@ paths:
           schema:
             type: string
             format: uuid
+        
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: update the existing comment
       description: update the existing comment
       responses:
@@ -575,6 +646,15 @@ paths:
           schema:
             type: string
             format: uuid
+      
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: Delete the comment
       description: Deletes the comment 
       requestBody:
@@ -635,6 +715,15 @@ paths:
         - Reactions
       summary: Create a reaction
       description: Creates a new reaction
+      parameters:
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       requestBody:
         description: Request to create new reaction
         content:
@@ -665,6 +754,15 @@ paths:
       summary: Get a list of all reaction
       description: Returns an array containing all the reaction
       operationId: getUsers
+      parameters:
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       tags:
         - Reactions
       responses:
@@ -761,6 +859,15 @@ paths:
           schema:
             type: string
             format: uuid
+
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: update the existing reaction
       description: update the existing reaction
       responses:
@@ -817,6 +924,15 @@ paths:
           schema:
             type: string
             format: uuid
+
+        - name: 'Authorization'
+          in: header
+          required: true
+          description: JWT token
+          schema:
+            type: string
+            format: string
+            example: a2f6b8d7-8e5c-4023-913f-6f81d4ca92b0
       summary: Delete the reaction
       description: Deletes the reaction 
       requestBody:

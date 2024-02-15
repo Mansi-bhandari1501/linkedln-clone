@@ -18,7 +18,7 @@ const registerController = async (payload) => {
             // return res.send({ error: 'email is required' })
         }
         if (!password) {
-          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
+          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'password is required'});
 
             // return res.send({ error: 'password is required' })
         }
