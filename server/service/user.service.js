@@ -6,12 +6,12 @@ import { comparePassword } from '../helpers/auth.helper.js'
 
 const registerController = async (payload) => {
     try {
-        const { username, email, password } = payload.body      
-        if (!username) {
-          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Name is required'});
+        const {  email, password } = payload.body      
+        // if (!username) {
+        //   throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Name is required'});
 
-            // return res.send({ error: 'Name is required' })
-        }
+        //     // return res.send({ error: 'Name is required' })
+        // }
         if (!email) {
           throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
 
@@ -31,7 +31,7 @@ const registerController = async (payload) => {
         //register user
         const hashed_password = await hash_password(password);
         //save password
-        const user =  await new UserModel({username,email,password:hashed_password}).save();
+        const user =  await new UserModel({email,password:hashed_password}).save();
 
         return {user};
     } catch(error) {
