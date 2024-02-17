@@ -181,16 +181,7 @@ section{
     background-color: #ffffff;
 }
 
-/* .input-password {
-    width: 18vw;
-    border-radius: 5px;
-    height: 5vh;
-    padding-left: 10px;
-    border: 0.2px solid rgba(0, 0, 0, 0.75);
-    font-size: 20px;
 
-
-} */
 
 .btn-submit {
     width: 100%;
@@ -272,7 +263,7 @@ section{
     top: 60%;
     position: absolute;
 }
-.btn-google-signin{
+.btn-google-signun{
     /* margin-right: 5vw;
     width: 15vw;
     height: 4vh; */
