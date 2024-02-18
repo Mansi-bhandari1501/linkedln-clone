@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import Footer from "../../components/Footer/footer";
-import{useAuth} from '../../context/auth'
+import { useAuth } from "../../context/auth";
 import Logo from "../../assets/linkedIn_logo.png";
 import Box from "@mui/system/Box";
 import Card from "@mui/material/Card";
@@ -27,7 +27,9 @@ function Login() {
   const [auth, setAuth] = useAuth("");
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -52,7 +54,7 @@ function Login() {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/");
+        navigate(location.state || "/dashboard");
       } else {
         toast.error(res.data.message);
         console.log(res.data.message);
@@ -95,10 +97,9 @@ function Login() {
               <p className="heading-para">
                 Stay updated on your professional world
               </p>
-              <form className="signin-form" 
-              onSubmit={handleSubmit}>
+              <form className="signin-form" onSubmit={handleSubmit}>
                 <TextField
-                  className="input-email"
+                  className="email"
                   label="Email or Phone"
                   variant="filled"
                   onChange={(e) => setEmail(e.target.value)}
@@ -110,18 +111,26 @@ function Login() {
                     //   backgroundColor:'white',
                     //   borderBottom: 'none',
                     // }, borderRadius: '8px', width: '100%'
+                    backgroundColor: "transparent",
                     "& .MuiFilledInput-underline:after": {
                       display: "none",
+                      backgroundColor: "transparent",
                     },
                     "& .MuiFilledInput-underline:before": {
                       display: "none",
+                      backgroundColor: "transparent",
+                    },
+                    "& .MuiFilledInput-root": {
+                      backgroundColor: "transparent",
+                    },
+                    "&:focus-within": {
+                      backgroundColor: "transparent",
+                      outline: "1px solid #0A66C2",
                     },
                     borderRadius: "4px",
                     overflow: "hidden",
-                    "&:focus-within": {
-                      outline: "1px solid #0A66C2",
-                    },
                     outline: "1px solid grey",
+                    // backgroundColor:"transparent"
                   }}
                 />
 
@@ -166,11 +175,19 @@ function Login() {
                       <InputAdornment position="end">
                         <Button
                           sx={{
+                            fontSize: "14px",
+                            fontFamily: "system-ui",
+                            fontWeight: 600,
+                            textTransform: "none",
                             "&:hover": {
                               borderRadius: "20PX",
-                              border: "2px solid #2E64C0",
+                              // border: "2px solid #2E64C0",
                               height: "30px",
                               backgroundColor: "lightblue",
+                            },
+                            "&:active": {
+                              // border:"1px solid #0A66C2"
+                              border: "2px solid #2E64C0",
                             },
                           }}
                           aria-label="toggle password visibility"
@@ -178,7 +195,7 @@ function Login() {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <>show</> : <>Hide</>}
+                          {showPassword ? <>hide</> : <>show</>}
                         </Button>
                       </InputAdornment>
                     }
@@ -187,7 +204,7 @@ function Login() {
                 <span>
                   <NavLink
                     style={{
-                      color: "#0073b1",
+                      color: "#0a66c2",
                       fontWeight: 600,
                       font: "16px",
                       textDecoration: "none",
@@ -198,10 +215,10 @@ function Login() {
                   </NavLink>
                 </span>
                 <Button
-                onClick={()=> handleSubmit()}
-                // onClick={() => {navigate("/")}}
+                  onClick={() => handleSubmit()}
+                  // onClick={() => {navigate("/")}}
                   sx={{
-                    backgroundColor: "#2E64C0",
+                    backgroundColor: "#0a66c2",
                     borderRadius: "25px",
                     height: "52px",
                     color: "white",
@@ -209,6 +226,7 @@ function Login() {
                     fontWeight: 600,
                     lineHeight: "52px",
                     fontSize: "16px",
+                    fontFamily: "system-ui",
                   }}
                 >
                   Sign in
@@ -350,11 +368,11 @@ function Login() {
             </Box>
           </Card>
         </Box>
-        <p className="quote">
+        <p className="quotes">
           New to LinkedIn?{" "}
           <span>
             <NavLink
-              style={{ color: "#8344CC", textDecoration: "none" }}
+              style={{ color: "#0a66c2", textDecoration: "none",fontWeight:600 }}
               to="/signup"
             >
               Join now
