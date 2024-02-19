@@ -5,7 +5,7 @@ import  { fetchPost } from '../../features/slices/postSlice';
 // import Post from './post';
 
 import "./post.css";
-import { Card } from '@mui/material';
+// import { Card } from '@mui/material';
 function Post(){
   const dispatch= useDispatch();
 
@@ -35,7 +35,7 @@ function Post(){
       <div></div>
       {posts?.map ((content)=> 
        (
-        <div className='post-content' key ={content._id}>
+        <div className='post-content' >
         
         {/* <h3>name : {content.name} </h3> */}
         <h3 >title : {content.title} </h3>

@@ -1,10 +1,10 @@
-import { Box, IconButton, InputBase, TextField, alpha } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import React from 'react'
 import Icon from "../../assets/LinkedIn_icon.svg.png";
 import "./header.css";
 // import SearchIcon from "../../assets/klipartz.com.png"
 import SearchIcon from '@mui/icons-material/SearchRounded';
-import HouseRoundedIcon from '@mui/icons-material/HouseRounded';
+// import HouseIcon from '@mui/icons-material/HouseRounded';
 import InputAdornment from '@mui/material/InputAdornment';
 import { ReactComponent as HomeLogo } from "../../utils/home-logo.svg"
 import { ReactComponent as JobsLogo } from "../../utils/jobs-logo.svg"
