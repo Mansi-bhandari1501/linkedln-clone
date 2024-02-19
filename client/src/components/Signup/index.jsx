@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import "./sign-up.css";
 import {
     // FormControl,
     IconButton,
@@ -10,10 +11,10 @@ import {
     OutlinedInput,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-
-
 import Logo from "../../assets/linkedIn_logo.png";
 import axios from 'axios';
+
+
 const SignupComponent = () => {
       // const [username, setUsername] = useState("")
   const [email, setEmail] = useState("");

@@ -9,6 +9,7 @@ import Logo from "../../assets/linkedIn_logo.png";
 import Box from "@mui/system/Box";
 import Card from "@mui/material/Card";
 import { Button, FilledInput, FormControl, InputAdornment, InputLabel, TextField } from '@mui/material';
+import './login.css';
 
 const LoginComponent = () => {
         const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ const LoginComponent = () => {
                         user: res.data.user,
                         token: res.data.token,
                     });
-                    localStorage.setItem("auth", JSON.stringify(res.data));
+                    localStorage.setItem("auth", JSON.stringify(res.data.token));
                     navigate(location.state || "/dashboard");
                 } else {
                     toast.error(res.data.message);
@@ -54,7 +55,6 @@ const LoginComponent = () => {
             }
         };
         return (
-            <Box className="login-page">
                 <Box>
                     <Box
                         sx={{ width: 100, height: 34, marginLeft: "52px", marginTop: "32px" }}
@@ -110,10 +110,10 @@ const LoginComponent = () => {
                                                 backgroundColor: "transparent",
                                             },
                                             "& .MuiFilledInput-root": {
-                                                backgroundColor: "transparent",
+                                                background: "transparent",
                                             },
                                             "&:focus-within": {
-                                                backgroundColor: "transparent",
+                                                background: "none",
                                                 outline: "1px solid #0A66C2",
                                             },
                                             borderRadius: "4px",
@@ -369,7 +369,6 @@ const LoginComponent = () => {
                         </span>
                     </p>
                 </Box>
-            </Box>
         );
     }
 
