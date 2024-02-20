@@ -18,6 +18,7 @@ import handle_error from '../lib/utils.js';
 export const  getAllUsers =async(req, res)=> {
   let page = req.query.page //starts from 0
   let users= await user_service.getUsersPaginated(page)
+
   if (users && users.length > 0) {
     res.json(users)
   } else {
@@ -27,7 +28,7 @@ export const  getAllUsers =async(req, res)=> {
 
 export const registerController = async (req, res) => {
     try {
-      const response = await user_service.registerController(req);
+      const response = await user_service.registerUser(req);
     
       res.status(201).send({
         success:true,
@@ -44,7 +45,7 @@ export const registerController = async (req, res) => {
 // POST LOGIN
 export const loginController = async (req, res) => {
   try {
-    const response = await user_service.loginController(req);
+    const response = await user_service.loginUser(req);
   
      res.status(200).send({
         success: true,

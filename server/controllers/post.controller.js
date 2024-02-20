@@ -4,7 +4,7 @@ import post_service from "../service/post.service.js";
 
 export const createPost = async (req, res) => {
   try {
-    const response = await post_service.postController(req);
+    const response = await post_service.createPost(req);
     res.status(201).json({
       success: true,
       post: response.newPost,

@@ -4,23 +4,17 @@ import UserModel from '../models/user.model.js';
 import JWT from "jsonwebtoken";
 import { comparePassword } from '../helpers/auth.helper.js'
 
-const registerController = async (payload) => {
+const registerUser = async (payload) => {
     try {
         const {  email, password } = payload.body      
-        // if (!username) {
-        //   throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Name is required'});
-
-        //     // return res.send({ error: 'Name is required' })
-        // }
+        
         if (!email) {
           throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
 
-            // return res.send({ error: 'email is required' })
         }
         if (!password) {
           throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'password is required'});
 
-            // return res.send({ error: 'password is required' })
         }
        
         const existingUser = await UserModel.findOne({ email });
@@ -39,7 +33,7 @@ const registerController = async (payload) => {
     }
 }
 
-export const loginController = async (payload) => {
+export const loginUser = async (payload) => {
     try {
       const { email, password } = payload.body;
       //validation
@@ -83,8 +77,8 @@ export const getUsersPaginated = async (page) => {
   }
 
 const user_service = {
-    registerController,
-    loginController,
+    registerUser,
+    loginUser,
     getUsersPaginated
 }
 

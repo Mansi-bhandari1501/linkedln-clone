@@ -1,8 +1,9 @@
 import React from "react";
 import Post from "../Post";
 import Header from "../Header";
-import { Box, Button, Divider, Stack } from "@mui/material";
-import { ReactComponent as MediaIcon } from "../../assets/media-icon.svg";
+import { Avatar, Box, Button, Divider, Stack } from "@mui/material";
+import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg"
+
 import "./home.css";
 const HomeComponent = () => {
   return (
@@ -27,7 +28,7 @@ const HomeComponent = () => {
             <Stack>
               <Stack className="AddPost">
                 <Stack flexDirection={"row"} gap={1}>
-                  <Box
+                  {/* <Box
                     sx={{
                       border: "1px solid #d7d8d6",
                       borderRadius: "100%",
@@ -40,7 +41,10 @@ const HomeComponent = () => {
                     }}
                   >
                     img
-                  </Box>
+                  </Box> */}
+                  <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
+                    R
+                  </Avatar>
                   <Box
                     sx={{
                       border: "1px solid #d7d8d6",
@@ -52,23 +56,28 @@ const HomeComponent = () => {
                       justifyContent: "left",
                       paddingLeft: "20px",
                       fontFamily:
-                        '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
-                      fontWeight: "500",
-                      fontSize: "15px",
+                        'system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                      fontWeight: "600",
+                      fontSize: "14px",
+                      color:"#000000d5",
+                      lineHeight:"21px",
+                      fontStyle:"normal"
+                      
                     }}
                   >
-                    Start a post
+                    Start a post,try writting with AI
                   </Box>
                 </Stack>
-                <Stack flexDirection={"row"}>
+                <Stack  className="share-box" flexDirection={"row"}>
                   <Button
                     className="create-post-btns"
-                    startIcon={<MediaIcon />}
+                    startIcon={<MediaIcon/>}
                   >
-                    Media
+                    Media <MediaIcon/>
                   </Button>
                   <Button className="create-post-btns">Event</Button>
                   <Button className="create-post-btns">Write Article</Button>
+                  <MediaIcon/>
                 </Stack>
               </Stack>
               <Divider />

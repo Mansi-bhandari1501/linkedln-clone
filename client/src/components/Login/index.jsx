@@ -43,7 +43,7 @@ const LoginComponent = () => {
                         user: res.data.user,
                         token: res.data.token,
                     });
-                    localStorage.setItem("auth", JSON.stringify(res.data.token));
+                    localStorage.setItem("auth", JSON.stringify(res.data.token,res.data.user));
                     navigate(location.state || "/dashboard");
                 } else {
                     toast.error(res.data.message);

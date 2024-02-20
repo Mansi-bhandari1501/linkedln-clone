@@ -35,7 +35,7 @@ function Post(){
       <div></div>
       {posts?.map ((content)=> 
        (
-        <div className='post-content' >
+        <div className='post-content' key={content._id} >
         
         {/* <h3>name : {content.name} </h3> */}
         <h3 >title : {content.title} </h3>

@@ -1,4 +1,4 @@
-import { Box, TextField } from '@mui/material';
+import { Avatar, Box, TextField } from '@mui/material';
 import React from 'react'
 import Icon from "../../assets/LinkedIn_icon.svg.png";
 import "./header.css";
@@ -16,31 +16,31 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
   return (
     <Box className="Header-container">
-      <Box  sx={{display:"flex", gap:"10px"}}>
+      <Box sx={{ display: "flex", gap: "10px", width:"20vw" }}>
         <img className="In-logo" src={Icon} alt='' ></img>
-      <TextField className='search-bar'
-        sx={{
-          Width: '380px',
-          height: '34px',
-          "& .MuiOutlinedInput-root": {
-            height: "34px",
-            width:"16vw"
-          },
-          "&.MuiInputBase-input-MuiOutlinedInput-input": {
-            padding: "0px"
-          }
+        <TextField className='search-bar'
+          sx={{
+            Width: '380px',
+            height: '34px',
+            "& .MuiOutlinedInput-root": {
+              height: "34px",
+              width: "16vw"
+            },
+            "&.MuiInputBase-input-MuiOutlinedInput-input": {
+              padding: "0px"
+            }
 
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start" >
-              <SearchIcon style={{ color: 'black' }} />
-            </InputAdornment>
-          ),
-        }}
-      />
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start" >
+                <SearchIcon style={{ color: 'black' }} />
+              </InputAdornment>
+            ),
+          }}
+        />
       </Box>
-      <Box sx={{display:"flex", justifyContent:"spaceAround"}}>
+      <Box sx={{ display: "flex", justifyContent: "spaceAround" }}>
         <ul className='menu' type="none" style={{ display: "flex" }}>
 
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
@@ -63,6 +63,13 @@ const Header = () => {
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <NotificationLogo className="menu-logo" />
             <h4 >Notifications</h4>
+          </li>
+          <li className='menu-content'>
+            <Avatar  className="menu-logo"sx={{ backgroundColor: "red" , height:"25px", width:"25px"}} aria-label="recipe">
+              R
+            </Avatar>
+            <h4 style={{textAlign:"center"}} >Me</h4>
+
           </li>
           <hr />
         </ul>

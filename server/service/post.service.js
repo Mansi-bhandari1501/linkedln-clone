@@ -2,7 +2,7 @@ import postModel from "../models/post.model.js";
 
 
 
-export const postController = async (payload) => {
+export const createPost = async (payload) => {
     try {
         const newImages = payload.files.images.map((i) => { return i.path })
         console.log(newImages);
@@ -77,7 +77,7 @@ export const fetchPost = async (payload) => {
 
 
 const post_service = {
-    postController,
+    createPost,
     updatePost,
     deletePost,
     fetchAllPosts,
