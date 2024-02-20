@@ -55,9 +55,7 @@ export const fetchAllComments = async (req, res) => {
       message: error.message,
     });
   }
-  // console.log(req.body)
-  // const getposts= await commentModel.find();
-  // res.send(getposts);
+ 
 };
 export const fetchComment = async (req, res) => {
   try {
@@ -79,14 +77,20 @@ export const fetchComment = async (req, res) => {
 };
 
 export const getAllcomments = async (req, res) => {
-  let page = req.query.page; //starts from 0
-  let comments = await comment_service.getCommentPaginated(page);
+  // let page = req.query.page; //starts from 0
+  let comments = await comment_service.getCommentPaginated(req);
   if (comments && comments.length > 0) {
-    res.json(comments);
+    res.status(200).send({
+      success: true,
+      comment: comments,
+      
+    });
   } else {
-    res.json("comments not found");
-  }
+    res.status(204).send({
+      message: "no comment found",
+    });
 };
+}
 export default {
   getAllcomments,
   updateComment,

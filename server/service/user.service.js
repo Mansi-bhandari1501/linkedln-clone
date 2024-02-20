@@ -66,8 +66,9 @@ export const loginUser = async (payload) => {
 }
 
 
-export const getUsersPaginated = async (page) => {
-    let resultsPerPage = 10
+export const getUsersPaginated = async (payload) => {
+  const page = payload.param 
+  let resultsPerPage = 10
   
     return await UserModel.find({})
       .sort({ createdAt: 'descending' })

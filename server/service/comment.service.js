@@ -57,8 +57,9 @@ export const fetchComment = async (payload) => {
 
 
 
-export const getCommentPaginated = async (page) => {
-  let resultsPerPage = 1
+export const getCommentPaginated = async (payload) => {
+  const page= payload.params
+  let resultsPerPage = 5
 
   return await commentModel.find({})
     .sort({ createdAt: 'descending' })

@@ -16,13 +16,19 @@ import handle_error from '../lib/utils.js';
 // }
 
 export const  getAllUsers =async(req, res)=> {
-  let page = req.query.page //starts from 0
-  let users= await user_service.getUsersPaginated(page)
+  let users= await user_service.getUsersPaginated(req)
 
   if (users && users.length > 0) {
-    res.json(users)
+    // res.json(users)
+    res.status(200).send({
+      success: true,
+      user: users,
+      
+    });
   } else {
-    res.json("users not found")
+    res.status(204).send({
+      message: "no user found",
+    });
   }
 }
 
