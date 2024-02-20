@@ -14,10 +14,8 @@ export const fetchPost = createAsyncThunk(
     async(token)=>{
         console.log(token)
         let postUrl= "http://localhost:8080/posts"
-        let tokenStr =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQyZTc4OWMyOTg0OTQ4OGE2ZjIzNzMiLCJpYXQiOjE3MDgzMjIzNTcsImV4cCI6MTcwODkyNzE1N30.b5DwpYFSCh6--xtwKzlw-zMH-utVTDA8QgkFW31i7vk";
-        const res = await axios.get(postUrl,{headers:{
-            Authorization: token
-        }});
+        // let tokenStr =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQyZTc4OWMyOTg0OTQ4OGE2ZjIzNzMiLCJpYXQiOjE3MDgzMjIzNTcsImV4cCI6MTcwODkyNzE1N30.b5DwpYFSCh6--xtwKzlw-zMH-utVTDA8QgkFW31i7vk";
+        const res = await axios.get(postUrl,{headers:{Authorization: token}});
         console.log(res);
         const data = await res.data;
         return data;

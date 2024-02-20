@@ -62,6 +62,20 @@ export const fetchAllPosts = async (payload) => {
     catch (error) {
         throw error;
     }
+    // try {
+    //     const page = payload.param
+    //     let resultsPerPage = 10
+
+    //     return await postModel.find({})
+    //         .sort({ createdAt: 'descending' })
+    //         .lean()
+    //         .limit(resultsPerPage)
+    //         .skip(page * resultsPerPage)
+    // }
+    // catch (error) {
+    //     throw error;
+    // }
+
 }
 
 

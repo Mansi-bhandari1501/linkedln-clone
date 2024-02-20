@@ -5,6 +5,7 @@ import  { fetchPost } from '../../features/slices/postSlice';
 // import Post from './post';
 
 import "./post.css";
+import Cards from '../Card';
 // import { Card } from '@mui/material';
 function Post(){
   const dispatch= useDispatch();
@@ -32,14 +33,26 @@ function Post(){
   return(
     <div className='post-container'>
      
-      <div></div>
+     
       {posts?.map ((content)=> 
        (
-        <div className='post-content' key={content._id} >
+        <div 
+        // className='post-content' 
+        key={content._id} >
         
+        <Cards
+         title = {content.title}
+         body = {content.body}
+         likes ={content.likes}
+         createdAt = {content.createdAt}
+        //  {content.premises.map(premise => {
+        //   <p>{premise}</p>
+        // })}
+        images = {content.images}
+         />
         {/* <h3>name : {content.name} </h3> */}
-        <h3 >title : {content.title} </h3>
-        <h3 >body : {content.body} </h3>
+        {/* <h3 >title : {content.title} </h3>
+        <h3 >body : {content.body} </h3> */}
         {/* <h3 >image : {content.image.map ((img,i)=>{
             return(
                 <div key={i}>

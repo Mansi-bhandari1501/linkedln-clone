@@ -16,7 +16,7 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
   return (
     <Box className="Header-container">
-      <Box sx={{ display: "flex", gap: "10px", width:"20vw" }}>
+      <Box sx={{ display: "flex", gap: "10px", width:"20vw", marginTop:"4px" }}>
         <img className="In-logo" src={Icon} alt='' ></img>
         <TextField className='search-bar'
           sx={{

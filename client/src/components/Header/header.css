@@ -3,6 +3,8 @@
     top: 0;
 }
 .Header-container{
+    z-index: 100;
+    position:fixed;
     background-color: #FFFFFF;
     width: 100%;
     display: flex;

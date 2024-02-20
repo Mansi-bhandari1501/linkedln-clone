@@ -29,6 +29,7 @@ export const fetchAllPosts = async (req, res) => {
   }
 };
 
+
 export const fetchPost = async (req, res) => {
   try {
     const response = await post_service.fetchPost(req);

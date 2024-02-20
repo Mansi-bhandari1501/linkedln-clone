@@ -3,8 +3,11 @@ import Post from "../Post";
 import Header from "../Header";
 import { Avatar, Box, Button, Divider, Stack } from "@mui/material";
 import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg"
+import { ReactComponent as ArticleIcon } from "../../utils/article-logo.svg"
+import { ReactComponent as EventIcon } from "../../utils/event-logo.svg"
 
 import "./home.css";
+import MainFooter from "../MainFooter";
 const HomeComponent = () => {
   return (
     <div style={{ backgroundColor: "#F4F2EE", height: "100vh" }}>
@@ -20,7 +23,9 @@ const HomeComponent = () => {
             margin={"30px"}
           >
             <Stack gap={2}>
-              <Box className="side-profile">User details</Box>
+              <Box className="side-profile">User details
+              <Avatar></Avatar>
+              </Box>
 
               <Box>detailss</Box>
             </Stack>
@@ -59,11 +64,13 @@ const HomeComponent = () => {
                         'system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                       fontWeight: "600",
                       fontSize: "14px",
-                      color:"#000000d5",
+                      color:"rgba(0,0,0,0.5)",
                       lineHeight:"21px",
                       fontStyle:"normal"
+                     
                       
                     }}
+                    
                   >
                     Start a post,try writting with AI
                   </Box>
@@ -73,14 +80,14 @@ const HomeComponent = () => {
                     className="create-post-btns"
                     startIcon={<MediaIcon/>}
                   >
-                    Media <MediaIcon/>
+                    Media 
                   </Button>
-                  <Button className="create-post-btns">Event</Button>
-                  <Button className="create-post-btns">Write Article</Button>
-                  <MediaIcon/>
+                  <Button className="create-post-btns" startIcon={<EventIcon/>}>Event</Button>
+                  <Button className="create-post-btns" startIcon={<ArticleIcon/>}>Write Article</Button>
+                  
                 </Stack>
               </Stack>
-              <Divider />
+              <Divider  sx={{marginBottom:"15px"}}/>
               {/* {
               posts?.map((items) => {
                 return (
@@ -95,8 +102,11 @@ const HomeComponent = () => {
 
               <Post className="Posts" />
             </Stack>
+            <Stack sx={{width:"300px"}}>
 
             <Box className="home-news-section">News</Box>
+            <MainFooter/>
+            </Stack>
           </Stack>
         </Box>
       </Stack>
