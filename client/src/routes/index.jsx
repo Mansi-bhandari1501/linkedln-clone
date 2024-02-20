@@ -6,6 +6,7 @@ import LoginPage from '../pages/Login/login';
 import Dashboard from '../dashboard';
 import HomePage from '../pages/Home/home';
 import Signuppage from '../pages/Signup/sign-up';
+// import Example from '../page';
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
           <Route path='/signup' element={<Signuppage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/' element={<HomePage />} />
+          {/* <Route path='/' element={<Example />} /> */}
           <Route path='/dashboard' element={<Dashboard />} />
           {/* <ToastContainer /> */}
 

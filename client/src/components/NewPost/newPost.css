@@ -1,0 +1,35 @@
+.create-post-box {
+    background-color: white;
+    width: 40vw;
+    position: fixed;
+    top: 100px;
+    z-index: 1;
+    left: 31vw;
+    border-radius: 10px;
+}
+.modal-wrapper{
+    filter: blur(10px);
+}
+.post-body{
+    height: 30vh;
+
+}.emojipicker.epr_-6npj90 {
+    z-index: 5;
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    top: -38vh;
+    left: 1px;
+}
+
+/* .emojipicker.css-1s8sp5q-MuiButtonBase-root-MuiButton-root {
+    width: 500px;
+    width: 350px;
+    position: ;
+    top: -18vh;
+    right: 26px;
+}
+
+.css-ien4er-MuiButtonBase-root-MuiButton-root {
+    height: 100px;
+} */

@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Post from "../Post";
 import Header from "../Header";
 import { Avatar, Box, Button, Divider, Stack } from "@mui/material";
-import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg"
-import { ReactComponent as ArticleIcon } from "../../utils/article-logo.svg"
-import { ReactComponent as EventIcon } from "../../utils/event-logo.svg"
+import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg";
+import { ReactComponent as ArticleIcon } from "../../utils/article-logo.svg";
+import { ReactComponent as EventIcon } from "../../utils/event-logo.svg";
 
 import "./home.css";
 import MainFooter from "../MainFooter";
+import NewPost from "../NewPost";
 const HomeComponent = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div style={{ backgroundColor: "#F4F2EE", height: "100vh" }}>
       <Stack flexDirection={"column"} className="Home">
@@ -23,8 +32,9 @@ const HomeComponent = () => {
             margin={"30px"}
           >
             <Stack gap={2}>
-              <Box className="side-profile">User details
-              <Avatar></Avatar>
+              <Box className="side-profile">
+                User details
+                <Avatar></Avatar>
               </Box>
 
               <Box>detailss</Box>
@@ -64,30 +74,54 @@ const HomeComponent = () => {
                         'system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
                       fontWeight: "600",
                       fontSize: "14px",
-                      color:"rgba(0,0,0,0.5)",
-                      lineHeight:"21px",
-                      fontStyle:"normal"
-                     
-                      
+                      color: "rgba(0,0,0,0.5)",
+                      lineHeight: "21px",
+                      fontStyle: "normal",
                     }}
-                    
                   >
-                    Start a post,try writting with AI
+                    <Button
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "left",
+                        fontFamily:
+                          '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif',
+                        fontWeight: "500",
+                        background: "none",
+                        color: "rgb(0,0,0,0.6)",
+                        textTransform: "none",
+                        "&:hover": { background: "none" },
+                      }}
+                      onClick={handleClickOpen}
+                    >
+                      Start a post,try writting with AI
+                    </Button>
+                    {open && <NewPost hide={handleClose} />}
                   </Box>
                 </Stack>
-                <Stack  className="share-box" flexDirection={"row"}>
+                <Stack className="share-box" flexDirection={"row"}>
                   <Button
                     className="create-post-btns"
-                    startIcon={<MediaIcon/>}
+                    startIcon={<MediaIcon />}
                   >
-                    Media 
+                    Media
                   </Button>
-                  <Button className="create-post-btns" startIcon={<EventIcon/>}>Event</Button>
-                  <Button className="create-post-btns" startIcon={<ArticleIcon/>}>Write Article</Button>
-                  
+                  <Button
+                    className="create-post-btns"
+                    startIcon={<EventIcon />}
+                  >
+                    Event
+                  </Button>
+                  <Button
+                    className="create-post-btns"
+                    startIcon={<ArticleIcon />}
+                  >
+                    Write Article
+                  </Button>
                 </Stack>
               </Stack>
-              <Divider  sx={{marginBottom:"15px"}}/>
+              <Divider sx={{ marginBottom: "15px" }} />
               {/* {
               posts?.map((items) => {
                 return (
@@ -102,10 +136,9 @@ const HomeComponent = () => {
 
               <Post className="Posts" />
             </Stack>
-            <Stack sx={{width:"300px"}}>
-
-            <Box className="home-news-section">News</Box>
-            <MainFooter/>
+            <Stack sx={{ width: "300px" }}>
+              <Box className="home-news-section">News</Box>
+              <MainFooter />
             </Stack>
           </Stack>
         </Box>

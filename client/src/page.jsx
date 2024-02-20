@@ -1,13 +1,17 @@
-import React from 'react'
-import Post from './components/Post';
+// import Post from './components/Post';
+// import React, { useState } from 'react'
+// import InputEmoji from 'react-input-emoji'
 
-const Page = () => {
-  return (
-    <div>
-      home
-      <Post/>
-    </div>
-  )
-}
+//     export default function Example () {
+//       // const [ text, setText ] = useState('')
 
-export default Page;
+//       // function handleOnEnter (text) {
+//       //   console.log('enter', text)
+//       // }
+
+//       return (
+//         <InputEmoji
+//         />
+//       )
+//     }
+

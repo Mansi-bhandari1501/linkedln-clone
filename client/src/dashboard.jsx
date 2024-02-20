@@ -1,5 +1,5 @@
 import React from 'react'
-import FormDialog from '../src/components/DialogBox/index.jsx'
+import FormDialog from './components/NewPost/index.jsx'
 import { ReactComponent as MediaIcon } from "./utils/media-icon.svg"
 import Cards from './components/Card/index.jsx'
 
