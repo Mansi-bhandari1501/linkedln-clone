@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import postSlice from "../slices/postSlice";
+import postSlice from "../features/slices/postSlice";
 // import commentSlice from "../slices/commentSlice";
 
 export const store = configureStore({

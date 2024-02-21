@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/auth';
 import { Provider } from 'react-redux';
-import { store } from '../src/features/config/store';
+import { store } from '../src/app/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

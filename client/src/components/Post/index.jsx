@@ -20,7 +20,7 @@ function Post(){
 
 
   const posts = useSelector((state)=>state.post.contents.getposts);
-  console.log(posts)
+  // console.log(posts)
   const isLoading = useSelector((state)=>state.post.isLoading);
   const error = useSelector((state)=>state.post.error);
   if(isLoading){

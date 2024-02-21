@@ -21,6 +21,14 @@ export const fetchPost = createAsyncThunk(
         return data;
     }
 )
+export const createPost = createAsyncThunk(
+    'post/getPost',
+    async(input) =>{
+        console.log(input)
+        const res = await axios.post("http://localhost:8080/posts",{title,body})
+        console.log(res);
+    }
+)
 export const postSlice = createSlice({
     name:'post',
     initialState,
@@ -37,6 +45,18 @@ export const postSlice = createSlice({
             state.isLoading=false
             state.error= action.error.message
         })
+        builder.addCase(createPost.pending,(state)=>{
+            state.isLoading=true;
+        })
+        builder.addCase(createPost.fulfilled,(state,action)=>{
+            state.isLoading=false
+            state.contents=action.payload
+        })
+        builder.addCase(createPost.rejected,(state,action)=>{
+            state.isLoading=false
+            state.error= action.error.message
+        })
+      
     },
 });
 export default postSlice.reducer;
