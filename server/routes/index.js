@@ -1,6 +1,6 @@
 import express from 'express';
 import userRoutes from './user.routes.js';
-import postRoutes from './post.routes.js';
+import postRoutes from './post.Routes.js';
 import reactionRoutes from './reaction.routes.js';
 import commentRoutes from './comment.routes.js';
 const router = express.Router();

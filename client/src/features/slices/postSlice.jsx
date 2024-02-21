@@ -25,8 +25,14 @@ export const createPost = createAsyncThunk(
     'post/getPost',
     async(input) =>{
         console.log(input)
-        const res = await axios.post("http://localhost:8080/posts",{title,body})
+        // console.log(input.images)
+        const res = await axios.post("http://localhost:8080/posts", input,{
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        }) 
         console.log(res);
+        return res
     }
 )
 export const postSlice = createSlice({

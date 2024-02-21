@@ -53,6 +53,8 @@ const Cards = (props) => {
             {props.body}
           </Typography>
         </CardContent>
+         
+         <div className='images'>
 
         {props.images.map((image, index) => (
           <div style={{
@@ -61,16 +63,18 @@ const Cards = (props) => {
             width:"100%"
           }}>
             <CardMedia
+              
               key={index}
               component="img"
               height={props.images.length > 1 ? "100%" : "100%"}
-              // width={props.images.length > 1 ? "50" : "100"}
+              width={props.images.length > 1 ? "50%" : "100%"}
               image={`${image}`}
               alt="post image"
               sx={{ marginBottom: "5px", display:"inline-flex" }}
             />
           </div>
         ))}
+         </div>
 
 
         {/* {props.likes} */}

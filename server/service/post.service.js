@@ -4,21 +4,37 @@ import postModel from "../models/post.model.js";
 
 export const createPost = async (payload) => {
     try {
-        const newImages = payload.files.images.map((i) => { return i.path })
-        console.log(newImages);
+        console.log(payload)
+        const files = payload.files;
+        const image1 = files.image1[0]?.path;
+        const image2 = files.image2[0]?.path;
+        const image3 = files.image3[0]?.path;
+        const image4 = files.image4[0]?.path;
+
+
+        console.log(image1)
+        // console.log("images ->",images);
+        // console.log(images[0]);
+        // let newImages
+        // if(images !== null){
+        //      newImages = payload.files.images.map((i) => { return i.path })
+        // }
+        // console.log(newImages);
 
         const newPostData = {
-            userid: payload.body.userid,
+            // userid: payload.body.userid,
             title: payload.body.title,
             body: payload.body.body,
-            images: newImages,
+            images: [image1,image2,image3,image4],
         };
         let newPost = await new postModel(newPostData).save();
         //   res.status(201).json({
         //     success:true,
         //     post:newPost,
         //   });
-        return { newPost, newImages }
+        return { newPost, 
+            mewImages:[image1,image2,image3,image4]
+        }
     }
     catch (error) {
         console.log(error);

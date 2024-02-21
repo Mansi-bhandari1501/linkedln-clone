@@ -44,8 +44,10 @@ const NewPost = ({ hide }, open) => {
   const dispatch = useDispatch()
   // const[title,setTitle] = useState("")
   // const[body,setBody] = useState("")
-  const [input, setInput] = useState("")
-  const [isopen, setIsopen] = useState(false);
+  const [input, setInput] = useState({ title: '' })
+  const [img, setImg] = useState('')
+  const [isopen, setIsopen] = useState('');
+  // const [opend, setOpened] = useState(false);
 
   console.log(input)
   //  console.log(body)
@@ -53,12 +55,44 @@ const NewPost = ({ hide }, open) => {
     setIsopen(true);
   };
   const handleClose = () => {
-    setIsopen(false);
+    setIsopen(true);
   };
 
-  const handleSubmit = () => {
-    dispatch(createPost(input));
-    console.log('submitttt')
+  // const handleOpen = () => {
+  //   setOpened(true);
+  // };
+  // const handleClickClose = () => {
+  //   setOpened(false);
+  // };
+
+  // const handleFileUpload = (event) => {
+  //   const image = event.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append('images', image);
+  //   dispatch(formData)
+  // }
+  const handleSubmit = (event) => {
+
+    event.preventDefault();
+
+    let fileLength = Object.keys(img).length
+    console.log(fileLength)
+
+    if (fileLength > 4) {
+      alert('A maximum of 4 files are allowed');
+      return;
+    }
+
+    let formData = new FormData();  
+    console.log(input.title)  
+    formData.append('image1',img[0]);  
+    formData.append('image2',img[1]); 
+    formData.append('image3',img[2]); 
+    formData.append('image4',img[3]); 
+    formData.append('title', input.title);
+    formData.append('body', "dhasdla");
+
+    dispatch(createPost(formData));
   }
   return (
     <Box>
@@ -95,22 +129,23 @@ const NewPost = ({ hide }, open) => {
           <CloseIcon />
         </IconButton>
 
-          <DialogContent sx={{ width: "80%" }}>
-             <FormControl sx={{ width: "100%" }} onSubmit={handleSubmit}  >
-              <Input
-                placeholder="Title of Your Post"
-                onChange={(e) => {
-                  setInput({ ...input, title: e.target.value })
-                }}
+        <DialogContent sx={{ width: "80%" }}>
+          <FormControl sx={{ width: "100%" }} enctype="multipart/form-data" onSubmit={handleSubmit}  >
+            <Input
+              placeholder="Title of Your Post"
+              value={input.title}
+              onChange={(e) => {
+                setInput({ ...input, title: e.target.value })
+              }}
               sx={{ width: "100%" }}
-              />
-              <Input
+            />
+            {/* <Input
               style={{height:"100px"}}
               className="post-body"
               placeholder="What do you want to talk about?"
               onChange={(e) => setInput({ ...input,body:e.target.value })}
-            />
-              <Button sx={{
+            /> */}
+            <Button sx={{
                 height: '50px',
                 width: "300px",
                 display: "flex",
@@ -123,53 +158,60 @@ const NewPost = ({ hide }, open) => {
                   <EmojiPicker className="emojipicker" hide={handleClose} />
                 )}
               </Button>
-            </FormControl>
-            <Button
-              component="label"
-              role={undefined}
-              variant="standard"
-              tabIndex={-1}
-              sx={{ width: "10px" }}
-              startIcon={<MediaIcon />}
-            ></Button>
-            <Button
-              component="label"
-              role={undefined}
-              variant="standard"
-              tabIndex={-1}
-              sx={{ width: "10px" }}
-              startIcon={<EventNoteIcon />}
-            ></Button>
-            <Button
-              component="label"
-              role={undefined}
-              variant="standard"
-              tabIndex={-1}
-              sx={{ width: "10px" }}
-              startIcon={<AddCircleOutlineIcon />}
-            ></Button>
-            <Button
-              component="label"
-              role={undefined}
-              variant="standard"
-              tabIndex={-1}
-              sx={{ width: "10px" }}
-              startIcon={<MoreHorizIcon />}
-            ></Button>
+          </FormControl>
+             
+          <Button
 
-            <VisuallyHiddenInput type="file" multiple />
-          </DialogContent>
+            component="label"
+            role={undefined}
+            variant="standard"
+            tabIndex={-1}
+            sx={{ width: "10px" }}
+            startIcon={<MediaIcon />
+            }
+          // onClick={handleFileUpload}
+          />
+          <input type="file" multiple="multiple" id='post_images' name='post_images' onChange={(e) => {
+            setImg(e.target.files)
+          }} />
+          <Button
+            component="label"
+            role={undefined}
+            variant="standard"
+            tabIndex={-1}
+            sx={{ width: "10px" }}
+            startIcon={<EventNoteIcon />}
+          ></Button>
+          <Button
+            component="label"
+            role={undefined}
+            variant="standard"
+            tabIndex={-1}
+            sx={{ width: "10px" }}
+            startIcon={<AddCircleOutlineIcon />}
+          ></Button>
+          <Button
+            component="label"
+            role={undefined}
+            variant="standard"
+            tabIndex={-1}
+            sx={{ width: "10px" }}
+            startIcon={<MoreHorizIcon />}
+          ></Button>
+
+          <VisuallyHiddenInput type="file" />
+        </DialogContent>
         <Divider />
         <DialogActions>
           {/* <Button autoFocus type="cancel">
             cancel
           </Button> */}
-          <Button autoFocus type="submit" >
+          <Button autoFocus type="submit" onClick={handleSubmit}>
             <AccessTimeOutlinedIcon />
             Post
           </Button>
         </DialogActions>
-         
+
       </Box>
     </Box>
   );

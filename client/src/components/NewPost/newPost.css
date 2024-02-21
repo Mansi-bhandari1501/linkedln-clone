@@ -21,6 +21,9 @@
     top: -38vh;
     left: 1px;
 }
+.emojis{
+    position: relative;
+}
 
 /* .emojipicker.css-1s8sp5q-MuiButtonBase-root-MuiButton-root {
     width: 500px;
