@@ -12,13 +12,20 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/linkedIn_logo.png";
-import axios from 'axios';
+import { registerUser } from '../../features/User/actionCreator';
+import { useDispatch } from 'react-redux';
 
 
 const SignupComponent = () => {
+    const dispatch = useDispatch();
       // const [username, setUsername] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const data = {
+    email:email,
+    password:password
+  }
+  console.log(data)
   // const [phone,setPhone] =  useState("")
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -27,31 +34,55 @@ const SignupComponent = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+//   const { } = useSelector(
+//     (state) => state.user
+//   );
   const navigate = useNavigate();
   // form function
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("http://localhost:8080/users/register", {
-        email,
-        password,
+    console.log(email,password)
+    dispatch(registerUser(data))
+    .unwrap()
+      .then((res) => {
+        console.log(res,"ghgrhtrh");
+        console.log("hello");
+        console.log(res.status)
+        if (res.status === 200 || res.status === 201) {
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err,"reth")
+        alert(err);
+        console.log("error");
+        console.log("err", err);
       });
-      console.log(email, password);
-      if (res && res.data.success) {
-        // toast.success(res.data && res.data.message);
-        alert(res.data && res.data.message);
-        navigate("/login");
-      } else {
-        // toast.error(res.data.message);
-        alert(res.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      // toast.error("Something went wrong");
-      alert("Something went wrong");
-    }
-    // console.log(process.evn.REACT_APP_API)
   };
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//         dispatch(registerUser(email,password))
+//     //   const res = await axios.post("http://localhost:8080/users/register", {
+//     //     email,
+//     //     password,
+//     //   });
+//     //   console.log(email, password);
+//     //   if (res && res.data.success) {
+//     //     // toast.success(res.data && res.data.message);
+//     //     alert(res.data && res.data.message);
+//         // navigate("/login");
+//     //   } else {
+//     //     // toast.error(res.data.message);
+//     //     alert(res.data.message);
+//     //   }
+//     } catch (error) {
+//       console.log(error);
+//       // toast.error("Something went wrong");
+//       alert("Something went wrong");
+//     }
+//     // console.log(process.evn.REACT_APP_API)
+//   };
 
     return (
         <div className="signup-page">
@@ -65,7 +96,7 @@ const SignupComponent = () => {
             <section className="signun-container ">
                 <div className="signup-data">
                     {/* <h3 className="signup-heading">  Sign up</h3> */}
-                    <form className="signup-form" onSubmit={handleSubmit}>
+                    <form className="signup-form"  onSubmit={handleSubmit}>
 
                         <div className="signup-inputs">
                             <label>Email or phone number</label>

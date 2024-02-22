@@ -1,5 +1,5 @@
 import './App.css';
-import Router from "../src/routes/index.jsx"
+import Router from "./routes/index.jsx"
 import './App.css';
 // import Post from './components/Post/index.jsx';
 // import Header from "./components/Header/index.jsx"

@@ -1,36 +1,37 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice} from "@reduxjs/toolkit";
+// import axios from "axios";
+import { fetchComment } from "./commentAction";
 
 const initialState ={
-    contents:[],
+    comments:[],
     isLoading:true,
     error:null
 }
 
-export const fetchContent = createAsyncThunk(
-    'content/fetchContent',
-    async()=>{
-        const res = await axios(`http://localhost:8080/comments`);
-        const data = await res.data;
-        return data;
-    }
-)
-export const contentSlice = createSlice({
-    name:'content',
+// export const fetchComment = createAsyncThunk(
+//     Type,
+//     async()=>{
+//         const res = await axios.get(`http://localhost:8080/comments`);
+//         const data = await res.data;
+//         return data;
+//     }
+// )
+export const commentSlice = createSlice({
+    name:'comment',
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
-        builder.addCase(fetchContent.pending,(state)=>{
+        builder.addCase(fetchComment.pending,(state)=>{
             state.isLoading=true;
         })
-        builder.addCase(fetchContent.fulfilled,(state,action)=>{
+        builder.addCase(fetchComment.fulfilled,(state,action)=>{
             state.isLoading=false
             state.contents=action.payload
         })
-        builder.addCase(fetchContent.rejected,(state,action)=>{
+        builder.addCase(fetchComment.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
         })
     },
 });
-export default contentSlice.reducer;
+export default commentSlice.reducer;
