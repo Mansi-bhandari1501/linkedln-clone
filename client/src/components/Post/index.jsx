@@ -45,6 +45,7 @@ function Post(){
          body = {content.body}
          likes ={content.likes}
          createdAt = {content.createdAt}
+         postId ={content.postId}
         //  {content.premises.map(premise => {
         //   <p>{premise}</p>
         // })}

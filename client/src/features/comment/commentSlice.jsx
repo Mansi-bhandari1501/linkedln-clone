@@ -1,6 +1,6 @@
 import { createSlice} from "@reduxjs/toolkit";
 // import axios from "axios";
-import { fetchComment } from "./commentAction";
+import { createComment, fetchComment } from "./commentAction";
 
 const initialState ={
     comments:[],
@@ -29,6 +29,18 @@ export const commentSlice = createSlice({
             state.contents=action.payload
         })
         builder.addCase(fetchComment.rejected,(state,action)=>{
+            state.isLoading=false
+            state.error= action.error.message
+        })
+
+        builder.addCase(createComment.pending,(state)=>{
+            state.isLoading=true;
+        })
+        builder.addCase(createComment.fulfilled,(state,action)=>{
+            state.isLoading=false
+            state.contents=action.payload
+        })
+        builder.addCase(createComment.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
         })

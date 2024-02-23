@@ -5,6 +5,6 @@ const PATHS = {
   signin: '/users/login'
 }
 
-export const userLogin = async (payload )=> await axiosApi.post(PATHS.signin, payload)
+export const userLogin = async (payload )=> await  axios.post('http://localhost:8080/users/login', payload)
 export const userRegister = async (payload) => await axios.post('http://localhost:8080/users/register', payload)
    
