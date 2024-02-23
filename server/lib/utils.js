@@ -1,5 +1,5 @@
 
-  const handle_error = (res,error) => {
+  const errorHandler = (res,error) => {
     if(error.name === 'CONFLICT') {
       return res.status(409).send({
         success: false,
@@ -10,7 +10,7 @@
         success: false,
         message: error.message,
       })
-    } else if(error.name === 'Unauthorized') {
+    } else if(error.name === 'UNAUTHORIZED') {
       return res.status(401).send({
         success: false,
         message: error.message,
@@ -22,4 +22,4 @@
       })
     }
   }
-  export default handle_error;
+  export default errorHandler;

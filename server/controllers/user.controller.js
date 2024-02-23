@@ -1,66 +1,46 @@
-import { comparePassword, hash_password } from '../helpers/auth.helper.js'
-// import {user_service} from '../service'
-import postModel from '../models/post.model.js';
-import UserModel from '../models/user.model.js';
-import JWT from "jsonwebtoken";
-import { user_service } from '../service/index.js';
-import handle_error from '../lib/utils.js';
-
-// const handle_error = (res,error) => {
-//   if(error.name === 'CONFLICT') {
-//     return res.status(409).send({
-//       success: false,
-//       message: error.message,
-//     })
-//   }
-// }
+import { userService } from '../service/index.js';
+import errorHandler from '../lib/utils.js';
 
 export const  getAllUsers =async(req, res)=> {
-  let users= await user_service.getUsersPaginated(req)
+  let users= await userService.getUsersPaginated(req)
 
   if (users && users.length > 0) {
-    // res.json(users)
-    res.status(200).send({
+    return res.status(200).send({
       success: true,
       user: users,
-      
     });
   } else {
-    res.status(204).send({
-      message: "no user found",
-    });
+    return res.status(204);
   }
 }
 
 export const registerController = async (req, res) => {
     try {
-      const response = await user_service.registerUser(req);
+      const response = await userService.registerUser(req);
     
-      res.status(201).send({
+      return res.status(201).send({
         success:true,
-        message:'user Register Successfully',
+        message:'User Register Successfully',
         user : response.user
-      })
+      });
     } catch (error) {
-
-      handle_error(res,error);
-       
+      errorHandler(res,error);
     }
 }
 
 // POST LOGIN
 export const loginController = async (req, res) => {
   try {
-    const response = await user_service.loginUser(req);
+    const response = await userService.loginUser(req);
   
-     res.status(200).send({
+     return res.status(200).send({
         success: true,
         message: "login successfully",
         user: response.user,
-        token:response.token,
+        token: response.token,
       });
   } catch (error) {
-    handle_error(res,error);
+    errorHandler(res,error);
   }}
 
 

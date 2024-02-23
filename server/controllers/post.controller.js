@@ -1,58 +1,65 @@
-import handle_error from "../lib/utils.js";
-import postModel from "../models/post.model.js";
-import post_service from "../service/post.service.js";
+import errorHandler from "../lib/utils.js";
+import postService from "../service/post.service.js";
 
 export const createPost = async (req, res) => {
   try {
-    const response = await post_service.createPost(req);
-    res.status(201).json({
+    const response = await postService.createPost(req);
+    return res.status(201).json({
       success: true,
-      post: response.newPost,
+      post: response.post,
     });
   } catch (error) {
-    handle_error(res, error);
+    errorHandler(res, error);
   }
 };
 
 export const fetchAllPosts = async (req, res) => {
   try {
-    const response = await post_service.fetchAllPosts(req);
-    if(!response || response.getposts.length === 0) {
-      res.status(204)
+    const response = await postService.fetchAllPosts(req);
+
+    if(!response || response.posts.length === 0) {
+      return res.status(204)
     }
-    res.status(201).json({
+
+    return res.status(200).json({
       success: true,
-      getposts: response.getposts,
+      posts: response.posts, // handle in frontend also 
     });
+
   } catch (error) {
-    handle_error(res, error);
+    errorHandler(res, error);
   }
 };
 
 
 export const fetchPost = async (req, res) => {
   try {
-    const response = await post_service.fetchPost(req);
-    res.status(201).json({
+    const response = await postService.fetchPost(req);
+
+    if(!response) {
+      return res.status(204)
+    }
+
+    return res.status(200).json({
       success: true,
-      getpost: response.getpost,
+      post: response.post,
     });
   } catch (error) {
-    handle_error(res, error);
+    errorHandler(res, error);
   }
 };
 
 export const deletePost = async (req, res) => {
   try {
-    const response = await post_service.deletePost(req);
-    res.status(200).send({
+    const response = await postService.deletePost(req);
+
+    return res.status(200).send({
       success: true,
       message: "post deleted",
       data: response.data,
-      // deletedBy: response.deletedBy
     });
   } catch (error) {
-    handle_error(res, error);
+    errorHandler(res, error);
   }
 };
 
@@ -60,13 +67,18 @@ export const deletePost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const response = await post_service.updatePost(req);
+    const response = await postService.updatePost(req);
     console.log(response.data);
-    res.send(response.data);
+    return res.status(200).send({
+      success: true,
+      message: "post updated successfully",
+      data: response.data,
+    });
   } catch (error) {
-    handle_error(res, error);
+    errorHandler(res, error);
   }
 };
+
 export default {
   updatePost,
   deletePost,

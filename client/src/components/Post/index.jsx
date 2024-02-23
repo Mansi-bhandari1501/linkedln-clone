@@ -11,15 +11,16 @@ function Post(){
   const dispatch= useDispatch();
 
   useEffect(()=>{
-    let token = JSON.parse(window.localStorage.getItem("auth"));
+    let auth = JSON.parse(window.localStorage.getItem("auth"));
+    console.log(auth)
     //  let {}
-    console.log(token)
-    dispatch(fetchPost(token));
+    console.log(auth.token)
+    dispatch(fetchPost(auth.token));
   },[dispatch])
 
 
 
-  const posts = useSelector((state)=>state.post.contents.getposts);
+  const posts = useSelector((state)=>state.post.contents);
   // console.log(posts)
   const isLoading = useSelector((state)=>state.post.isLoading);
   const error = useSelector((state)=>state.post.error);
@@ -45,11 +46,12 @@ function Post(){
          body = {content.body}
          likes ={content.likes}
          createdAt = {content.createdAt}
-         postId ={content.postId}
+         postId ={content._id}
         //  {content.premises.map(premise => {
         //   <p>{premise}</p>
         // })}
         images = {content.images}
+        
          />
         {/* <h3>name : {content.name} </h3> */}
         {/* <h3 >title : {content.title} </h3>
@@ -65,6 +67,7 @@ function Post(){
         {/* <h3>likes : {content.likes} </h3> */}
         {/* <h3 >comments : {content.comments} </h3>      */}
         </div>
+        
       ))}
     </div>
   )

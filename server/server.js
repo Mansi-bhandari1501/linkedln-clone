@@ -10,7 +10,6 @@ import path from "path";
 dotenv.config()
 connectDB();
 
-// rest object 
 const app = express();
 
 //middlewares

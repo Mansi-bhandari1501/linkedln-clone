@@ -38,7 +38,6 @@ export const loginUser = createAsyncThunk(
         },
       };
       const res = await userLogin({email,password},config);
-      console.log("action res", res);
       return res;
     } catch (error) {
       if (error.response && error.response.data.message) {

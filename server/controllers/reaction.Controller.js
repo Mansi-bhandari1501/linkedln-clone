@@ -1,4 +1,4 @@
-import handle_error from "../lib/utils.js";
+import errorHandler from "../lib/utils.js";
 import { reactionModel } from "../models/reaction.model.js";
 
 // export const reactController =async(req,res)=>{
@@ -21,46 +21,46 @@ import { reactionModel } from "../models/reaction.model.js";
 //       })
 //     }
 //     }
-import {reaction_service} from '../service/index.js'
+import {reactionService} from '../service/index.js'
 export const saveReactions = async (req, res) => {
     try{
-        const response = await reaction_service.saveReaction(req)
+        const response = await reactionService.saveReaction(req)
         
         return res.status(201).json({response})
     }catch(error){
         console.log(error)
-        handle_error(res,error);
+        errorHandler(res,error);
     }
 }
 
 export const getReactions = async (req, res) => {
     try{
-        const response = await reaction_service.getReactions()
+        const response = await reactionService.getReactions()
         return res.status(200).json(response)
     }catch(error){
         console.log(error)
-        handle_error(res,error);
+        errorHandler(res,error);
     }
 }
 
 export const updateReaction = async (req, res) => {
     try{
-        const response = await reaction_service.updateReaction(req)
+        const response = await reactionService.updateReaction(req)
         return res.status(202).json(response)
     }
     catch(error){
         console.log(error)
-        handle_error(res,error);
+        errorHandler(res,error);
     }
 }
 
 export const removeReaction = async (req, res) => {
     try{
-        const response = await reaction_service.removeReaction(req)
+        const response = await reactionService.removeReaction(req)
         return res.status(202).json(response)
     }catch(error){
         console.log(error)
-        handle_error(res,error);
+        errorHandler(res,error);
     }
 }
 export default{

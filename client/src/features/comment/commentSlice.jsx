@@ -3,7 +3,7 @@ import { createSlice} from "@reduxjs/toolkit";
 import { createComment, fetchComment } from "./commentAction";
 
 const initialState ={
-    comments:[],
+    comments:{},
     isLoading:true,
     error:null
 }
@@ -17,7 +17,7 @@ const initialState ={
 //     }
 // )
 export const commentSlice = createSlice({
-    name:'comment',
+    name:'comments',
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
@@ -26,7 +26,7 @@ export const commentSlice = createSlice({
         })
         builder.addCase(fetchComment.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.contents=action.payload
+            state.comments=action.payload
         })
         builder.addCase(fetchComment.rejected,(state,action)=>{
             state.isLoading=false
@@ -38,7 +38,7 @@ export const commentSlice = createSlice({
         })
         builder.addCase(createComment.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.contents=action.payload
+            state.comments[action.payload.id]=action.payload.data
         })
         builder.addCase(createComment.rejected,(state,action)=>{
             state.isLoading=false

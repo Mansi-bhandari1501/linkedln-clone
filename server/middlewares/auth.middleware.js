@@ -26,7 +26,7 @@ import userModel from "../models/user.model.js";
             if (err) {
                 return res.status(403).json({ error: 'Forbidden - Invalid token' });
             }
-            req.user = user;
+            user = req.user;
             next();
         });
     }

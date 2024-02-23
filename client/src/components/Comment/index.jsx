@@ -16,16 +16,21 @@ const Comment = () => {
       dispatch(fetchComment(token));
     },[dispatch])
   
-  
-  
-    const comments = useSelector((state)=>state.comment.getCommentPaginated);
-    // console.log(posts)
-    const isLoading = useSelector((state)=>state.comment.isLoading);
-    const error = useSelector((state)=>state.comment.error);
-    if(isLoading){
+    const Loading = useSelector((state) => state.comments.isLoading);
+    const iserror = useSelector((state) => state.comments.error);
+    const comments = useSelector((state) => state.comments.comments);
+    // const comments = useSelector((state) => state.comment.getComments)
+//   const loading = useSelector((state) => state.comment.isLoading)
+//   const error = useSelector((state) => state.comment.error)
+  console.log("comments",comments)
+    // const comments = useSelector((state)=>state.comments);
+    // // console.log(posts)
+    // const isLoading = useSelector((state)=>state.comments.isLoading);
+    // const error = useSelector((state)=>state.comments.error);
+    if(Loading){
       return 'Loading...';
     }
-    if(error){
+    if(iserror){
       return error;
     }
   return (

@@ -72,11 +72,11 @@ export const removeReaction = async (req) => {
         throw error;
     }
 }
-const reaction_service = {
+const reactionService = {
     saveReaction,
     getReactions,
     updateReaction,
     removeReaction,
 }
 
-export default reaction_service;
+export default reactionService;

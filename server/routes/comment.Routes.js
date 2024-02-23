@@ -7,11 +7,11 @@ import { requireSignIn } from "../middlewares/auth.middleware.js";
 const router = express.Router()
 
 
-router.post('/',requireSignIn,createComment);
+router.post('/',createComment);
 router.delete('/:_id',requireSignIn,deleteComment);
 router.put('/:_id',requireSignIn,updateComment);
-router.get('/',requireSignIn,getAllcomments);
-router.get('/:_id',requireSignIn,fetchComment);
+router.get('/',getAllcomments);
+router.get('/:_id',fetchComment);
 
 // router.get('/fetchAllcomments',requireSignIn,fetchAllComments)
 

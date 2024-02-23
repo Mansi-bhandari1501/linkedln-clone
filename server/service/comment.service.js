@@ -3,26 +3,28 @@ import { commentModel } from "../models/comment.model.js"
 
 export const createComment = async (payload) => {
   try {
+    // const {postId} = payload.params
+    const {postId,userId, body} = payload.body;
 
-    const newCommentData = {
-      userid: payload.body.userid,
-      postid: payload.body.postid,
-      body: payload.body.body,
-    };
+    console.log("body object",payload.body);
 
-    let newComment = await new commentModel(newCommentData).save();
-    console.log(payload.body);
-    // res.send("commented");
-    // res.status(201).json({
-    //   success:true,
-    //   post:newComment,
-    // });
-    return { newComment };
+    console.log(userId)
+
+    if(!userId || !body || !postId)  {
+      throw Object.assign(new Error(), {name: "BAD_REQUEST", message: "Please provide all fields"});
+    }
+
+     console.log(postId,userId,body)
+    const newCommentData =  await new commentModel({postId,userId,body}).save();
+
+    console.log(newCommentData);
+    return newCommentData ;
   }
   catch (error) {
     throw error;
   }
 }
+
 export const deleteComment = async (payload) => {
   let data = await commentModel.findByIdAndDelete(payload.params)
   return { data };
@@ -68,7 +70,7 @@ export const getCommentPaginated = async (payload) => {
     .skip(page * resultsPerPage)
 }
 
-const comment_service = {
+const commentService = {
   getCommentPaginated,
   fetchComment,
   fetchAllComments,
@@ -77,4 +79,4 @@ const comment_service = {
   createComment,
 }
 
-export default comment_service;
+export default commentService;

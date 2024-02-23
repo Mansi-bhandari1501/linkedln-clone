@@ -2,11 +2,11 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 const commentSchema = new mongoose.Schema({
-    userid:{
+    userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Users"
     },
-    postid:{
+    postId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Posts"
     },

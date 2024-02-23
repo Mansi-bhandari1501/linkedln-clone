@@ -1,40 +1,32 @@
 import postModel from "../models/post.model.js";
 
-
-
 export const createPost = async (payload) => {
+
     try {
-        console.log(payload)
+
+        let { userId, title, body } = payload.body
+
+        if (!userId || !title || !body) {
+            throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid Payload' });
+        }
+
         const files = payload.files;
-        const image1 = files.image1[0]?.path;
-        const image2 = files.image2[0]?.path;
-        const image3 = files.image3[0]?.path;
-        const image4 = files.image4[0]?.path;
 
-
-        console.log(image1)
-        // console.log("images ->",images);
-        // console.log(images[0]);
-        // let newImages
-        // if(images !== null){
-        //      newImages = payload.files.images.map((i) => { return i.path })
-        // }
-        // console.log(newImages);
+        const image1 = files?.image1[0]?.path;
+        const image2 = files?.image2[1]?.path;
+        const image3 = files?.image3[2]?.path;
+        const image4 = files?.image4[3]?.path;
 
         const newPostData = {
-            // userid: payload.body.userid,
-            title: payload.body.title,
-            body: payload.body.body,
-            images: [image1,image2,image3,image4],
+            userid: userId,
+            title: title,
+            body: body,
+            images: [image1, image2, image3, image4],
         };
-        let newPost = await new postModel(newPostData).save();
-        //   res.status(201).json({
-        //     success:true,
-        //     post:newPost,
-        //   });
-        return { newPost, 
-            mewImages:[image1,image2,image3,image4]
-        }
+
+        let post = await new postModel(newPostData).save();
+
+        return { post }
     }
     catch (error) {
         console.log(error);
@@ -44,11 +36,12 @@ export const createPost = async (payload) => {
 
 export const deletePost = async (payload) => {
     try {
-        const postData = payload;
-        console.log(payload)
-        let data = await postModel.findByIdAndDelete(payload.params)
-        // const deletedBy = data.userid
-        console.log('hello', data)
+        const { _id } = payload.params;
+
+        // handle validation here
+
+        let data = await postModel.findByIdAndDelete(_id)
+
         return { data };
     } catch (error) {
         throw error;
@@ -56,12 +49,7 @@ export const deletePost = async (payload) => {
 }
 export const updatePost = async (payload) => {
     try {
-        let data = await postModel.findByIdAndUpdate
-            (
-                payload.params, {
-                $set: payload.body
-            }
-            );
+        let data = await postModel.findByIdAndUpdate( payload.params, { $set: payload.body });
         return { data };
     } catch (error) {
         throw error;
@@ -70,10 +58,13 @@ export const updatePost = async (payload) => {
 
 export const fetchAllPosts = async (payload) => {
     try {
+
+        // handle validation
+
         console.log(payload.body)
-        const getposts = await postModel.find()
+        const posts = await postModel.find()
         // .populate("user");
-        return { getposts };
+        return { posts };
     }
     catch (error) {
         throw error;
@@ -106,7 +97,7 @@ export const fetchPost = async (payload) => {
 }
 
 
-const post_service = {
+const postService = {
     createPost,
     updatePost,
     deletePost,
@@ -114,4 +105,4 @@ const post_service = {
     fetchPost,
 }
 
-export default post_service;
+export default postService;

@@ -15,4 +15,6 @@
 .images{
     display: flex;
     flex-wrap: wrap;
+}.comment-btn.css-1asyz4n-MuiButtonBase-root-MuiIconButton-root{
+    height: 50px;
 }

@@ -5,82 +5,87 @@ import JWT from "jsonwebtoken";
 import { comparePassword } from '../helpers/auth.helper.js'
 
 const registerUser = async (payload) => {
-    try {
-        const {  email, password } = payload.body      
-        
-        if (!email) {
-          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'email is required'});
+  try {
+    const { email, password } = payload.body
 
-        }
-        if (!password) {
-          throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'password is required'});
-
-        }
-       
-        const existingUser = await UserModel.findOne({ email });
-        
-        if (existingUser) {
-            throw Object.assign(new Error(), {name:"CONFLICT", message: 'User Already exists'});
-        }
-        //register user
-        const hashed_password = await hash_password(password);
-        //save password
-        const user =  await new UserModel({email,password:hashed_password}).save();
-
-        return {user};
-    } catch(error) {
-        throw error;
+    if (!email) {
+      throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'email is required' });
     }
+
+    if (!password) {
+      throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'password is required' });
+    }
+
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      throw Object.assign(new Error(), { name: "CONFLICT", message: 'User Already exists' });
+    }
+
+    //register user
+    const hashed_password = await hash_password(password);
+    //save password
+    const user = await new UserModel({ email, password: hashed_password }).save();
+
+    return { user };
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const loginUser = async (payload) => {
-    try {
-      const { email, password } = payload.body;
-      //validation
-      if (!email || !password) {
-        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Invalid email or password'});
+  try {
+    const { email, password } = payload.body;
 
-        // return res.send({ error: "Invalid email or password" })
-      }
-      //check user
-      const user = await UserModel.findOne({ email });
-      if (!user) {
-        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Email is not registerd'});
-
-      }        // return res.send({ error: "Email is not registerd" });
-
-      const match = await comparePassword(password, user.password);
-      if (!match) {
-        throw Object.assign(new Error(), {name:"BAD_REQUEST", message: 'Invalid Password'});
-
-        // return res.send({ error: "Invalid Password" })
-      }
-      //TOKEN
-      const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-      });
-      return {user,token};
-    } catch(error) {
-        throw error;
+    //validation
+    if (!email || !password) {
+      throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid email or password' });
     }
+
+    //check user
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Email is not registerd' });
+    }
+
+    const match = await comparePassword(password, user.password);
+
+    if (!match) {
+      throw Object.assign(new Error(), { name: "UNAUTHORIZED", message: 'Invalid Password' });
+    }
+
+    //TOKEN
+    const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    return { user, token };
+  } catch (error) {
+    throw error;
+  }
 }
 
 
 export const getUsersPaginated = async (payload) => {
-  const page = payload.param 
-  let resultsPerPage = 10
-  
-    return await UserModel.find({})
-      .sort({ createdAt: 'descending' })
-      .lean()
-      .limit(resultsPerPage)
-      .skip(page * resultsPerPage)
+  let page = Number(payload.param) || 0; "";
+  let resultsPerPage = 10; 
+
+  if(!page || page.trim() === '') {
+    page = 0;
   }
 
-const user_service = {
-    registerUser,
-    loginUser,
-    getUsersPaginated
+  return await UserModel.find({})
+    .sort({ createdAt: 'descending' })
+    .lean()
+    .limit(resultsPerPage)
+    .skip(page * resultsPerPage)
 }
 
-export default user_service;
+const userService = {
+  registerUser,
+  loginUser,
+  getUsersPaginated
+}
+
+export default userService;
