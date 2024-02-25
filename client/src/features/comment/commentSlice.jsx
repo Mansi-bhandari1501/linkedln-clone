@@ -26,7 +26,13 @@ export const commentSlice = createSlice({
         })
         builder.addCase(fetchComment.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.comments=action.payload
+            // state.comments=action.payload
+            state.comments[action.payload[0].postId] = action.payload;
+            // state.comments = {
+            //     ...state.comments,
+            //     [action.payload.postId]: action.payload.data
+            //     }
+            console.log("get", state.comments.getComment)
         })
         builder.addCase(fetchComment.rejected,(state,action)=>{
             state.isLoading=false

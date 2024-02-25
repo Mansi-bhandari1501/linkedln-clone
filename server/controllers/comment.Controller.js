@@ -48,7 +48,7 @@ export const fetchAllComments = async (req, res) => {
     console.log(req.body);
     res.status(201).json({
       success: true,
-      getComments: response.getComments,
+      comment: response.comments,
     });
   } catch (error) {
     res.status(500).json({
@@ -62,12 +62,12 @@ export const fetchComment = async (req, res) => {
   try {
     const response = await commentService.fetchComment(req);
     console.log(req.body);
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
-      getComment: response.getComment,
+      comment: response.comment,
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
@@ -81,13 +81,13 @@ export const getAllcomments = async (req, res) => {
   // let page = req.query.page; //starts from 0
   let comments = await commentService.getCommentPaginated(req);
   if (comments && comments.length > 0) {
-    res.status(200).send({
+    return res.status(200).send({
       success: true,
       comment: comments,
       
     });
   } else {
-    res.status(204).send({
+    return res.status(204).send({
       message: "no comment found",
     });
 };

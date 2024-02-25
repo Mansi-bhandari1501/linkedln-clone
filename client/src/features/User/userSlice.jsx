@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "./actionCreator";
+import { loginUser, registerUser, userDetails } from "./actionCreator";
 
 const initalState = {
   loading: false,
@@ -42,6 +42,19 @@ const userSlice = createSlice({
       state.userToken = action.payload.data.token;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
+      state.loading = true;
+      state.success = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(userDetails.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(userDetails.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.userInfo = action.payload.data.user;
+    });
+    builder.addCase(userDetails.rejected, (state, action) => {
       state.loading = true;
       state.success = false;
       state.error = action.error.message;

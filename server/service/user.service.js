@@ -65,6 +65,37 @@ export const loginUser = async (payload) => {
     throw error;
   }
 }
+export const userDetail = async (payload) => {
+  try {
+  //   const {
+  //      firstName,
+  //   lastName,
+  //   additionalName,
+  //   pronoun,
+  //   headline,
+  //   position,
+  //   industry,
+  //   country,
+  //   city,
+  // userid } = payload.body;
+
+    //validation
+    // if (!firstName || !lastName) {
+    //   throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid email or password' });
+    // }
+
+    //check user
+    console.log("heeelllo")
+    const user = await UserModel.findOneAndUpdate(
+      payload.params,
+      {$set:payload.body});
+      console.log("UUUUSSEERRRR",user)
+
+    return { user };
+  } catch (error) {
+    throw error;
+  }
+}
 
 
 export const getUsersPaginated = async (payload) => {
@@ -85,7 +116,8 @@ export const getUsersPaginated = async (payload) => {
 const userService = {
   registerUser,
   loginUser,
-  getUsersPaginated
+  getUsersPaginated,
+  userDetail
 }
 
 export default userService;

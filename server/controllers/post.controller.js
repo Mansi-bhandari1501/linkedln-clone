@@ -2,8 +2,13 @@ import errorHandler from "../lib/utils.js";
 import postService from "../service/post.service.js";
 
 export const createPost = async (req, res) => {
+  const {userId,title,body}= req.body;
+  
+  console.log("body",req.body)
   try {
+    const {userId,title,body}= req.body;
     const response = await postService.createPost(req);
+    console.log(response)
     return res.status(201).json({
       success: true,
       post: response.post,

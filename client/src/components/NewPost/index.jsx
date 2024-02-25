@@ -123,7 +123,7 @@ const NewPost = ({ hide }, open) => {
             position: "absolute",
             right: 8,
             top: 8,
-            "&:hover": {},
+            // "&:hover": {},
           }}
         >
           <CloseIcon />
@@ -147,15 +147,24 @@ const NewPost = ({ hide }, open) => {
             /> */}
             <Button sx={{
                 height: '50px',
-                width: "300px",
+                width: "0px",
                 display: "flex",
                 justifyContent: "start",
-                alignItems: "start"
+                alignItems: "start",
+                position:"relative",
+                marginTop:"300px"
               }}>
                 <EmojiIcon onClick={handleClickOpen} />
 
                 {isopen && (
-                  <EmojiPicker className="emojipicker" hide={handleClose} />
+                  <EmojiPicker className="emojipicker" hide={handleClose} 
+                  sx={{width:"50px",
+                  paddingTop:"10px",
+                  "&:MuiButtonBase-root-MuiButton-root":{
+                    width:"50px",
+                  }
+                }}
+                  />
                 )}
               </Button>
           </FormControl>
@@ -168,10 +177,10 @@ const NewPost = ({ hide }, open) => {
             tabIndex={-1}
             sx={{ width: "10px" }}
             startIcon={<MediaIcon />
-            }
+          }
           // onClick={handleFileUpload}
           />
-          <input type="file" multiple="multiple" id='post_images' name='post_images' onChange={(e) => {
+          <input type="file" multiple="multiple" id='post_images' class="custom-file-input" name='post_images' onChange={(e) => {
             setImg(e.target.files)
           }} />
           <Button

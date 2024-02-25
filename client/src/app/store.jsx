@@ -26,4 +26,4 @@ export const persistor = persistStore(store)
 //         post:postSlice,
 //     },
 // })
-console.log(persistor.getState())
+console.log(    store.getState())

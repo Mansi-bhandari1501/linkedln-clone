@@ -42,10 +42,23 @@ export const loginController = async (req, res) => {
   } catch (error) {
     errorHandler(res,error);
   }}
+export const userDetail = async (req, res) => {
+  try {
+    const response = await userService.userDetail(req);
+  
+     return res.status(200).send({
+        success: true,
+        message: "login successfully",
+        user: response.user,
+      });
+  } catch (error) {
+    errorHandler(res,error);
+  }}
 
 
 export default {
   loginController,
   registerController,
-  getAllUsers
+  getAllUsers,
+  userDetail
 }

@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
-import Card from '@mui/material/Card';
+import React, { useState } from "react";
+import Card from "@mui/material/Card";
 import "./card.css";
-import { Avatar, Box, Button, CardActions, CardContent, CardHeader, CardMedia, Collapse, Divider, IconButton, InputBase, Stack, Typography } from '@mui/material';
-import RepeatIcon from '@mui/icons-material/Repeat';
+import {
+  Avatar,
+  Box,
+  Button,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Collapse,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
+import RepeatIcon from "@mui/icons-material/Repeat";
 // import { ReactComponent as LikeIcon } from "../../utils/Like-logo.svg"
-import { ReactComponent as SendIcon } from "../../utils/send-icon.svg"
-import LikeIcon from '@mui/icons-material/ThumbUpOffAlt';
-import CommentIcon from '@mui/icons-material/CommentOutlined';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { styled } from '@mui/material/styles'; import { useDispatch, useSelector } from 'react-redux';
-import { createComment, fetchComment } from '../../features/comment/commentAction';
-import EmojiPicker from 'emoji-picker-react';
+import { ReactComponent as SendIcon } from "../../utils/send-icon.svg";
+import LikeIcon from "@mui/icons-material/ThumbUpOffAlt";
+import CommentIcon from "@mui/icons-material/CommentOutlined";
+import InputEmoji from "react-input-emoji";
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createComment,
+  fetchComment,
+} from "../../features/comment/commentAction";
+// import EmojiPicker from "emoji-picker-react";
 // })(({ theme, expand }) => ({
 //   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
 //   marginLeft: 'auto',
@@ -20,15 +38,14 @@ import EmojiPicker from 'emoji-picker-react';
 // }));
 
 const Cards = (props) => {
-
+  console.log("propesssss", props);
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
   })(({ theme, expand }) => ({
-
-    marginLeft: 'auto',
-    height: '500px',
-    transition: theme.transitions.create('transform', {
+    marginLeft: "auto",
+    height: "500px",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   }));
@@ -39,48 +56,45 @@ const Cards = (props) => {
   const userId = useSelector((state) => state.user.userInfo._id);
   // console.log('USER',userId)
   const [expanded, setExpanded] = React.useState(false);
-  const [body, setBody] = useState("")
+  const [body, setBody] = useState("");
+  function handleOnEnter(body) {
+    console.log("enter", body);
+  }
   // console.log("length", props.images);
-  // console.log("props",props.body);
-
+  // console.log("props", props.postId);
+  // console.log(body);
   const handleExpandClick = () => {
     setExpanded(!expanded);
     dispatch(fetchComment(props.postId));
   };
   const handleComment = () => {
-   const  postId = props.postId;
-  //  console.log(post_Id)
+    const postId = props.postId;
+    //  console.log(post_Id)
     const commentData = {
       postId,
       userId,
       body: body,
-      
-    }
+    };
     // console.log(commentData)
-     dispatch(createComment(commentData))
-  }
+    dispatch(createComment(commentData));
+  };
 
-
-  const Loading = useSelector((state) => state.comments.isLoading);
-  const iserror = useSelector((state) => state.comments.error);
+  // const Loading = useSelector((state) => state.comments.isLoading);
+  // const iserror = useSelector((state) => state.comments.error);
   const comments = useSelector((state) => state.comments.comments.comment);
   // console.log('COMMENTS', comments, iserror, Loading)
   // console.log('coMMents',comments.comment.body)
   return (
     <div>
-      <Card sx={{ width: '550px', marginBottom: "2px", borderRadius: "8px" }}>
+      <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px" }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ backgroundColor: 'blue' }} aria-label="recipe">
-              r
+            <Avatar sx={{ backgroundColor: "blue" }} aria-label="recipe">
+              {props.user}
             </Avatar>
           }
-          action={
-            <IconButton aria-label="settings">
-
-            </IconButton>
-          }
-          title="username"
+          action={<IconButton aria-label="settings"></IconButton>}
+          title={props.user}
           subheader={props.createdAt}
         />
         <CardContent>
@@ -92,16 +106,16 @@ const Cards = (props) => {
           </Typography>
         </CardContent>
 
-        <div className='images'>
-
+        <div className="images">
           {props.images.map((image, index) => (
-            <div style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%"
-            }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+              }}
+            >
               <CardMedia
-
                 key={index}
                 component="img"
                 height={props.images.length > 1 ? "100%" : "100%"}
@@ -114,23 +128,26 @@ const Cards = (props) => {
           ))}
         </div>
 
-
         {/* {props.likes} */}
         <Divider sx={{ marginBottom: "5px" }} />
-        <CardActions className='post-action' disableSpacing>
+        <CardActions className="post-action" disableSpacing>
           <Stack direction="row"></Stack>
           <IconButton aria-label="add to favorites" sx={{ color: "#00000080" }}>
             <LikeIcon />
             <h6>Like</h6>
           </IconButton>
-          <IconButton aria-label="add to favorites"
+          <IconButton
+            aria-label="add to favorites"
             sx={{
-              
               "&:MuiButtonBase-root-MuiIconButton-root": {
                 height: "10px !important",
-              }
-            }}>
-            <CommentIcon sx={{ color: "#00000080" }} onClick={handleExpandClick} />
+              },
+            }}
+          >
+            <CommentIcon
+              sx={{ color: "#00000080" }}
+              onClick={handleExpandClick}
+            />
             <h6>Comment</h6>
             {/* <ExpandMore
               expand={expanded}
@@ -146,10 +163,9 @@ const Cards = (props) => {
             <CommentIcon sx={{ color: "#00000080" }} />
             <h6>Comment</h6>
           </IconButton> */}
-          <IconButton aria-label="add to favorites" className='comment-btn'>
+          <IconButton aria-label="add to favorites" className="comment-btn">
             <RepeatIcon />
             <h6>Repost</h6>
-
           </IconButton>
           <IconButton aria-label="add to favorites">
             <SendIcon />
@@ -166,11 +182,24 @@ const Cards = (props) => {
           </ExpandMore> */}
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-
-          <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+          <CardContent
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+            }}
+          >
             <Avatar aria-label="recipe"></Avatar>
-          
-            <InputBase
+            <InputEmoji
+              multiline
+              value={body}
+              placeholder="Add a comment..."
+              // onChange={(e) => setBody(e.target.value)}
+              onChange={setBody}
+              cleanOnEnter
+              onEnter={handleOnEnter}
+            />
+            {/* <InputBase
               sx={{
                 border: '1px solid #d7d8d6',
                 width: '84%',
@@ -181,32 +210,56 @@ const Cards = (props) => {
               value={body}
               placeholder="Add a comment..."
               onChange={(e) => setBody(e.target.value)}
-            />
-            <Button variant="contained" onClick={handleComment}>Post</Button>
+            /> */}
+            <Button variant="contained" onClick={handleComment}>
+              Post
+            </Button>
           </CardContent>
           <CardContent>
-            <Stack flexDirection={'row'}>
-
-              <Box>
-                {
-                  comments?.map((items) => (
-                    <>
+            <Stack flexDirection={"row"}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  width: "100%",
+                }}
+              >
+                {comments?.map((items) => (
+                  <>
+                    <Box key={items._id} sx={{ display: "flex" }}>
                       <Avatar aria-label="recipe"></Avatar>
-                      <Typography  color={"grey"}>{items.userId?.name}</Typography>
-                      <Typography  color={"black"}>{items.body}</Typography>
-                    </>
+                      <Box sx={{width: "100%",marginLeft:"15px"}}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          // marginLeft: "15px",
+                          backgroundColor: "#F2F2F2",
+                          width: "100%",
+                          
+                        }}
+                      >
+                        <Typography sx={{marginBottom:"5px",paddingLeft:"5px"}} color={"grey"}>{items.userId}</Typography>
 
-                  )
-                  )
-                }
+                        <Typography sx={{paddingLeft:"5px"}} color={"black"}>{items.body}</Typography>
+                      </Box>
+                        <Box sx={{fontSize:"10px"}}>
+                          <IconButton  sx={{fontSize:"12px"}}>Like</IconButton>
+                          <IconButton  sx={{fontSize:"12px"}}>Reply</IconButton>
+                          {/* <IconButton  sx={{fontSize:"12px"}}>Delete</IconButton> */}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </>
+                ))}
               </Box>
             </Stack>
           </CardContent>
         </Collapse>
       </Card>
-
     </div>
-  )
+  );
 };
 
 export default Cards;

@@ -48,8 +48,8 @@ export const updateComment = async (payload) => {
 }
 export const fetchAllComments = async (payload) => {
   console.log(payload.body)
-  const getComments = await commentModel.find();
-  return { getComments };
+  const comments = await commentModel.find();
+  return { comments };
 }
 export const fetchComment = async (payload) => {
   console.log(payload.params)

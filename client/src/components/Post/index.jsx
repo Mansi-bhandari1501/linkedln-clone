@@ -21,7 +21,7 @@ function Post(){
 
 
   const posts = useSelector((state)=>state.post.contents);
-  // console.log(posts)
+  console.log(posts)
   const isLoading = useSelector((state)=>state.post.isLoading);
   const error = useSelector((state)=>state.post.error);
   if(isLoading){
@@ -37,20 +37,22 @@ function Post(){
      
       {posts?.map ((content)=> 
        (
+        
         <div 
         // className='post-content' 
         key={content._id} >
-        
         <Cards
          title = {content.title}
          body = {content.body}
          likes ={content.likes}
          createdAt = {content.createdAt}
          postId ={content._id}
+
         //  {content.premises.map(premise => {
         //   <p>{premise}</p>
         // })}
         images = {content.images}
+        user = {content.userid}
         
          />
         {/* <h3>name : {content.name} </h3> */}

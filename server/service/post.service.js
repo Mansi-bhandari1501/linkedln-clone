@@ -1,31 +1,33 @@
 import postModel from "../models/post.model.js";
 
-export const createPost = async (payload) => {
+export const createPost = async (req) => {
 
     try {
+        // console.log("payload---->",req.body)
+        let { userId, title, body } = req.body
 
-        let { userId, title, body } = payload.body
-
-        if (!userId || !title || !body) {
+        if (!userId || !title ) {
             throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid Payload' });
         }
 
         const files = payload.files;
+        console.log("files",files)
 
-        const image1 = files?.image1[0]?.path;
-        const image2 = files?.image2[1]?.path;
-        const image3 = files?.image3[2]?.path;
-        const image4 = files?.image4[3]?.path;
+        const image1 = files?.image1[0]?.path|| "";
+        const image2 = files?.image2[1]?.path|| "";
+        const image3 = files?.image3[2]?.path|| "";
+        const image4 = files?.image4[3]?.path|| "";
 
         const newPostData = {
             userid: userId,
             title: title,
             body: body,
-            images: [image1, image2, image3, image4],
+            // images: [image1, image2, image3, image4],
         };
+        console.log("yyyyyyy",newPostData)
 
         let post = await new postModel(newPostData).save();
-
+        console.log("rrrrr",post)
         return { post }
     }
     catch (error) {
@@ -63,16 +65,19 @@ export const fetchAllPosts = async (payload) => {
 
         console.log(payload.body)
         const posts = await postModel.find()
-        // .populate("user");
+        // .populate('user');
         return { posts };
     }
     catch (error) {
         throw error;
     }
     // try {
-    //     const page = payload.param
-    //     let resultsPerPage = 10
-
+    //     let page = Number(payload.param) || 0; "";
+    //     let resultsPerPage = 10; 
+      
+    //     if(!page || page.trim() === '') {
+    //       page = 0;
+    //     }
     //     return await postModel.find({})
     //         .sort({ createdAt: 'descending' })
     //         .lean()

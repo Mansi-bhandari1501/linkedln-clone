@@ -5,8 +5,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchComment = createAsyncThunk(
     COMMENT_TYPE.GET_COMMENT,
     async (input) => {
+        console.log(input)
         const res = await axios.get(`http://localhost:8080/comments/${input}`);
-        const data = await res.data;
+        console.log(res)
+        const data =  res.data;
+        console.log(data)
         return data;
     }
 )

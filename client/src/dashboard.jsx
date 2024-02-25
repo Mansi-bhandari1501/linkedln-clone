@@ -1,16 +1,16 @@
 import React from 'react'
-import FormDialog from './components/NewPost/index.jsx'
-import { ReactComponent as MediaIcon } from "./utils/media-icon.svg"
-import Cards from './components/Card/index.jsx'
-import EmojiPicker from "emoji-picker-react";
-import Comment from "./components/Comment/index.jsx"
+// import Comment from "./components/Comment/index.jsx"
+import Post from './components/Post/index.jsx';
+import FormDialog from './components/Profile-Form/index.jsx';
 const Dashboard = () => {
   return (
-    <div>
+    <>
      dashboard
-     <Comment/>
+     {/* <Comment/> */}
+     {/* <Post/> */}
+     <FormDialog/>
  
-    </div>
+    </>
   )
 }
 
