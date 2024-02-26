@@ -1,14 +1,6 @@
 import mongoose from "mongoose";
 
 const usersSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        // required: true
-    },
-    lasName: {
-        type: String,
-        // required: true
-    },
     email: {
         type: String,
         required: true,
@@ -18,67 +10,82 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-   city: {
-
-            type: String,
-            default:null
-
-            // required:true
-        },
-        // Zipcode: {
-
-        //     type: String,
-        //     default:null
-        //     // required:true
-        // },
-        // geo: {
-        //     lat: {
-        //         type: String,
-        //         default:null
-
-        //         // required:true
-        //     },
-        //     lng: {
-        //         type: String,
-        //         default:null
-
-        //         // requried:true
-        //     }
-        // }
-    // },
+    firstName: {
+        type: String,
+        // required: true
+        default: null
+    },
+    lasName: {
+        type: String,
+        default: null
+        // required: true
+    },
+    city: {
+        type: String,
+        default: null
+        // required:true
+    },
     phone: {
         type: String,
-        default:null
+        default: null
         // required:true,
     },
     website: {
-
         type: String,
-        default:null
-
+        default: null
         // required:true,
     },
     company: [{
-        
+
         companyname: {
             type: String,
-            default:null
+            default: null
 
             // required:true
         },
         catchPhrase: {
-            
+
             type: String,
-            default:0
+            default: 0
             // required:true,
         },
         bs: {
-            
+
             type: String,
-            default:0
+            default: 0
             // required:true,
         }
-    }]
-},{timestamps:true})
+    }],
+   
+ // followers: [{
+    //     userid:
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "User"
+    //     },
+    //     status: {
+    //         type: String,
+    //         enum: ['pending', 'accepted', 'rejected'],
+    //         default : 'pending',
+    //     }
+    // }],
+    // following: [{
+    //     userid:
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "User"
+    //     },
+    //     status: {
+    //         type: String,
+    //         enum: ['pending', 'accepted', 'rejected'],
+    //         default : 'pending',
+    //     }
+
+    // }]
+    connection:{
+        type: String,
+        
+    }
+}, { timestamps: true })
 const UserModel = mongoose.model('Users', usersSchema);
 export default UserModel;

@@ -29,41 +29,48 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-  const [input,setInput] = useState({
-    firstName:"",
-    lastName:"",
-    additionalName:"",
-    pronoun:"",
-    headline:"",
-    position:"",
-    industry:"",
-    country:"",
-    city:"",
+  //   const [input,setInput] = useState({
+  //     firstName:"",
+  //     lastName:"",
+  //     additionalName:"",
+  //     pronoun:"",
+  //     headline:"",
+  //     position:"",
+  //     industry:"",
+  //     country:"",
+  //     city:"",
 
-})
+  // })
+  const [firstName, setFirstname] = useState();
+
+  console.log(firstName)
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userInfo);
-  console.log(input);
-  console.log(user._id);
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    let formData = new FormData();  
-    // console.log(input.title)  
-    formData.append('firstName',input.firstName);
-    formData.append('lastName',input.lastName);
-    formData.append('additionalName',input.additionalName);
-    formData.append('pronoun',input.pronoun);
-    formData.append('headline',input.headline);
-    formData.append('position',input.position);
-    formData.append('industry',input.industry);
-    formData.append('country',input.country);
-    formData.append('city',input.city);
-    formData.append('userid',user._id);
-  ;
+  const userId = user._id;
+  console.log(userId);
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    // let formData = new FormData();  
+    // // console.log(input.title)  
+    // formData.append('firstName',input.firstName);
+    // formData.append('lastName',input.lastName);
+    // formData.append('additionalName',input.additionalName);
+    // formData.append('pronoun',input.pronoun);
+    // formData.append('headline',input.headline);
+    // formData.append('position',input.position);
+    // formData.append('industry',input.industry);
+    // formData.append('country',input.country);
+    // formData.append('city',input.city);
+    // formData.append('userid',user._id);
+    const data = {
+      firstName,
+
+    }
+    console.log(data)
     handleClose();
-    dispatch(userDetails(formData));
+    dispatch(userDetails(data,userId));
   }
-  
+
   return (
     <React.Fragment>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -76,7 +83,7 @@ export default function FormDialog() {
           component: "form",
           onSubmit: (event) => {
             handleSubmit();
-            
+
           },
         }}
       >
@@ -86,7 +93,7 @@ export default function FormDialog() {
           {/* <DialogContentText>
           
           </DialogContentText> */}
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl sx={{ width: "100%" }} onSubmit={handleSubmit}>
             <label>First Name</label>
             <TextField
               autoFocus
@@ -98,7 +105,7 @@ export default function FormDialog() {
               type="text"
               fullWidth
               variant="outlined"
-              onChange={(e) => {setInput({ ...input, firstName: e.target.value })}}
+              onChange={(e) => { setFirstname(e.target.value) }}
             />
             <label>Last Name</label>
             <TextField
@@ -111,7 +118,7 @@ export default function FormDialog() {
               type="text"
               fullWidth
               variant="outlined"
-              onChange={(e) => {setInput({ ...input, lastName: e.target.value })}}
+            // onChange={(e) => {setInput({ ...input, lastName: e.target.value })}}
 
             />
             <label>Additional Name</label>
@@ -124,14 +131,14 @@ export default function FormDialog() {
               type="text"
               fullWidth
               variant="outlined"
-              onChange={(e) => {setInput({ ...input, additionalName: e.target.value })}}
+            // onChange={(e) => {setInput({ ...input, additionalName: e.target.value })}}
 
             />
             <label>Pronoun</label>
             <Select
               displayEmpty
               value={0}
-              // onChange={handleChange}
+            // onChange={handleChange}
             >
               <MenuItem value={0}>Please Select</MenuItem>
               <MenuItem value={10}>She/Her</MenuItem>
@@ -150,7 +157,7 @@ export default function FormDialog() {
               type="text"
               fullWidth
               variant="outlined"
-              onChange={(e) => {setInput({ ...input, headline: e.target.value })}}
+            // onChange={(e) => {setInput({ ...input, headline: e.target.value })}}
 
             />
 
@@ -161,7 +168,7 @@ export default function FormDialog() {
               // value={}
 
               displayEmpty
-              // onChange={handleChange}
+            // onChange={handleChange}
             >
               <MenuItem>Please Select</MenuItem>
               <MenuItem>Full-Stack developer</MenuItem>
@@ -179,7 +186,7 @@ export default function FormDialog() {
 
             <Typography>industry*</Typography>
             <TextField
-              required
+
               margin="dense"
               name="industry"
               // label="Email Address"
@@ -196,7 +203,7 @@ export default function FormDialog() {
               // value={}
 
               displayEmpty
-              // onChange={handleChange}
+            // onChange={handleChange}
             >
               <MenuItem>Please Select</MenuItem>
               <MenuItem>Full-Stack developer</MenuItem>

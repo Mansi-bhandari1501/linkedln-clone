@@ -53,6 +53,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.userInfo = action.payload.data.user;
+      console.log(state.userInfo);
     });
     builder.addCase(userDetails.rejected, (state, action) => {
       state.loading = true;

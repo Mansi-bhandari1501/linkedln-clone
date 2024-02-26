@@ -19,6 +19,7 @@ import userModel from "../models/user.model.js";
   export const requireSignIn = async (req, res, next) => {
     try {
         const token = req.header('Authorization');
+        console.log(token);
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized - Token not provided' });
         }

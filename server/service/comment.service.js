@@ -26,8 +26,13 @@ export const createComment = async (payload) => {
 }
 
 export const deleteComment = async (payload) => {
-  let data = await commentModel.findByIdAndDelete(payload.params)
-  return { data };
+  try{
+
+    let data = await commentModel.findByIdAndDelete(payload.params)
+    return { data };
+  }catch (error) {
+    throw error;
+  }
 }
 
 export const updateComment = async (payload) => {

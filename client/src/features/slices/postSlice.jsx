@@ -24,11 +24,13 @@ export const fetchPost = createAsyncThunk(
 export const createPost = createAsyncThunk(
     'post/getPost',
     async(input) =>{
+       
         console.log(input)
         // console.log(input.images)
         const res = await axios.post("http://localhost:8080/posts", input,{
             headers: {
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'multipart/form-data',
+              Authorization: state.user.userToken,
             }
         }) 
         console.log(res);

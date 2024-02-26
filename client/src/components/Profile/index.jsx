@@ -51,7 +51,7 @@ const ProfileComponent = () => {
               />
             </Box>
             <Box>
-              <Box sx={{ width: "100px" }}>
+              <Box sx={{ width: "100% ", display: "flex", flexDirection: "column", position: 'relative' }}>
                 <Avatar
                   sx={{
                     height: "150px",
@@ -62,6 +62,18 @@ const ProfileComponent = () => {
                     border: "1px solid white",
                   }}
                 ></Avatar>
+                <Box  sx={{
+                  position: "absolute",
+                  top: "8vh",
+                  left: "3vw"
+                }}>
+                  <Box>
+                  Mansi Bhandari
+                  </Box>
+                  <Box>
+                  student at punjabi university Patiala
+                  </Box>
+                </Box>
               </Box>
               <Box sx={{ position: "absolute", right: "730px", top: "290px" }}>
                 <FormDialog

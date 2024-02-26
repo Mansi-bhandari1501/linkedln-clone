@@ -51,11 +51,11 @@ export const loginUser = createAsyncThunk(
 );
 export const userDetails = createAsyncThunk(
   ACTION_TYPE.USER_DETAILS,
-  async ({input}, { rejectWithValue }) => {
+  async ({input,userId}, { rejectWithValue }) => {
     try {
-      console.log("action", input);
+      console.log("action", input,userId);
      
-      const res = await axios.post("http://localhost:8080/users/", input)      
+      const res = await axios.post(`http://localhost:8080/users/${userId}`, input)      
     return res;
     } catch (error) {
       if (error.response && error.response.data.message) {

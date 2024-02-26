@@ -67,42 +67,38 @@ export const loginUser = async (payload) => {
 }
 export const userDetail = async (payload) => {
   try {
-  //   const {
-  //      firstName,
-  //   lastName,
-  //   additionalName,
-  //   pronoun,
-  //   headline,
-  //   position,
-  //   industry,
-  //   country,
-  //   city,
-  // userid } = payload.body;
 
-    //validation
-    // if (!firstName || !lastName) {
-    //   throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid email or password' });
-    // }
-
-    //check user
-    console.log("heeelllo")
-    const user = await UserModel.findOneAndUpdate(
-      payload.params,
-      {$set:payload.body});
-      console.log("UUUUSSEERRRR",user)
-
-    return { user };
+    // console.log("heeelllo",payload.params)
+    const user = await UserModel.findByIdAndUpdate(payload.params, { $set: payload.body });
+    // console.log("UUUUSSEERRRR", user);
+  
+    // return { user }; 
   } catch (error) {
     throw error;
   }
 }
+// export const followUser = async (payload) => {
+//   try {
+//     const user = await UserModel.findById
+    
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
+export const getUsers = async (payload)=>{
+  // const existingUser = payload.body;
+  // console.log("USERID=------>",existingUser);
+  const users = UserModel.find({ email: { $ne: 'testemail@email.com' } })
+  console.log(users)
+  return users;
+}
 
 export const getUsersPaginated = async (payload) => {
   let page = Number(payload.param) || 0; "";
-  let resultsPerPage = 10; 
+  let resultsPerPage = 10;
 
-  if(!page || page.trim() === '') {
+  if (!page || page.trim() === '') {
     page = 0;
   }
 
@@ -117,7 +113,8 @@ const userService = {
   registerUser,
   loginUser,
   getUsersPaginated,
-  userDetail
+  userDetail,
+  getUsers
 }
 
 export default userService;

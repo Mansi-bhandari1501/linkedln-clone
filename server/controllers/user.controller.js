@@ -2,7 +2,7 @@ import { userService } from '../service/index.js';
 import errorHandler from '../lib/utils.js';
 
 export const  getAllUsers =async(req, res)=> {
-  let users= await userService.getUsersPaginated(req)
+  let users= await userService.getUsers(req)
 
   if (users && users.length > 0) {
     return res.status(200).send({
@@ -48,8 +48,20 @@ export const userDetail = async (req, res) => {
   
      return res.status(200).send({
         success: true,
-        message: "login successfully",
-        user: response.user,
+        message: "updated",
+        
+      });
+  } catch (error) {
+    errorHandler(res,error);
+  }}
+export const followController = async (req, res) => {
+  try {
+    const response = await userService.followUser(req);
+  
+     return res.status(200).send({
+        success: true,
+        message: "followed",
+        
       });
   } catch (error) {
     errorHandler(res,error);
@@ -59,6 +71,7 @@ export const userDetail = async (req, res) => {
 export default {
   loginController,
   registerController,
+  followController,
   getAllUsers,
   userDetail
 }

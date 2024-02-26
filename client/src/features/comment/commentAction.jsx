@@ -6,7 +6,7 @@ export const fetchComment = createAsyncThunk(
     COMMENT_TYPE.GET_COMMENT,
     async (input) => {
         console.log(input)
-        const res = await axios.get(`http://localhost:8080/comments/${input}`);
+        const res = await axios.get(`http://localhost:8080/comments`);
         console.log(res)
         const data =  res.data;
         console.log(data)
