@@ -9,7 +9,9 @@ import { ReactComponent as EventIcon } from "../../utils/event-logo.svg";
 import "./home.css";
 import MainFooter from "../MainFooter";
 import NewPost from "../NewPost";
+
 const HomeComponent = () => {
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -18,6 +20,7 @@ const HomeComponent = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  
   return (
     <div style={{ backgroundColor: "#F4F2EE", height: "100vh" }}>
       <Stack flexDirection={"column"} className="Home">

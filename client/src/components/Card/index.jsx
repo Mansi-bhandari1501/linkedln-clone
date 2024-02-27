@@ -89,7 +89,7 @@ const Cards = (props) => {
       <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px" }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ backgroundColor: "blue" }} aria-label="recipe">
+            <Avatar  aria-label="recipe">
               {props.user}
             </Avatar>
           }

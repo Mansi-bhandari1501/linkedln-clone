@@ -46,8 +46,8 @@ export const showReceivedConnection = async (payload) => {
 export const showPendingConnection = async (payload) => {
 
     try {
-        const senderId = payload.params;
-        const data = await connectionModel.find({ sender: senderId, status: 'pending' });
+        const receiverId = payload.params;
+        const data = await connectionModel.find({ receiver: receiverId, status: 'pending' });
         return data;
     } catch (error) {
         throw error;
@@ -64,7 +64,7 @@ export const showActiveConnection = async (payload) => {
             }, {
                 receiver: userId
             }],
-            status: "fulfilled"
+            status: "active"
         });
         console.log(data)
         return data;

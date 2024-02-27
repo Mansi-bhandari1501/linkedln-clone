@@ -9,14 +9,14 @@ import {
 import React from "react";
 import Header from "../Header";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import FormDialog from "../Profile-Form";
+import FormDialog from "../Profile-Form/index.jsx";
 import Bgimage from "../../assets/bgimage.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 const ProfileComponent = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.userInfo);
-  console.log(user);
+ 
   return (
     <Box
       sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}

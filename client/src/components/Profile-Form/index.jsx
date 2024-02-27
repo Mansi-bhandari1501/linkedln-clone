@@ -16,7 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetails } from "../../features/User/actionCreator";
 import { useState } from "react";
 
 export default function FormDialog() {
@@ -68,7 +67,7 @@ export default function FormDialog() {
     }
     console.log(data)
     handleClose();
-    dispatch(userDetails(data,userId));
+    // dispatch(userDetails(data,userId));
   }
 
   return (

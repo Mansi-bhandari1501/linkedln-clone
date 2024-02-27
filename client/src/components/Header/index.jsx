@@ -1,4 +1,4 @@
-import { Avatar, Box, TextField } from '@mui/material';
+import { Avatar, Box, Button, TextField } from '@mui/material';
 import React from 'react'
 import Icon from "../../assets/LinkedIn_icon.svg.png";
 import "./header.css";
@@ -12,11 +12,11 @@ import { ReactComponent as MsgLogo } from "../../utils/msg-logo.svg"
 import { ReactComponent as NetworkLogo } from "../../utils/network-logo.svg"
 import { ReactComponent as NotificationLogo } from "../../utils/notification-logo.svg"
 import { ReactComponent as BusinessLogo } from "../../utils/business-logo.svg"
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 const Header = () => {
   return (
     <Box className="Header-container">
-      <Box sx={{ display: "flex", gap: "10px", width:"20vw", marginTop:"4px" }}>
+      <Box sx={{ display: "flex", gap: "10px", width: "20vw", marginTop: "4px" }}>
         <img className="In-logo" src={Icon} alt='' ></img>
         <TextField className='search-bar'
           sx={{
@@ -44,31 +44,60 @@ const Header = () => {
         <ul className='menu' type="none" style={{ display: "flex" }}>
 
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-            <HomeLogo className="menu-logo" />
-            <h4 >Home</h4>
+            <Button>
+              <Link to='/'>
+                <HomeLogo className="menu-logo" />
+                <h4 >Home</h4>
+
+              </Link>
+            </Button>
           </li>
 
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-            <NetworkLogo className="menu-logo" />
-            <h4>My network</h4>
+            <Button>
+              <Link to='/mynetwork'>
+                <NetworkLogo className="menu-logo" />
+                <h4>My network</h4>
+              </Link>
+            </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-            <JobsLogo className="menu-logo" />
-            <h4 >Jobs</h4>
+            <Button>
+              <Link to='/'>
+                <JobsLogo className="menu-logo" />
+                <h4 >Jobs</h4>
+
+              </Link>
+            </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-            <MsgLogo className="menu-logo" />
-            <h4 >Messaging</h4>
+            <Button>
+              <Link to='/message'>
+
+                <MsgLogo className="menu-logo" />
+                <h4 >Messaging</h4>
+              </Link>
+            </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-            <NotificationLogo className="menu-logo" />
-            <h4 >Notifications</h4>
+            <Button>
+              <Link to='/'>
+
+                <NotificationLogo className="menu-logo" />
+                <h4 >Notifications</h4>
+              </Link>
+            </Button>
           </li>
           <li className='menu-content'>
-            <Avatar  className="menu-logo"sx={{ backgroundColor: "red" , height:"25px", width:"25px"}} aria-label="recipe">
-              R
-            </Avatar>
-            <h4 style={{textAlign:"center"}} >Me</h4>
+
+            <Link to='/profile'>
+              <Avatar className="menu-logo" sx={{ marginTop: "2px", height: "28px", width: "28px" }} aria-label="recipe">
+
+              </Avatar>
+              <h4 style={{ textAlign: "center", lineHeight: "18px" }} >Me</h4>
+
+            </Link>
+
 
           </li>
           <hr />
@@ -76,8 +105,13 @@ const Header = () => {
       </Box>
       <Box sx={{ display: "flex", gap: "20px" }}>
         <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
-          <BusinessLogo />
-          <h4 >For Business</h4>
+          <Button>
+            <Link to='/'>
+              <BusinessLogo />
+              <h4 >For Business</h4>
+
+            </Link>
+          </Button>
         </li>
         <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
 

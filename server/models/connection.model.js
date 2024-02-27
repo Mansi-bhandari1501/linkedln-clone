@@ -10,7 +10,7 @@ const connectionSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'fulfilled', 'rejected'],
+        enum: ['pending', 'active', 'rejected'],
         default: 'pending',
     },
 

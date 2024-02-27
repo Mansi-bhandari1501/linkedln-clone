@@ -12,53 +12,60 @@ const initialState ={
 export const fetchPost = createAsyncThunk(
     'post/fetchPost',
     async(token)=>{
-        console.log(token)
+        // console.log(token)
         let postUrl= "http://localhost:8080/posts"
-        // let tokenStr =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQyZTc4OWMyOTg0OTQ4OGE2ZjIzNzMiLCJpYXQiOjE3MDgzMjIzNTcsImV4cCI6MTcwODkyNzE1N30.b5DwpYFSCh6--xtwKzlw-zMH-utVTDA8QgkFW31i7vk";
         const res = await axios.get(postUrl,{headers:{Authorization: token}});
-        console.log(res);
+        // console.log(res);
         const data = await res.data;
         return data;
     }
 )
 export const createPost = createAsyncThunk(
     'post/getPost',
-    async(input) =>{
-       
-        console.log(input)
-        // console.log(input.images)
-        const res = await axios.post("http://localhost:8080/posts", input,{
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: state.user.userToken,
-            }
-        }) 
-        console.log(res);
-        return res
-    }
-)
+    async({formData, token}) => {
+        try{
+
+            console.log("token",formData);
+            const res = await axios.post("http://localhost:8080/posts", formData ,{
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                  'Authorization': token,
+                }
+            }) 
+            console.log(res)
+            return res
+        }catch(error){
+            throw error;
+        }
+    })
+        
 export const postSlice = createSlice({
     name:'post',
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
+        // fetchPost
         builder.addCase(fetchPost.pending,(state)=>{
             state.isLoading=true;
         })
         builder.addCase(fetchPost.fulfilled,(state,action)=>{
-            state.isLoading=false
+            state.isLoading=false;
+            state.error=null
             state.contents=action.payload.posts;
         })
         builder.addCase(fetchPost.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
         })
+
+        // createPost
         builder.addCase(createPost.pending,(state)=>{
             state.isLoading=true;
         })
         builder.addCase(createPost.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.contents=action.payload
+            state.error=null
+            state.contents.push(action.payload.data.post);
         })
         builder.addCase(createPost.rejected,(state,action)=>{
             state.isLoading=false

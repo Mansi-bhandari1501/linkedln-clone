@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/linkedIn_logo.png";
-import { registerUser } from '../../features/User/actionCreator';
+import { registerUser } from '../../features/User/userAction';
 import { useDispatch } from 'react-redux';
 
 

@@ -10,7 +10,7 @@ import Box from "@mui/system/Box";
 import Card from "@mui/material/Card";
 import { Button, FilledInput, FormControl, InputAdornment, InputLabel, TextField } from '@mui/material';
 import './login.css';
-import { loginUser } from '../../features/User/actionCreator';
+import { loginUser } from '../../features/User/userAction';
 import { useDispatch } from 'react-redux';
 
 const LoginComponent = () => {

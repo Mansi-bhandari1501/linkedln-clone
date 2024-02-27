@@ -6,10 +6,10 @@ const {sendConnection,removeConnection,receivedConnection,pendingConnection,acti
 const router = express.Router();
 
 router.post('/',requireSignIn,sendConnection);
-router.patch('/',updateStatusConnection);
-router.get('/:_id',receivedConnection);
-router.delete('/:_id',removeConnection);
-router.get('/pending/:_id',pendingConnection);
-router.get('/active/:_id',activeConnection);
+router.patch('/',requireSignIn,updateStatusConnection);
+router.get('/:_id',requireSignIn,receivedConnection);
+router.delete('/:_id',requireSignIn,removeConnection);
+router.get('/pending/:_id',requireSignIn,pendingConnection);
+router.get('/active/:_id',requireSignIn,activeConnection);
 
 export default router;

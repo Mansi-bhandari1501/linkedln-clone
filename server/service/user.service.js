@@ -71,27 +71,23 @@ export const userDetail = async (payload) => {
     // console.log("heeelllo",payload.params)
     const user = await UserModel.findByIdAndUpdate(payload.params, { $set: payload.body });
     // console.log("UUUUSSEERRRR", user);
-  
+
     // return { user }; 
   } catch (error) {
     throw error;
   }
 }
-// export const followUser = async (payload) => {
-//   try {
-//     const user = await UserModel.findById
-    
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 
-export const getUsers = async (payload)=>{
-  // const existingUser = payload.body;
-  // console.log("USERID=------>",existingUser);
-  const users = UserModel.find({ email: { $ne: 'testemail@email.com' } })
-  console.log(users)
-  return users;
+export const getUsers = async (payload) => {
+  try {
+    const {existingUser} = payload.params;
+    console.log("USERID=------>", existingUser);
+    const users = UserModel.find({ _id: { $ne:existingUser} })
+    console.log(users)
+    return users;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const getUsersPaginated = async (payload) => {

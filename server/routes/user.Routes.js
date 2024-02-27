@@ -5,9 +5,8 @@ const { loginController,  registerController, getAllUsers, userDetail,followCont
 const router = express.Router()
 
 
- router.get('/', getAllUsers);
+ router.get('/:_id', requireSignIn,getAllUsers);
  router.post('/register',registerController);
  router.post('/login', loginController);
  router.put('/userDetails/:_id',requireSignIn, userDetail);
-//  router.post('/follow',requireSignIn,followController)
  export default router;

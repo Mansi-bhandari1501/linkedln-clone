@@ -26,7 +26,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import EmojiPicker from "emoji-picker-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createPost, setPost } from "../../features/slices/postSlice";
 // import InputEmoji from 'react-input-emoji'
 const NewPost = ({ hide }, open) => {
@@ -42,15 +42,11 @@ const NewPost = ({ hide }, open) => {
     width: 1,
   });
   const dispatch = useDispatch()
-  // const[title,setTitle] = useState("")
-  // const[body,setBody] = useState("")
+
   const [input, setInput] = useState({ title: '' })
   const [img, setImg] = useState('')
   const [isopen, setIsopen] = useState('');
   // const [opend, setOpened] = useState(false);
-
-  console.log(input)
-  //  console.log(body)
   const handleClickOpen = () => {
     setIsopen(true);
   };
@@ -71,6 +67,9 @@ const NewPost = ({ hide }, open) => {
   //   formData.append('images', image);
   //   dispatch(formData)
   // }
+
+  const user = useSelector((state)=>(state.user));
+
   const handleSubmit = (event) => {
 
     event.preventDefault();
@@ -83,16 +82,20 @@ const NewPost = ({ hide }, open) => {
       return;
     }
 
-    let formData = new FormData();  
-    console.log(input.title)  
-    formData.append('image1',img[0]);  
-    formData.append('image2',img[1]); 
-    formData.append('image3',img[2]); 
-    formData.append('image4',img[3]); 
-    formData.append('title', input.title);
-    formData.append('body', "dhasdla");
+    const token = user.userToken;
+    const userId = user.userInfo._id;
 
-    dispatch(createPost(formData));
+    console.log("token",token);
+
+    let formData = new FormData();
+    formData.append('image1', img[0]);
+    formData.append('image2', img[1]);
+    formData.append('image3', img[2]);
+    formData.append('image4', img[3]);
+    formData.append('title', input.title);
+    formData.append('userId', userId);
+
+    dispatch(createPost({formData, token}));
   }
   return (
     <Box>
@@ -146,29 +149,30 @@ const NewPost = ({ hide }, open) => {
               onChange={(e) => setInput({ ...input,body:e.target.value })}
             /> */}
             <Button sx={{
-                height: '50px',
-                width: "0px",
-                display: "flex",
-                justifyContent: "start",
-                alignItems: "start",
-                position:"relative",
-                marginTop:"300px"
-              }}>
-                <EmojiIcon onClick={handleClickOpen} />
+              height: '50px',
+              width: "0px",
+              display: "flex",
+              justifyContent: "start",
+              alignItems: "start",
+              position: "relative",
+              marginTop: "300px"
+            }}>
+              <EmojiIcon onClick={handleClickOpen} />
 
-                {isopen && (
-                  <EmojiPicker className="emojipicker" hide={handleClose} 
-                  sx={{width:"50px",
-                  paddingTop:"10px",
-                  "&:MuiButtonBase-root-MuiButton-root":{
-                    width:"50px",
-                  }
-                }}
-                  />
-                )}
-              </Button>
+              {isopen && (
+                <EmojiPicker className="emojipicker" hide={handleClose}
+                  sx={{
+                    width: "50px",
+                    paddingTop: "10px",
+                    "&:MuiButtonBase-root-MuiButton-root": {
+                      width: "50px",
+                    }
+                  }}
+                />
+              )}
+            </Button>
           </FormControl>
-             
+
           <Button
 
             component="label"
@@ -177,7 +181,7 @@ const NewPost = ({ hide }, open) => {
             tabIndex={-1}
             sx={{ width: "10px" }}
             startIcon={<MediaIcon />
-          }
+            }
           // onClick={handleFileUpload}
           />
           <input type="file" multiple="multiple" id='post_images' class="custom-file-input" name='post_images' onChange={(e) => {

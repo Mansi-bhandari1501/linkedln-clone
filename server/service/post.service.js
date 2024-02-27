@@ -1,33 +1,28 @@
 import postModel from "../models/post.model.js";
 
-export const createPost = async (req) => {
+export const createPost = async (payload) => {
 
     try {
-        // console.log("payload---->",req.body)
-        let { userId, title, body } = req.body
+        let { userId, title } = payload.body
 
         if (!userId || !title ) {
             throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid Payload' });
         }
 
         const files = payload.files;
-        console.log("files",files)
 
-        const image1 = files?.image1[0]?.path|| "";
-        const image2 = files?.image2[1]?.path|| "";
-        const image3 = files?.image3[2]?.path|| "";
-        const image4 = files?.image4[3]?.path|| "";
+        const image1 = files?.image1 && (files?.image1[0]?.path || null);
+        const image2 = files?.image2 && (files?.image2[0]?.path || null);
+        const image3 = files?.image3 && (files?.image3[0]?.path || null);
+        const image4 = files?.image4 && (files?.image4[0]?.path || null);
 
         const newPostData = {
             userid: userId,
             title: title,
-            body: body,
-            // images: [image1, image2, image3, image4],
+            images: [image1, image2, image3, image4].filter(Boolean),
         };
-        console.log("yyyyyyy",newPostData)
 
         let post = await new postModel(newPostData).save();
-        console.log("rrrrr",post)
         return { post }
     }
     catch (error) {
@@ -64,7 +59,7 @@ export const fetchAllPosts = async (payload) => {
         // handle validation
 
         console.log(payload.body)
-        const posts = await postModel.find()
+        const posts = await postModel.find().populate('userid',"email")
         // .populate('user');
         return { posts };
     }
