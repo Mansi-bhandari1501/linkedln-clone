@@ -5,6 +5,7 @@ import MainFooter from '../MainFooter';
 import InvitationCard from '../Card/invitationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchActiveConnection} from "../../features/connection/connectionAction"
+import MyConnectionCard from '../Card/myConnection';
 const MyConnections = () => {
     const dispatch= useDispatch();
     const user = useSelector((state) => state.user);
@@ -18,7 +19,7 @@ const MyConnections = () => {
         dispatch(fetchActiveConnection({userId,token}));
     }, [dispatch])
     return (
-        <Box sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px", padding:"20px" }}>
+        <Box sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}>
             <Box className="home-nav">
                 <Header />
             </Box>
@@ -26,7 +27,7 @@ const MyConnections = () => {
                 <Box
                 sx={{
                     width: "45vw",
-                    border: "1px solid #F2F0EC",
+                    border: "1px solid #DFDEDA",
                     backgroundColor: "white",
                     borderRadius: "10px",
                 }}>
@@ -40,7 +41,7 @@ const MyConnections = () => {
                     <Box>
                              {connections?.map((content,index) => (
                                     <div key={index}>
-                                        <InvitationCard 
+                                        <MyConnectionCard 
                                         content={content}/>
                                     </div>
                                        
@@ -53,7 +54,7 @@ const MyConnections = () => {
                 <Stack
                     sx={{
                         width: "15vw",
-                        border: "1px solid #F2F0EC",
+
                         borderRadius: "10px",
                     }}>
                     <MainFooter/>

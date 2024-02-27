@@ -2,16 +2,21 @@
 
 import { Avatar, Box, Button, Card, CardHeader, IconButton, Typography } from "@mui/material";
 import Bgimage from "../../assets/bgimage.jpeg";
-import Profile from "../../assets/profileimage.png";
-// const UserCard = () => {
-//   return (
-//     <div>
-//       userss
-//     </div>
-//   )
-// }
+import { useDispatch, useSelector } from "react-redux";
+import { addConnection } from "../../features/connection/connectionAction";
 
 export default function UserCard(props) {
+const dispatch = useDispatch();
+const user = useSelector((state) => state.user);
+const senderId = user.userId;
+// console.log(userId)
+console.log(props.userId)
+const token = user.userToken;
+const receiverId = props.userId ;
+const handleConnect=()=>{
+  dispatch(addConnection({receiverId,senderId,token}));
+}
+
   return (
     <Card sx={{ width: "10vw" }}>
       <Box sx={{ position: "relative" }}>
@@ -42,7 +47,11 @@ export default function UserCard(props) {
         <Button sx={{
           height: "30px",
           marginLeft: "50px", border: "1px solid #0B66C2", marginBottom: "15px", borderRadius: "20px"
-        }}>Connect</Button>
+        }}
+        onClick={handleConnect}
+        >
+          Connect
+          </Button>
       </Box>
 
     </Card>

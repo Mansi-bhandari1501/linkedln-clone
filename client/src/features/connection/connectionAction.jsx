@@ -8,18 +8,39 @@ export const fetchConnection = createAsyncThunk(
     async ({userId,token}) => {
         console.log(userId)
         console.log(token)
+        const res = await axios.get(`http://localhost:8080/connections/${userId}`,
+        {headers:{Authorization: token}});
+        const data =  res.data;
+        console.log("connectionData",data.connection)
+        return data;
+    }
+)
+export const fetchPendingConnection = createAsyncThunk(
+    CONNECTION_TYPE.GET_PENDING_CONNECTION,
+    async ({userId,token}) => {
+       
         const res = await axios.get(`http://localhost:8080/connections/pending/${userId}`,
         {headers:{Authorization: token}});
         const data =  res.data;
-        console.log("connectionData",data)
+        console.log("connectionData",data.connection)
+        return data;
+    }
+)
+export const rejectConnection = createAsyncThunk(
+    CONNECTION_TYPE.REJECT_CONNECTION,
+    async ({senderId,token}) => {
+       
+        const res = await axios.get(`http://localhost:8080/connections/${senderId}`,
+        {headers:{Authorization: token}});
+        const data =  res.data;
+        console.log("connectionData",data.connection)
         return data;
     }
 )
 export const fetchActiveConnection = createAsyncThunk(
     CONNECTION_TYPE.GET_ACTIVE_CONNECTION,
     async ({userId,token}) => {
-        console.log(userId)
-        console.log(token)
+       
         const res = await axios.get(`http://localhost:8080/connections/active/${userId}`,
         {headers:{Authorization: token}});
         const data =  res.data;
@@ -27,14 +48,12 @@ export const fetchActiveConnection = createAsyncThunk(
         return data;
     }
 )
-export const createConnection = createAsyncThunk(
+export const addConnection = createAsyncThunk(
     CONNECTION_TYPE.ADD_CONNECTION,
-    async ({input}) => {
-        console.log(input)
-        const res = await axios.get(`http://localhost:8080/connections/${input}`,
+    async ({receiverId,senderId,token}) => {
+        const res = await axios.post(`http://localhost:8080/connections`,receiverId,senderId,
         {headers:{Authorization: token}}
         );
-        
         const data =  res.data;
         console.log(data)
         return data;

@@ -1,10 +1,12 @@
 import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../Header';
 import MainFooter from '../MainFooter';
+import Received from './received.jsx';
+import Sent from './send.jsx';
 
 const ManageInvitation = () => {
-  
+  const [type,setType] =  useState(true);
   return (
     <Box
     sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}
@@ -32,10 +34,15 @@ const ManageInvitation = () => {
             >
               <Typography>Manage Invitations</Typography>
             <Box>
-            <Button>Received</Button>
-            <Button>Send</Button>
+            <Button 
+            onClick={()=>{setType(true)}}
+            >Received</Button>
+            <Button
+             onClick={()=>{setType(false)}}
+             >Send</Button>
             </Box>
             <Divider/>
+            {type ? <Received /> : <Sent /> }
             </Box>
           </Box>
         </Stack>

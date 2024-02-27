@@ -1,5 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit";
-import { createConnection, fetchActiveConnection, fetchConnection } from "./connectionAction";
+import { addConnection, createConnection, fetchActiveConnection, fetchConnection, rejectConnection } from "./connectionAction";
 // import axios from "axios";
 
 
@@ -36,15 +36,26 @@ export const connectionSlice = createSlice({
             state.isLoading=false
             state.error= action.error.message
         })
-        
-        builder.addCase(createConnection.pending,(state)=>{
+        builder.addCase(rejectConnection.pending,(state)=>{
             state.isLoading=true;
         })
-        builder.addCase(createConnection.fulfilled,(state,action)=>{
+        builder.addCase(rejectConnection.fulfilled,(state,action)=>{
+            state.isLoading=false
+            state.connections=action.payload.connection;
+        })
+        builder.addCase(rejectConnection.rejected,(state,action)=>{
+            state.isLoading=false
+            state.error= action.error.message
+        })
+        
+        builder.addCase(addConnection.pending,(state)=>{
+            state.isLoading=true;
+        })
+        builder.addCase(addConnection.fulfilled,(state,action)=>{
             state.isLoading=false
             state.connections=action.payload
         })
-        builder.addCase(createConnection.rejected,(state,action)=>{
+        builder.addCase(addConnection.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
         })

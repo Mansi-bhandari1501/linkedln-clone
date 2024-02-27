@@ -1,22 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { fetchPost } from '../../features/slices/postSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchPost } from "../../features/slices/postSlice";
 // import { fetchComments } from './slices/commentSlice';
 // import Post from './post';
 
 import "./post.css";
-import Cards from '../Card';
+import Cards from "../Card";
 // import { Card } from '@mui/material';
 function Post() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const token = user.userToken
+    const token = user.userToken;
     dispatch(fetchPost(token));
-  }, [dispatch])
-
-
+  }, [dispatch]);
 
   const posts = useSelector((state) => state.post.contents);
   // console.log(posts);
@@ -24,7 +22,7 @@ function Post() {
   const isLoading = useSelector((state) => state.post.isLoading);
 
   if (isLoading) {
-    return 'Loading...';
+    return "Loading...";
   }
 
   // if(error){
@@ -32,11 +30,10 @@ function Post() {
   // }
 
   return (
-    <div className='post-container'>
-
-      {posts.length === 0 && <>No new posts's</> }
+    <div className="post-container">
+      {posts.length === 0 && <>No new posts's</>}
       {posts?.map((content) => (
-        <div key={content._id} >
+        <div key={content._id}>
           <Cards
             title={content.title}
             body={content.body}
@@ -44,7 +41,7 @@ function Post() {
             createdAt={content.createdAt}
             postId={content._id}
             images={content.images}
-            user={content.userid.email}
+            // user={content.userid}
           />
           {/* <h3>name : {content.name} </h3> */}
           {/* <h3 >title : {content.title} </h3>
@@ -60,10 +57,9 @@ function Post() {
           {/* <h3>likes : {content.likes} </h3> */}
           {/* <h3 >comments : {content.comments} </h3>      */}
         </div>
-
       ))}
     </div>
-  )
+  );
 }
 
 export default Post;

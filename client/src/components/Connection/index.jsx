@@ -1,192 +1,199 @@
-import { Avatar, Box, Divider, Stack, Typography } from '@mui/material';
-import React, { useEffect } from 'react'
-import Header from '../Header';
-import { ReactComponent as NetworkLogo } from "../../utils/network-logo.svg"
+import { Box, Divider, Stack, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import Header from "../Header";
+import { ReactComponent as NetworkLogo } from "../../utils/network-logo.svg";
 // import EventNoteIcon from '@material-ui/icons/EventNote';
-import MainFooter from '../MainFooter';
-import InvitationCard from '../Card/invitationCard';
-import UserCard from '../Card/userCard';
-import { experimentalStyled as styled } from '@mui/material/styles';
+import MainFooter from "../MainFooter";
+import InvitationCard from "../Card/invitationCard";
+import UserCard from "../Card/userCard";
+// import { experimentalStyled as styled } from '@mui/material/styles';
 
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../../features/User/userAction';
-import { Link } from 'react-router-dom';
-import { fetchConnection } from '../../features/connection/connectionAction';
+// import Paper from '@mui/material/Paper';
+import Grid from "@mui/material/Grid";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../features/User/userAction";
+import { Link } from "react-router-dom";
+import { fetchConnection } from "../../features/connection/connectionAction";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+// const item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+// }));
 const NetworkComponent = () => {
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.user);
-    // console.log(user)
-    // console.log(userId)
-    const token = user.userToken
-    const userId = user.userId;
-    // console.log(userId)
-    
-    const users = useSelector((state) => state.user.userInfo.user);
-    // console.log(users)
-    const connections = useSelector((state) => state.connection.connections);
-    // console.log(token)
-    // console.log(connections);
-    useEffect( () => {
-        // console.log(userId)
-        // console.log(token)
-        dispatch(fetchUsers({userId,token}));
-        dispatch(fetchConnection({userId,token}));
-    }, [dispatch])
-  
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const token = user.userToken;
+  const userId = user.userId;
+ 
 
-    
-  
-    
-    // if (isLoading) {
-    //     return 'Loading...';
-    // }
+  const users = useSelector((state) => state.user.userInfo.user);
 
-    return (
-        <Box
-            sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}
+  const connections = useSelector((state) => state.connection.connections);
+ 
+  useEffect(() => {
+    dispatch(fetchUsers({ userId, token }));
+    dispatch(fetchConnection({ userId, token }));
+  }, [dispatch]);
+
+  // if (isLoading) {
+  //     return 'Loading...';
+  // }
+
+  return (
+    <Box
+      sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}
+    >
+      <Box className="home-nav">
+        <Header />
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: "25px" }}>
+        {/* <Stack sx={{height:"500px"}} flexDirection={"row"} justifyContent={'space-around'}>   */}
+        <Stack
+          sx={{
+            width: "15vw",
+            border: "1px solid #DFDEDA",
+            backgroundColor: "white",
+            borderRadius: "10px",
+          }}
         >
-            <Box className="home-nav">
-                <Header />
+          <Box
+            sx={{
+              marginTop: "8px",
+              marginBottom: "8px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-around",
+              alignItem: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography>Manage my network</Typography>
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "center", gap: "25px" }}>
-                {/* <Stack sx={{height:"500px"}} flexDirection={"row"} justifyContent={'space-around'}>   */}
-                <Stack
-                    sx={{
-                        width: "15vw",
-                        border: "1px solid #F2F0EC",
-                        backgroundColor: "white",
-                        borderRadius: "10px",
-                    }}
-                >
-                    <Box sx={{ marginTop: "8px", marginBottom: "8px", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItem: "center" }}>
-                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                            <Typography>Manage my network</Typography>
-                        </Box>
-                        <Box>
-                        <Link to="/mynetwork/invite-connect/connections" style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "20px" }}><NetworkLogo />Connections</Typography>
-                            </Link>
-                        </Box>
-                        <Box>
-                            <Link to="/"style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Contacts</Typography>
-                            </Link>
-                        </Box>
-
-                        <Box>
-                        <Link to="/"style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Groups</Typography>
-                            </Link>
-                        </Box>
-                        <Box>
-                        <Link to="/" style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Events</Typography>
-                            </Link>
-                        </Box>
-                        <Box>
-                        <Link to="/" style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Pages</Typography>
-                            </Link>
-                        </Box>
-                        <Box>
-                        <Link to="/" style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Newsletters</Typography>
-                            </Link>
-                        </Box>
-                        <Box>
-                        <Link to="/" style={{textDecoration:"NONE"}}>
-                            
-                            <Typography sx={{ paddingLeft: "32px" }}>Hashtag</Typography>
-                            </Link>
-                        </Box>
-                    </Box>
-                    <Divider />
-                    <Box sx={{ marginTop: "8px", marginBottom: "18px" }}>
-                        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-
-
-                            <MainFooter />
-                        </Box>
-                    </Box>
-                </Stack>
-                <Stack
-                    sx={{
-                        gap: "15px"
-                    }}
-                >
-                    <Box sx={{
-                        width: "42vw",
-                        border: "1px solid grey",
-                        backgroundColor: "white",
-                        borderRadius: "10px", padding: "8px"
-                    }}>
-
-                        <Box sx={{ padding: "10px", display: "flex", justifyContent: "space-between" }}>
-                            <Box>
-                                <Typography>Invitations</Typography>
-                            </Box>
-                            <Box>
-                                <Link to='/mynetwork/invitation-manager'>
-                                    <typography>See All</typography>
-                                </Link>
-                            </Box>
-                        </Box>
-                        <Divider />
-                        <Box>
-                             {connections?.map((content,index) => (
-                                    <div key={index}>
-                                        <InvitationCard 
-                                        content={content}/>
-                                    </div>
-                                       
-                             ))}
-                        </Box>
-
-                    </Box>
-                    <Box
-                        sx={{
-                            width: "42vw",
-                            border: "1px solid grey",
-                            backgroundColor: "white",
-                            borderRadius: "10px", padding: "8px"
-                        }}>
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Typography sx={{margin:'10px'}}>Suggetions</Typography>
-                            <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                                {users ?.map((content) => (
-                                    <Grid item xs={1} sm={3} md={3} key={content._id}>
-                                        <UserCard 
-                                         email={content.email}
-                                        />
-                                    </Grid>
-
-                                ))}
-                            </Grid>
-                        </Box>
-                    </Box>
-                </Stack>
-
-
+            <Box>
+              <Link
+                to="/mynetwork/invite-connect/connections"
+                style={{ textDecoration: "NONE" }}
+              >
+                <Typography sx={{ paddingLeft: "20px" }}>
+                  <NetworkLogo />
+                  Connections
+                </Typography>
+              </Link>
             </Box>
-        </Box>
-    );
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>Contacts</Typography>
+              </Link>
+            </Box>
 
-}
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>Groups</Typography>
+              </Link>
+            </Box>
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>Events</Typography>
+              </Link>
+            </Box>
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>Pages</Typography>
+              </Link>
+            </Box>
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>
+                  Newsletters
+                </Typography>
+              </Link>
+            </Box>
+            <Box>
+              <Link to="/" style={{ textDecoration: "NONE" }}>
+                <Typography sx={{ paddingLeft: "32px" }}>Hashtag</Typography>
+              </Link>
+            </Box>
+          </Box>
+          <Divider />
+          <Box sx={{ marginTop: "8px", marginBottom: "18px" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+              <MainFooter />
+            </Box>
+          </Box>
+        </Stack>
+        <Stack
+          sx={{
+            gap: "15px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "42vw",
+              border: "1px solid #DFDEDA",
+              backgroundColor: "white",
+              borderRadius: "10px",
+              padding: "8px",
+            }}
+          >
+            <Box
+              sx={{
+                padding: "10px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box>
+                <Typography>Invitations</Typography>
+              </Box>
+              <Box>
+                <Link to="/mynetwork/invitation-manager">
+                  <typography>See All</typography>
+                </Link>
+              </Box>
+            </Box>
+            <Divider />
+            <Box>
+              {connections?.map((content, index) => (
+                <div key={index}>
+                  <InvitationCard content={content} />
+                </div>
+              ))}
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              width: "42vw",
+              border: "1px solid #DFDEDA",
+              backgroundColor: "white",
+              borderRadius: "10px",
+              paddingRight: "20px",
+              padding: "10px",
+            }}
+          >
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography sx={{ margin: "10px" }}>Suggetions</Typography>
+              <Grid
+                container
+                spacing={{ xs: 2, md: 1 }}
+                columns={{ xs: 3, sm: 9, md: 12 }}
+              >
+                {users?.map((content) => (
+                  <Grid item xs={1} sm={3} md={3} key={content._id}>
+                    <UserCard 
+                    userId={content._id}
+                    email={content.email} />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </Box>
+        </Stack>
+      </Box>
+    </Box>
+  );
+};
 
 export default NetworkComponent;
