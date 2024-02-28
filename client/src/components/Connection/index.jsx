@@ -27,15 +27,17 @@ const NetworkComponent = () => {
   const user = useSelector((state) => state.user);
   const token = user.userToken;
   const userId = user.userId;
+
  
 
-  const users = useSelector((state) => state.user.userInfo.user);
+  const users = useSelector((state) => state.user.users);
+  const connections = useSelector((state) => state.connection);
+  console.log(connections)
+  console.log(users);
 
-  const connections = useSelector((state) => state.connection.connections);
- 
   useEffect(() => {
-    dispatch(fetchUsers({ userId, token }));
-    dispatch(fetchConnection({ userId, token }));
+    dispatch(fetchUsers( {userId, token} ));
+    dispatch(fetchConnection( {userId, token} ));
   }, [dispatch]);
 
   // if (isLoading) {
@@ -156,7 +158,7 @@ const NetworkComponent = () => {
             </Box>
             <Divider />
             <Box>
-              {connections?.map((content, index) => (
+              {Array.connections?.map((content, index) => (
                 <div key={index}>
                   <InvitationCard content={content} />
                 </div>

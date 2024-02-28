@@ -17,7 +17,7 @@ const Received = () => {
   
     return (
       <Stack sx={{ display: 'flex', flexDirection: 'column' }}>
-        {connections?.map((content,i) => {
+        {Array.connections?.map((content,i) => {
             return (
                 <>
               <Stack key={i} sx={{margin: '15px',width:"39vw"}} flexDirection={'row'}>

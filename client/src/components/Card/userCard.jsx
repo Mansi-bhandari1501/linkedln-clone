@@ -13,7 +13,10 @@ const senderId = user.userId;
 console.log(props.userId)
 const token = user.userToken;
 const receiverId = props.userId ;
+
 const handleConnect=()=>{
+  console.log("receiver",receiverId)
+  console.log("sender",senderId)
   dispatch(addConnection({receiverId,senderId,token}));
 }
 

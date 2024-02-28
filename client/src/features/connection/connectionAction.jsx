@@ -50,7 +50,8 @@ export const fetchActiveConnection = createAsyncThunk(
 )
 export const addConnection = createAsyncThunk(
     CONNECTION_TYPE.ADD_CONNECTION,
-    async ({receiverId,senderId,token}) => {
+    async (receiverId,senderId,token) => {
+        console.log(receiverId,senderId,token)
         const res = await axios.post(`http://localhost:8080/connections`,receiverId,senderId,
         {headers:{Authorization: token}}
         );

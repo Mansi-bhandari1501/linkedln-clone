@@ -13,7 +13,7 @@ const Sent = () => {
     }, [dispatch])
     const connections = useSelector((state) => state.connection.connections);
  
-
+    console.log(connections);
   
     return (
       <Stack sx={{ display: 'flex', flexDirection: 'column' }}>

@@ -68,8 +68,9 @@ export const loginUser = createAsyncThunk(
 // );
 export const fetchUsers = createAsyncThunk(
   ACTION_TYPE.GET_USER,
-  async({userId,token})=>{
-      // console.log(token)
+  async({userId,token},{rejectWithValue})=>{
+      console.log(token)
+      console.log(userId)
       const res = await axios.get(`http://localhost:8080/users/${userId}`,
       {headers:{Authorization: token}}
       );

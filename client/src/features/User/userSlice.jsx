@@ -8,6 +8,7 @@ const initalState = {
   userId:null,
   error: null,
   success: false,
+  users:[]
 };
 
 const userSlice = createSlice({
@@ -72,7 +73,8 @@ const userSlice = createSlice({
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.loading = false;
       state.error = null
-      state.userInfo = action.payload;
+      console.log("fetch users",action.payload.user);
+      state.users = action.payload.user;
     })
     builder.addCase(fetchUsers.rejected, (state, action) => {
       state.loading = false
