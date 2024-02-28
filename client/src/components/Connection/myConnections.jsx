@@ -10,7 +10,7 @@ const MyConnections = () => {
     const dispatch= useDispatch();
     const user = useSelector((state) => state.user);
     const connections = useSelector((state) => state.connection.connections);
-    // console.log(connections)
+    console.log(connections)
     const token = user.userToken
     const userId = user.userId;
     // console.log(userId)
@@ -39,7 +39,7 @@ const MyConnections = () => {
                     </Typography>
                     <Divider sx={{ margin: "2px" }} />
                     <Box>
-                             {Array.connections?.map((content,index) => (
+                             {connections?.map((content,index) => (
                                     <div key={index}>
                                         <MyConnectionCard 
                                         content={content}/>

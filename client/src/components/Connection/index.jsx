@@ -31,7 +31,7 @@ const NetworkComponent = () => {
  
 
   const users = useSelector((state) => state.user.users);
-  const connections = useSelector((state) => state.connection);
+  const connections = useSelector((state) => state.connection.connections);
   console.log(connections)
   console.log(users);
 
@@ -158,7 +158,7 @@ const NetworkComponent = () => {
             </Box>
             <Divider />
             <Box>
-              {Array.connections?.map((content, index) => (
+              {connections?.map((content, index) => (
                 <div key={index}>
                   <InvitationCard content={content} />
                 </div>

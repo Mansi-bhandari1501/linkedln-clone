@@ -26,7 +26,7 @@ const ManageInvitation = () => {
           <Box sx={{padding:"10px"}}>
             <Box
               sx={{
-                height: "200px",
+                height: "40vh",
                 // border: "1px solid blue",
                 position: "relative",
                 
@@ -42,7 +42,9 @@ const ManageInvitation = () => {
              >Send</Button>
             </Box>
             <Divider/>
+            <Box sx={{height:"10vh"}}>
             {type ? <Received /> : <Sent /> }
+            </Box>
             </Box>
           </Box>
         </Stack>

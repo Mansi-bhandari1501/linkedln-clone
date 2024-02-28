@@ -15,7 +15,7 @@ const usersSchema = new mongoose.Schema({
         // required: true
         default: null
     },
-    lasName: {
+    lastName: {
         type: String,
         default: null
         // required: true
