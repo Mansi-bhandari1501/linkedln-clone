@@ -13,13 +13,13 @@ const Received = () => {
     }, [dispatch])
     const connections = useSelector((state) => state.connection.connections);
  
-
+console.log(connections)
   
     return (
       <Stack sx={{ display: 'flex', flexDirection: 'column' }}>
         {connections?.map((content,i) => {
             return (
-                <>
+               
               <Stack key={i} sx={{margin: '15px',width:"39vw"}} flexDirection={'row'}>
                  <Box sx={{display:'flex',width:"41vw",justifyContent:"space-between"}}>
 
@@ -33,10 +33,10 @@ const Received = () => {
                  </Box>
                  </Box>
                   
-              </Stack>
                  <Divider />
+              </Stack>
                 
-                </>
+                
             )
         })
     }

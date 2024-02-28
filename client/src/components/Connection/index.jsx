@@ -71,51 +71,57 @@ const NetworkComponent = () => {
               alignItem: "center",
             }}
           >
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", padding:"10px" }}>
               <Typography>Manage my network</Typography>
             </Box>
-            <Box>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
               <Link
                 to="/mynetwork/invite-connect/connections"
-                style={{ textDecoration: "NONE" }}
+                style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}
               >
-                <Typography sx={{ paddingLeft: "20px" }}>
-                  <NetworkLogo />
+                  <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>
                   Connections
                 </Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>Contacts</Typography>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/"  style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>Contacts</Typography>
               </Link>
             </Box>
 
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>Groups</Typography>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/"  style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>Groups</Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>Events</Typography>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/"  style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>Events</Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>Pages</Typography>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/"  style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>Pages</Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/" style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>
                   Newsletters
                 </Typography>
               </Link>
             </Box>
-            <Box>
-              <Link to="/" style={{ textDecoration: "NONE" }}>
-                <Typography sx={{ paddingLeft: "32px" }}>Hashtag</Typography>
+            <Box sx={{display:"flex",justifyContent:"space-between ", paddingLeft:"10px"}}>
+              <Link to="/"  style={{ textDecoration: "NONE",display:"flex",justifyContent:"space-around" }}>
+              <NetworkLogo sx={{marginRight:"20px"}} />
+                <Typography sx={{ paddingLeft: "10px" }}>Hashtag</Typography>
               </Link>
             </Box>
           </Box>

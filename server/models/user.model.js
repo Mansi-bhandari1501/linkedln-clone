@@ -10,52 +10,114 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    firstName: {
+    Name: {
         type: String,
         // required: true
         default: null
     },
-    lastName: {
+    address: {
         type: String,
-        default: null
-        // required: true
-    },
-    city: {
-        type: String,
-        default: null
-        // required:true
+        city: {
+            type: String,
+            default: null
+          } ,
+          state: {
+            type: String,
+            default: null
+          },
+          country: {
+            type: String,
+            default: null
+          },
     },
     phone: {
         type: String,
         default: null
-        // required:true,
     },
-    website: {
+    profileImage: {
         type: String,
         default: null
-        // required:true,
     },
-    company: [{
-
-        companyname: {
-            type: String,
-            default: null
-
-            // required:true
+    bgImage: {
+        type: String,
+        default: null
+    },
+    website:{
+        type: String,
+        default: null
+    },
+    company: {
+        type: Object,
+      name: {
+        type: String,
+        default: null
+      } ,
+      catchPhrase: {
+        type: String,
+        default: null
+      },
+      designation: {
+        type: String,
+        default: null
+      },
+      duration:{
+        type: Object,
+        start: {
+          type: String,
+          default: null
+        } ,
+        end: {
+          type: String,
+          default:"present"
         },
+      }
+    
+    },
+    headline: {
+        type: String,
+        default: null
+    },
+    summary: {
+        type: String,
+        default: null
+    },
+    Education:{
+      type: Object,
+        name: {
+          type: String,
+          default: null
+        } ,
         catchPhrase: {
-
-            type: String,
-            default: 0
-            // required:true,
+          type: String,
+          default: null
         },
-        bs: {
+        designation: {
+          type: String,
+          default: null
+        },
+        duration:{
+            type: Object,
+            start: {
+              type: String,
+              default: null
 
-            type: String,
-            default: 0
-            // required:true,
+            } ,
+            end: {
+              type: String,
+              default:"present"
+            },
         }
-    }],
+    },
+    skills:{
+
+        type: Object,
+      name: {
+        type: String,
+        default: null
+      } ,
+    }
+    
+
    
  // followers: [{
     //     userid:
@@ -82,8 +144,9 @@ const usersSchema = new mongoose.Schema({
     //     }
 
     // }]
-    connection:{
+    ,connection:{
         type: String,
+        default: null
         
     }
 }, { timestamps: true })

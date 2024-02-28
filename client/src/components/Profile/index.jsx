@@ -1,22 +1,35 @@
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   IconButton,
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Header";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import FormDialog from "../Profile-Form/index.jsx";
 import Bgimage from "../../assets/bgimage.jpeg";
 import { useDispatch, useSelector } from "react-redux";
+import NewPost from "../NewPost/index.jsx";
 const ProfileComponent = () => {
+  const [open, setOpen] = useState (false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   // const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.userInfo);
- 
+ console.log(user)
+ const handleClick =(e)=>{
+  
+ }
   return (
     <Box
       sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}
@@ -28,14 +41,23 @@ const ProfileComponent = () => {
         {/* <Stack sx={{height:"500px"}} flexDirection={"row"} justifyContent={'space-around'}>   */}
 
         <Stack
-          sx={{
+          // sx={{
+          //   width: "42vw",
+          //   border: "1px solid grey",
+          //   backgroundColor: "white",
+          //   borderRadius: "10px",
+          // }}
+        >
+          <Box
+           sx={{
             width: "42vw",
             border: "1px solid grey",
             backgroundColor: "white",
             borderRadius: "10px",
           }}
-        >
-          <Box>
+          >
+            
+         
             <Box
               sx={{
                 height: "200px",
@@ -68,10 +90,11 @@ const ProfileComponent = () => {
                   left: "3vw"
                 }}>
                   <Box>
-                  Mansi Bhandari
+               {user.firstName} {user.lasName}
                   </Box>
                   <Box>
                   student at punjabi university Patiala
+                  {/* {user.education} */}
                   </Box>
                 </Box>
               </Box>
@@ -90,6 +113,61 @@ const ProfileComponent = () => {
               </Box>
             </Box>
           </Box>
+            
+        <Box
+         sx={{
+          width: "42vw",
+          border: "1px solid grey",
+          backgroundColor: "white",
+          borderRadius: "10px",
+          marginTop:"10px"
+        }}
+        >
+          <Box sx={{width: "100%",display:"flex",justifyContent:"space-between",padding:"10px"}}>
+
+          <Typography sx={{marginLeft:"10px",marginTop:"10px"}}>
+          Activity
+          </Typography>
+          <Box>
+
+          <Button sx={{marginLeft:"510px",marginTop:"0px"}}
+          onClick={handleClickOpen}>create a post</Button>
+          {open && <NewPost hide={handleClose} />}
+          <ModeEditIcon sx={{size:"small"}} />
+          </Box>
+          <Box sx={{
+            display:"flex",flexDirection:"column",
+          }
+          }>
+          {/* <Divider/>
+            comments */}
+          </Box>
+          </Box>
+        </Box>
+        <Box
+         sx={{
+          width: "42vw",
+          border: "1px solid grey",
+          backgroundColor: "white",
+          borderRadius: "10px",
+          marginTop:"10px"
+
+        }}
+        >
+          <Box sx={{  width: "100%",display:"flex",justifyContent:"start",flexDirection:"column"}}>
+
+          <Typography sx={{marginLeft:"10px",marginTop:"10px"}}>
+          Experience
+          </Typography>
+          <Box>
+          <Box sx={{marginLeft:"50px",marginTop:"8px",marginBottom:"8px"}}>
+            Zenmonk
+            {/* {user} */}
+          </Box>
+            {/* comments */}
+          </Box>
+          </Box>
+        </Box>
         </Stack>
         <Stack
           sx={{

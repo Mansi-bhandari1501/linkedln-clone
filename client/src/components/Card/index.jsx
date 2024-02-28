@@ -51,8 +51,8 @@ const Cards = (props) => {
   }));
 
   const dispatch = useDispatch();
-  // const user = useSelector(state=>state);
-  // console.log(user);
+  const user = useSelector(state=>state.user.userInfo);
+  // console.log(user.firstName);
   const userId = useSelector((state) => state.user.userInfo._id);
   // console.log('USER',userId)
   const [expanded, setExpanded] = React.useState(false);
@@ -83,7 +83,7 @@ const Cards = (props) => {
   // const iserror = useSelector((state) => state.comments.error);
   const comments = useSelector((state) => state.comments.comments.comment);
   // console.log('COMMENTS', comments, iserror, Loading)
-  // console.log('coMMents',comments.comment.body)
+  console.log('coMMents',comments)
   return (
     <div>
       <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px" }}>
@@ -109,6 +109,7 @@ const Cards = (props) => {
         <div className="images">
           {props.images.map((image, index) => (
             <div
+            key={index}
               style={{
                 display: "flex",
                 flexDirection: "row",

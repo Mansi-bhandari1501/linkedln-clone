@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { Avatar, Box, Button, Card, CardHeader, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardHeader, Typography } from "@mui/material";
 import Bgimage from "../../assets/bgimage.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../../features/connection/connectionAction";

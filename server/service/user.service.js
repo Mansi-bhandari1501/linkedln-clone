@@ -66,16 +66,24 @@ export const loginUser = async (payload) => {
   }
 }
 export const userDetail = async (payload) => {
-  try {
 
-    // console.log("heeelllo",payload.params)
-    const user = await UserModel.findByIdAndUpdate(payload.params, { $set: payload.body });
-    // console.log("UUUUSSEERRRR", user);
+    try{
+        const userId = payload.params
+        console.log(userId);
+        const {name, address, phone, website, company, summary, headline} = payload.body
+        const currentUserId = await Users.findById(userId)
+        if(currentUserId == null){ 
+            return 404
+        }
+        else {
+            const userDetails = await Users.findByIdAndUpdate( {_id:userId}, {$set: {name, address, phone, website, company, summary, headline}} )
+            return userDetails
+        }
 
-    // return { user }; 
-  } catch (error) {
-    throw error;
-  }
+    }catch(err){
+        console.log(err)
+        return err
+    }
 }
 
 export const getUsers = async (payload) => {

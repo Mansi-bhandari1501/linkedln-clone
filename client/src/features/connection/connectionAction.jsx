@@ -18,7 +18,8 @@ export const fetchConnection = createAsyncThunk(
 export const fetchPendingConnection = createAsyncThunk(
     CONNECTION_TYPE.GET_PENDING_CONNECTION,
     async ({userId,token}) => {
-       
+        console.log(userId)
+        console.log(token)
         const res = await axios.get(`http://localhost:8080/connections/pending/${userId}`,
         {headers:{Authorization: token}});
         const data =  res.data;

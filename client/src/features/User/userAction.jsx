@@ -13,7 +13,9 @@ ACTION_TYPE.ADD_USER,
         },
       };
       console.log(email,password)
-      const res = await userRegister({email,password},config)
+      const res = await axios.post(`http://localhost:8080/users/register`,{email,password},config)
+
+      // const res = await userRegister({email,password},config)
       console.log(res)
       return res
     } 

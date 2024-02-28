@@ -17,7 +17,7 @@ function Post() {
   }, [dispatch]);
 
   const posts = useSelector((state) => state.post.contents);
-  // console.log(posts);
+  // console.log(posts.userid);
 
   const isLoading = useSelector((state) => state.post.isLoading);
 
@@ -41,7 +41,8 @@ function Post() {
             createdAt={content.createdAt}
             postId={content._id}
             images={content.images}
-            // user={content.userid}
+            email= {content.email}
+            user={content.userid.email}
           />
           {/* <h3>name : {content.name} </h3> */}
           {/* <h3 >title : {content.title} </h3>

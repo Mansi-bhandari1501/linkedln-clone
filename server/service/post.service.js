@@ -89,7 +89,9 @@ export const fetchAllPosts = async (payload) => {
 export const fetchPost = async (payload) => {
     try {
         console.log(payload.params)
-        const getpost = await postModel.findById(payload.params);
+        const getpost = await postModel.findById(payload.params)
+        // .populate("user","Name");
+        console.log(getpost)
         return { getpost };
     } catch (error) {
         throw error;

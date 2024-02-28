@@ -58,7 +58,8 @@ export const showReceivedConnection = async (payload) => {
     const receiverId = payload.params;
     const data = await connectionModel
       .find({ receiver: receiverId, status: "pending" })
-      // .populate("sender", "firstName company city")
+      .populate("sender", "firstName company city")
+      console.log("DATAAAA",data)
     return data;
   } catch (error) {
     throw error;
