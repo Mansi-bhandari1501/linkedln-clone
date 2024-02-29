@@ -42,11 +42,10 @@ export default function FormDialog() {
   // })
   const [firstName, setFirstname] = useState();
 
-  console.log(firstName)
-  const dispatch = useDispatch();
+  
+
   const user = useSelector((state) => state.user.userInfo);
   const userId = user._id;
-  console.log(userId);
   const handleSubmit = (e) => {
     // e.preventDefault();
     // let formData = new FormData();  
@@ -72,9 +71,9 @@ export default function FormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        <ModeEditIcon />
-      </Button>
+      {/* <Button variant="outlined" onClick={handleClickOpen}> */}
+        <ModeEditIcon  onClick={handleClickOpen}/>
+      
       <Dialog
         open={open}
         onClose={handleClose}

@@ -15,6 +15,7 @@ export const sendConnection = async (req, res) => {
 export const removeConnection = async (req, res) => {
     try {
       const response = await connectionService.rejectConnection(req);
+      console.log("REJECTED =====",response)
       return res.status(201).json({
         success: true,
         connection: response,
@@ -67,6 +68,17 @@ export const updateStatusConnection = async (req, res) => {
       errorHandler(res, error);
     }
   };
+export const deleteConnection = async (req, res) => {
+    try {
+      const response = await connectionService.deleteConnection(req);
+      return res.status(201).json({
+        success: true,
+        connection: response,
+      });
+    } catch (error) {
+      errorHandler(res, error);
+    }
+  };
 
 
   export default {
@@ -75,6 +87,7 @@ export const updateStatusConnection = async (req, res) => {
     receivedConnection,
     pendingConnection,
     activeConnection,
-    updateStatusConnection
+    updateStatusConnection,
+    deleteConnection
     
   };

@@ -28,26 +28,37 @@ export const createConnection = async (payload) => {
     throw error;
   }
 };
-// export const rejectConnection = async (payload) => {
-//     try {
-//         const { id } = payload.params;
-//         console.log("connection id", payload.params);
-//         const data = await connectionModel.findByIdAndDelete(id);
-//         return data;
-//     } catch (error) {
-//         throw error;
-//     }
-// }
+export const deleteConnection = async (payload) => {
+    try {
+        const { id } = payload.params;
+        console.log("connection id", payload.params);
+        const data = await connectionModel.findByIdAndDelete(id);
+        console.log("deleted",data)
+        return data;
+    } catch (error) {
+        throw error;
+    }
+}
 export const rejectConnection = async (payload) => {
   try {
-    const { senderId } = payload.params;
-    console.log("connection id", payload.params);
+    const { senderId ,receiverId,status} = payload.body;
+    console.log("REMOVE--------",senderId ,receiverId,status );
     const data = await connectionModel.findOneAndUpdate(
-      { sender: senderId },
       {
-        $set: { status: "rejected" }
+        $and: [
+          {
+            sender: senderId,
+          },
+          {
+            receiver: receiverId,
+          },
+        ],
+      },
+      {
+        $set: { status: status },
       }
     );
+    console.log(data)
     return data;
   } catch (error) {
     throw error;
@@ -72,8 +83,8 @@ export const showPendingConnection = async (payload) => {
       sender: senderId,
       status: "pending",
     })
-    // .populate("sender", "firstName lasName company city")
-    ;
+    .populate("receiver", "firstName lasName company city")
+    console.log("ÜSERSDATA" ,data)
     return data;
   } catch (error) {
     throw error;
@@ -93,7 +104,8 @@ export const showActiveConnection = async (payload) => {
         },
       ],
       status: "active",
-    })
+    })      .populate("sender", "firstName lasName company city")
+
     // .populate("sender", "firstName lasName company city")
     ;
     console.log(data);
@@ -105,7 +117,8 @@ export const showActiveConnection = async (payload) => {
 export const updateConnection = async (payload) => {
   try {
     const { senderId, receiverId, status } = payload.body;
-    console.log("body", status);
+    console.log(payload.body)
+    console.log("body", senderId, receiverId, status );
     const data = await connectionModel.findOneAndUpdate(
       {
         $and: [
@@ -121,7 +134,7 @@ export const updateConnection = async (payload) => {
         $set: { status: status },
       }
     );
-    console.log(data);
+    console.log("SENDER",data);
     return data;
   } catch (error) {
     throw error;
@@ -135,6 +148,7 @@ const connectionService = {
   showPendingConnection,
   showActiveConnection,
   updateConnection,
+  deleteConnection
 };
 
 export default connectionService;

@@ -11,9 +11,11 @@ import React, { useState } from "react";
 import Header from "../Header";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import FormDialog from "../Profile-Form/index.jsx";
-import Bgimage from "../../assets/bgimage.jpeg";
+import Bgimage from "../../assets/bg.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import NewPost from "../NewPost/index.jsx";
+import Profile from "../../assets/profile.png"
 const ProfileComponent = () => {
   const [open, setOpen] = useState (false);
 
@@ -51,7 +53,7 @@ const ProfileComponent = () => {
           <Box
            sx={{
             width: "42vw",
-            border: "1px solid grey",
+            border: "1px solid #DFDEDA",
             backgroundColor: "white",
             borderRadius: "10px",
           }}
@@ -67,7 +69,7 @@ const ProfileComponent = () => {
               }}
             >
               <img
-                style={{ width: "100%", objectFit: "fill", overflow: "hidden" }}
+                style={{ width: "100%",borderTopLeftRadius: "10px",borderTopRightRadius: "10px" }}
                 src={Bgimage}
                 alt=""
               />
@@ -75,6 +77,7 @@ const ProfileComponent = () => {
             <Box>
               <Box sx={{ width: "100% ", display: "flex", flexDirection: "column", position: 'relative' }}>
                 <Avatar
+                src={Profile}
                   sx={{
                     height: "150px",
                     width: "150px",
@@ -87,13 +90,17 @@ const ProfileComponent = () => {
                 <Box  sx={{
                   position: "absolute",
                   top: "8vh",
-                  left: "3vw"
+                  left: "2vw"
                 }}>
                   <Box>
                {user.firstName} {user.lasName}
                   </Box>
                   <Box>
                   student at punjabi university Patiala
+                  {/* {user.education} */}
+                  </Box>
+                  <Box>
+                  {user.city} {user.state} {user.country}
                   {/* {user.education} */}
                   </Box>
                 </Box>
@@ -117,7 +124,7 @@ const ProfileComponent = () => {
         <Box
          sx={{
           width: "42vw",
-          border: "1px solid grey",
+          border: "1px solid #DFDEDA",
           backgroundColor: "white",
           borderRadius: "10px",
           marginTop:"10px"
@@ -131,9 +138,9 @@ const ProfileComponent = () => {
           <Box>
 
           <Button sx={{marginLeft:"510px",marginTop:"0px"}}
-          onClick={handleClickOpen}>create a post</Button>
+          onClick={handleClickOpen}>create a post   <ModeEditIcon sx={{size:"small",marginLeft:"5px"}} /></Button>
           {open && <NewPost hide={handleClose} />}
-          <ModeEditIcon sx={{size:"small"}} />
+        
           </Box>
           <Box sx={{
             display:"flex",flexDirection:"column",
@@ -147,7 +154,7 @@ const ProfileComponent = () => {
         <Box
          sx={{
           width: "42vw",
-          border: "1px solid grey",
+          border: "1px solid #DFDEDA",
           backgroundColor: "white",
           borderRadius: "10px",
           marginTop:"10px"
@@ -161,7 +168,7 @@ const ProfileComponent = () => {
           </Typography>
           <Box>
           <Box sx={{marginLeft:"50px",marginTop:"8px",marginBottom:"8px"}}>
-            Zenmonk
+          {user.companyname}
             {/* {user} */}
           </Box>
             {/* comments */}
@@ -172,7 +179,7 @@ const ProfileComponent = () => {
         <Stack
           sx={{
             width: "15vw",
-            border: "1px solid grey",
+            border: "1px solid #DFDEDA",
             backgroundColor: "white",
             borderRadius: "10px",
           }}
@@ -190,8 +197,8 @@ const ProfileComponent = () => {
               <h4>Public profile & URL </h4>
               <ModeEditIcon />
             </Box>
-            <Typography sx={{ paddingLeft: "32px", marginBottom: "18px" }}>
-              www.linkedin.com/d-b0ba2a20b
+            <Typography sx={{ paddingLeft: "30px", marginBottom: "18px" }}>
+              www.linkedin.com/d-b20b
             </Typography>
             <Divider />
           </Box>

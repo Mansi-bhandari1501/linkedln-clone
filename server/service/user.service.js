@@ -90,7 +90,7 @@ export const getUsers = async (payload) => {
   try {
     const {existingUser} = payload.params;
     console.log("USERID=------>", existingUser);
-    const users = UserModel.find({ _id: { $ne:existingUser} })
+    const users = UserModel.find({ email: { $ne:existingUser} })
     console.log(users)
     return users;
   } catch (error) {

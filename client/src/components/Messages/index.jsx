@@ -20,15 +20,15 @@ const MessageComponent = () => {
             <Box className="home-nav">
                 <Header />
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "center", gap: "25px", height: "90vh", }}>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: "25px", height: "90vh" }}>
                 {/* <Stack sx={{height:"500px"}} flexDirection={"row"} justifyContent={'space-around'}>   */}
 
                 <Stack
                     sx={{
                         width: "42vw",
-                        border: "1px solid grey",
-                        borderRadius: "10px"
-
+                        border: "1px solid #DFDEDA",
+                        borderRadius: "10px",
+                        backgroundColor: "white"
                     }}
                 >
                     <Box sx={{
@@ -37,7 +37,7 @@ const MessageComponent = () => {
                     }}>
 
                         <Box
-                            sx={{ width: "40%", backgroundColor: "white" }}>
+                            sx={{ width: "40%",  }}>
 
                             <Box sx={{ display: "flex", justifyContent: "space-between", margin: "8px" }}>
                                 <Box>
@@ -94,9 +94,9 @@ const MessageComponent = () => {
 
 
                         </Box>
-                        <hr style={{ marginTop:"2px",height: "89vh", color: 'black' }} />
+                        <hr style={{ marginTop:"2px",height: "89vh", color: "#DFDEDA" ,width:""}} />
                         {/* <Divider sx={{height:"500px",color:'black'}}/> */}
-                        <Box sx={{ width: "80%", backgroundColor: "white" }}>
+                        <Box sx={{ width: "80%",}}>
                            <Box sx={{display:"flex",flexDirection:"row",justifyContent: "space-between",padding:"10px"}}>
 
                             <Box>

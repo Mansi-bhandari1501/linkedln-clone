@@ -29,6 +29,7 @@ import {
   createComment,
   fetchComment,
 } from "../../features/comment/commentAction";
+import Profile from "../../assets/profile.png"
 // import EmojiPicker from "emoji-picker-react";
 // })(({ theme, expand }) => ({
 //   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -39,7 +40,7 @@ import {
 // }));
 
 const Cards = (props) => {
-  console.log("propesssss", props);
+ 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -50,7 +51,14 @@ const Cards = (props) => {
       duration: theme.transitions.duration.shortest,
     }),
   }));
-
+  let createdAt = props.createdAt;
+  console.log(createdAt)
+  
+  var date = new Date(createdAt)
+  console.log(date.getDate() +  " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear())
+  
+  // Or even more concise (Thanks @RobG)
+  console.log(date.toLocaleString('en-GB', {day:'numeric', month: 'long', year:'numeric'}))
   const dispatch = useDispatch();
   const user = useSelector(state=>state.user.userInfo);
   // console.log(user.firstName);
@@ -61,6 +69,7 @@ const Cards = (props) => {
   function handleOnEnter(body) {
     console.log("enter", body);
   }
+
   // console.log("length", props.images);
   // console.log("props", props.postId);
   // console.log(body);
@@ -88,22 +97,27 @@ const Cards = (props) => {
   return (
     <div>
       <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px" }}>
+       <Box sx={{display:"flex",justifyContent:"space-between"}}>
+        
         <CardHeader
           avatar={
-            <Avatar  aria-label="recipe">
-              {props.user}
+            <Avatar  aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}>
+              
             </Avatar>
           }
           action={<IconButton aria-label="settings"></IconButton>}
           title={props.user}
-          subheader={props.createdAt}
+          subheader={date.getDate() +  " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear()}
         />
-        <CardContent>
+        <MoreHorizIcon sx={{margin:"10px"}}/>
+        </Box> 
+        <CardContent sx={{marginTop:"0px",paddingTop:"0px"}}>
           <Typography variant="body2" color="text.secondary">
             {props.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.body}
+            {props.content.user}
           </Typography>
         </CardContent>
 
@@ -191,7 +205,7 @@ const Cards = (props) => {
               justifyContent: "space-around",
             }}
           >
-            <Avatar aria-label="recipe"></Avatar>
+            <Avatar aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}></Avatar>
             <InputEmoji
               multiline
               value={body}
@@ -217,6 +231,7 @@ const Cards = (props) => {
               Post
             </Button>
           </CardContent>
+          <Divider/>
           <CardContent>
             <Stack flexDirection={"row"}>
               <Box
@@ -230,7 +245,7 @@ const Cards = (props) => {
                 {comments?.map((items) => (
                   <>
                     <Box key={items._id} sx={{ display: "flex" }}>
-                      <Avatar aria-label="recipe"></Avatar>
+                      <Avatar aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}/>
                       <Box sx={{width: "100%",marginLeft:"15px"}}>
                       <Box
                         sx={{
@@ -244,8 +259,11 @@ const Cards = (props) => {
                         }}
                       >
                         <Box   sx={{
-                          display: "flex"}}>
-                        <Typography sx={{padding:"5px"}} color={"grey"}>{items.userId}</Typography>
+                          display: "flex",
+                          justifyContent:"space-between"}}>
+                        <Typography sx={{padding:"5px"}} color={"black"}>
+                          {items?.userId?.firstName} {items?.userId?.lasName}
+                          </Typography>
                         <MoreHorizIcon sx={{marginLeft:"200px"}}/>
                         </Box>
 

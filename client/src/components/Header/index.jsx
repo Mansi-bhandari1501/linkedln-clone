@@ -12,8 +12,13 @@ import { ReactComponent as MsgLogo } from "../../utils/msg-logo.svg"
 import { ReactComponent as NetworkLogo } from "../../utils/network-logo.svg"
 import { ReactComponent as NotificationLogo } from "../../utils/notification-logo.svg"
 import { ReactComponent as BusinessLogo } from "../../utils/business-logo.svg"
+import Profile from "../../assets/profile.png"
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Header = () => {
+  const user = useSelector((state) => state.user.userInfo.firstName);
+  console.log(user)
+  // const userId = user.userId;
   return (
     <Box className="Header-container">
       <Box sx={{ display: "flex", gap: "10px", width: "20vw", marginTop: "4px" }}>
@@ -45,9 +50,9 @@ const Header = () => {
 
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/'>
+              <Link to='/' style={{textDecoration:"none"}}>
                 <HomeLogo className="menu-logo" />
-                <h4 >Home</h4>
+                <h4 style={{fontSize:"12px",textTransform:"none"}}>Home</h4>
 
               </Link>
             </Button>
@@ -55,46 +60,46 @@ const Header = () => {
 
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/mynetwork'>
+              <Link to='/mynetwork' style={{textDecoration:"none"}}>
                 <NetworkLogo className="menu-logo" />
-                <h4>My network</h4>
+                <h4 style={{fontSize:"12px",textTransform:"none"}}>Mynetwork</h4>
               </Link>
             </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/'>
+              <Link to='/'style={{textDecoration:"none"}}>
                 <JobsLogo className="menu-logo" />
-                <h4 >Jobs</h4>
+                <h4 style={{fontSize:"12px",textTransform:"none"}}>Jobs</h4>
 
               </Link>
             </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/message'>
+              <Link to='/message'style={{textDecoration:"none"}}>
 
                 <MsgLogo className="menu-logo" />
-                <h4 >Messaging</h4>
+                <h4 style={{fontSize:"12px",textTransform:"none"}}>Messaging</h4>
               </Link>
             </Button>
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/'>
+              <Link to='/'style={{textDecoration:"none"}}>
 
                 <NotificationLogo className="menu-logo" />
-                <h4 >Notifications</h4>
+                <h4 style={{fontSize:"12px",textTransform:"none"}}>Notifications</h4>
               </Link>
             </Button>
           </li>
           <li className='menu-content'>
 
-            <Link to='/profile'>
-              <Avatar className="menu-logo" sx={{ marginTop: "2px", height: "28px", width: "28px" }} aria-label="recipe">
+            <Link to='/profile' style={{textDecoration:"none"}}>
+              <Avatar className="menu-logo" sx={{ marginTop: "2px", height: "28px", width: "28px" }} aria-label="recipe" src={Profile}>
 
               </Avatar>
-              <h4 style={{ textAlign: "center", lineHeight: "18px" }} >Me</h4>
+              <h4 style={{ textAlign: "center", lineHeight: "18px" }} >{user}</h4>
 
             </Link>
 

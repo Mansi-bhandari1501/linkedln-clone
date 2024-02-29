@@ -4,7 +4,7 @@ import Header from '../Header';
 import MainFooter from '../MainFooter';
 import Received from './received.jsx';
 import Sent from './send.jsx';
-
+import Profile from "../../assets/profile.png"
 const ManageInvitation = () => {
   const [type,setType] =  useState(true);
   return (
@@ -56,17 +56,14 @@ const ManageInvitation = () => {
         >
           <Box sx={{
             width: "15vw",
-            border: "1px solid grey",
-            backgroundColor: "white",
             borderRadius: "10px",
             display:"flex",
             flexDirection:"row",
             justifyContent:"space-around"
           }}>
-            AD
-            <Avatar></Avatar>
-          </Box>
+            
           <MainFooter/>
+          </Box>
         </Stack>
     </Box>
     </Box>

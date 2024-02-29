@@ -43,6 +43,7 @@ function Post() {
             images={content.images}
             email= {content.email}
             user={content.userid.email}
+            content={content}
           />
           {/* <h3>name : {content.name} </h3> */}
           {/* <h3 >title : {content.title} </h3>

@@ -13,7 +13,7 @@ import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/User/userAction";
 import { Link } from "react-router-dom";
-import { fetchConnection } from "../../features/connection/connectionAction";
+import { fetchReceivedConnection } from "../../features/connection/connectionAction";
 
 // const item = styled(Paper)(({ theme }) => ({
 //     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,19 +25,17 @@ import { fetchConnection } from "../../features/connection/connectionAction";
 const NetworkComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const token = user.userToken;
   const userId = user.userId;
-
- 
+  const token = user.userToken;
+  const existingUser = user.userInfo.email;
 
   const users = useSelector((state) => state.user.users);
-  const connections = useSelector((state) => state.connection.connections);
-  console.log(connections)
-  console.log(users);
+  const connections = useSelector((state) => state.connection.received);
+ 
 
   useEffect(() => {
-    dispatch(fetchUsers( {userId, token} ));
-    dispatch(fetchConnection( {userId, token} ));
+    dispatch(fetchUsers( {existingUser, token} ));
+    dispatch(fetchReceivedConnection( {userId, token} ));
   }, [dispatch]);
 
   // if (isLoading) {
@@ -191,8 +189,7 @@ const NetworkComponent = () => {
                 {users?.map((content) => (
                   <Grid item xs={1} sm={3} md={3} key={content._id}>
                     <UserCard 
-                    userId={content._id}
-                    email={content.email} />
+                    content={content} />
                   </Grid>
                 ))}
               </Grid>

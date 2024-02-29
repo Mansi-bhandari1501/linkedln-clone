@@ -13,6 +13,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
+import Profile from "../../assets/profile.png"
 import React, { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./newPost.css";
@@ -113,7 +114,7 @@ const NewPost = ({ hide }, open) => {
       ></Box>
       <Box className="create-post-box">
         <DialogTitle sx={{ m: 0, p: 2, display: "flex" }}>
-          <Avatar></Avatar>
+          <Avatar src={Profile}></Avatar>
           <Stack>
             <Typography>Name</Typography>
             <Typography>Condition</Typography>

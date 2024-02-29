@@ -70,13 +70,13 @@ export const loginUser = createAsyncThunk(
 // );
 export const fetchUsers = createAsyncThunk(
   ACTION_TYPE.GET_USER,
-  async({userId,token},{rejectWithValue})=>{
+  async({existingUser,token},{rejectWithValue})=>{
       console.log(token)
-      console.log(userId)
-      const res = await axios.get(`http://localhost:8080/users/${userId}`,
+      console.log(existingUser)
+      const res = await axios.get(`http://localhost:8080/users/${existingUser}`,
       {headers:{Authorization: token}}
       );
-      // console.log(res);
+      console.log(res);
       const data = await res.data;
       return data;
   }

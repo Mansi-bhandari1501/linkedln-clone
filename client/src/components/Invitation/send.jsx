@@ -1,22 +1,27 @@
-import { Avatar, Box, Button, Divider, Stack } from '@mui/material';
+import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {  fetchPendingConnection } from '../../features/connection/connectionAction';
-
+import {  fetchPendingConnection, rejectConnection } from '../../features/connection/connectionAction';
+import Profile from "../../assets/profile.png"
 const Sent = () => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user);
     const token = user.userToken;
-    const userId = user.userId;
+    const senderId = user.userId;
+
     useEffect(() => {
-      dispatch(fetchPendingConnection(userId,token))
+      dispatch(fetchPendingConnection({senderId,token}))
     }, [dispatch])
-    const connections = useSelector((state) => state.connection.connections);
- 
+    const connections = useSelector((state) => state.connection.requested);
     console.log(connections);
-  
+   const handleWithdraw =(i) =>{
+       console.log(token)
+       const status="rejected";
+      dispatch (rejectConnection({senderId,receiverId: i,status,token}))
+    }
+   
     return (
-      <Stack sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Stack sx={{ display: 'flex', flexDirection: 'column',height:"auto"}}>
         {connections?.map((content,i) => {
             return (
                 <Box key={i}>
@@ -24,12 +29,20 @@ const Sent = () => {
                  <Box sx={{display:'flex',width:"41vw",justifyContent:"space-between"}}>
 
                  <Box sx={{display:'flex',gap:"10px"}}>
-                  <Avatar></Avatar>
-                  {content.sender}
-                 </Box>
+                  <Avatar src={Profile}></Avatar>
+                  <Box sx={{display:"flex",flexDirection:"column"}}>
+                    <Typography  sx={{fontFamily:"system-ui",fontSize:"15px"}}>
+
+                  {content?.receiver?.firstName } {content?.receiver?.lasName }
+                    </Typography>
+                    <Typography sx={{fontFamily:"system-ui",fontSize:"12px"}}>
+
+                  {content?.receiver?.city }
+                    </Typography>
+                  </Box>                 </Box>
                  <Box>
                     
-                    <Button sx={{border:"1px solid #0B66C2", borderRadius:"20px"}}>Withdraw</Button>
+                    <Button  onClick={() => handleWithdraw(content?.receiver?._id)} sx={{border:"1px solid #0B66C2", borderRadius:"20px"}}>Withdraw</Button>
                  </Box>
                  </Box>
                   

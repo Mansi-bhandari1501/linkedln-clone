@@ -5,7 +5,7 @@ import { Avatar, Box, Button, Divider, Stack } from "@mui/material";
 import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg";
 import { ReactComponent as ArticleIcon } from "../../utils/article-logo.svg";
 import { ReactComponent as EventIcon } from "../../utils/event-logo.svg";
-
+import Profile from "../../assets/profile.png"
 import "./home.css";
 import MainFooter from "../MainFooter";
 import NewPost from "../NewPost";
@@ -37,7 +37,7 @@ const HomeComponent = () => {
             <Stack gap={2}>
               <Box className="side-profile">
                 User details
-                <Avatar></Avatar>
+                <Avatar src={Profile}></Avatar>
               </Box>
 
               <Box>detailss</Box>
@@ -60,8 +60,8 @@ const HomeComponent = () => {
                   >
                     img
                   </Box> */}
-                  <Avatar sx={{ backgroundColor: "red" }} aria-label="recipe">
-                    R
+                  <Avatar src={Profile} sx={{ backgroundColor: "red" }} aria-label="recipe">
+                    
                   </Avatar>
                   <Box
                     sx={{
