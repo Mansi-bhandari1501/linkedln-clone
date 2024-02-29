@@ -30,6 +30,10 @@ import {
   fetchComment,
 } from "../../features/comment/commentAction";
 import Profile from "../../assets/profile.png"
+// import { ReactionBarSelector } from '@charkour/react-reactions';
+import { FacebookSelector } from '@charkour/react-reactions';
+// import { FacebookCounter } from '@charkour/react-reactions';
+
 // import EmojiPicker from "emoji-picker-react";
 // })(({ theme, expand }) => ({
 //   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -51,41 +55,35 @@ const Cards = (props) => {
       duration: theme.transitions.duration.shortest,
     }),
   }));
+
+  const [open,setOpen]=useState(false);
+
   let createdAt = props.createdAt;
-  console.log(createdAt)
-  
-  var date = new Date(createdAt)
-  console.log(date.getDate() +  " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear())
-  
-  // Or even more concise (Thanks @RobG)
-  console.log(date.toLocaleString('en-GB', {day:'numeric', month: 'long', year:'numeric'}))
+  var date = new Date(createdAt) 
+
   const dispatch = useDispatch();
   const user = useSelector(state=>state.user.userInfo);
-  // console.log(user.firstName);
   const userId = useSelector((state) => state.user.userInfo._id);
-  // console.log('USER',userId)
   const [expanded, setExpanded] = React.useState(false);
   const [body, setBody] = useState("");
   function handleOnEnter(body) {
     console.log("enter", body);
   }
-
-  // console.log("length", props.images);
-  // console.log("props", props.postId);
-  // console.log(body);
+ const handleEmoji = () =>{
+  setOpen(!open);
+  console.log(open)
+ }
   const handleExpandClick = () => {
     setExpanded(!expanded);
     dispatch(fetchComment(props.postId));
   };
   const handleComment = () => {
     const postId = props.postId;
-    //  console.log(post_Id)
     const commentData = {
       postId,
       userId,
       body: body,
     };
-    // console.log(commentData)
     dispatch(createComment(commentData));
   };
 
@@ -146,9 +144,10 @@ const Cards = (props) => {
 
         {/* {props.likes} */}
         <Divider sx={{ marginBottom: "5px" }} />
+          {open?<FacebookSelector style={{    width: "290px"}}/> : " "}
         <CardActions className="post-action" disableSpacing>
           <Stack direction="row"></Stack>
-          <IconButton aria-label="add to favorites" sx={{ color: "#00000080" }}>
+          <IconButton onClick={handleEmoji} aria-label="add to favorites" sx={{ color: "#00000080" }}>
             <LikeIcon />
             <h6>Like</h6>
           </IconButton>

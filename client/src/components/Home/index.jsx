@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Post from "../Post";
 import Header from "../Header";
-import { Avatar, Box, Button, Divider, Stack } from "@mui/material";
+import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
 import { ReactComponent as MediaIcon } from "../../utils/media-icon.svg";
 import { ReactComponent as ArticleIcon } from "../../utils/article-logo.svg";
 import { ReactComponent as EventIcon } from "../../utils/event-logo.svg";
@@ -11,10 +11,11 @@ import MainFooter from "../MainFooter";
 import NewPost from "../NewPost";
 import { useSelector } from "react-redux";
 import bgImge from "../../assets/bg.png"
+import { Link } from "react-router-dom";
 const HomeComponent = () => {
 
   const user = useSelector((state) => state.user.userInfo);
-
+console.log(user)
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -35,15 +36,26 @@ const HomeComponent = () => {
             gap={2.5}
             flexDirection={"row"}
             justifyContent={"center"}
-            margin={"30px"}
+            marginTop={"30px"}
           >
-            <Stack gap={2}>
-              <Box className="side-profile">
-                <img src={bgImge} s/>
-                <Avatar src={Profile} sx={{height:"60px",width:"60px"}}></Avatar>
+            <Stack sx={{height:"50vh"}}>
+              <Box className="side-profile" sx={{backgroundColor:"white"}}>
+              <Box  sx={{position:"relative",backgroundColor:"white"}}>
+              <Link   to="/profile" style={{textDecoration:"none"}}>
+                <img src={bgImge} style={{width:"200px",}} alt=""  />
+                <Avatar src={Profile} sx={{height:"80px",width:"80px",position:"absolute",top:"30px",right:"65px"}}></Avatar>
+              {/* <Box sx={{position:"absolute",top:"110px",left:"45px"}}> */}
+         
+               <Typography sx={{position:"absolute",top:"110px",left:"45px"}}>  {user.firstName} {user.lasName} </Typography>
+               </Link> 
+                <Typography>{user.education}</Typography>
+              {/* </Box> */}
+                </Box>
+             
+              <Divider sx={{paddingTop:"100px"}}/>
               </Box>
-
-              <Box>detailss</Box>
+             
+              <Box></Box>
             </Stack>
 
             <Stack>
