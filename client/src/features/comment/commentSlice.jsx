@@ -27,6 +27,7 @@ export const commentSlice = createSlice({
         builder.addCase(fetchComment.fulfilled,(state,action)=>{
             state.isLoading=false
             state.comments=action.payload
+            console.log(action.payload.comment)
             // state.comments[action.payload[0].postId] = action.payload;
             // state.comments = {
             //     ...state.comments,

@@ -12,7 +12,7 @@ router.post('/',createComment);
 router.delete('/:_id',requireSignIn,deleteComment);
 router.put('/:_id',requireSignIn,updateComment);
 router.get('/',getAllcomments);
-// router.get('/:id',fetchComment);
+router.get('/:id',fetchComment);
 
 // router.get('/',requireSignIn,fetchAllComments)
 

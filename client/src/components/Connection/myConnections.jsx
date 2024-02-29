@@ -39,7 +39,7 @@ const MyConnections = () => {
                     </Typography>
                     <Divider sx={{ margin: "2px" }} />
                     <Box>
-                             {connections?.map((content,index) => (
+                             {connections && connections?.map((content,index) => (
                                     <div key={index}>
                                         <MyConnectionCard 
                                         content={content}/>

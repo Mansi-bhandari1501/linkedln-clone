@@ -16,6 +16,8 @@ import Bgimage from "../../assets/bg.png";
 import { useDispatch, useSelector } from "react-redux";
 import NewPost from "../NewPost/index.jsx";
 import Profile from "../../assets/profile.png"
+
+
 const ProfileComponent = () => {
   const [open, setOpen] = useState (false);
 

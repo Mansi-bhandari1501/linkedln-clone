@@ -9,8 +9,11 @@ import Profile from "../../assets/profile.png"
 import "./home.css";
 import MainFooter from "../MainFooter";
 import NewPost from "../NewPost";
-
+import { useSelector } from "react-redux";
+import bgImge from "../../assets/bg.png"
 const HomeComponent = () => {
+
+  const user = useSelector((state) => state.user.userInfo);
 
   const [open, setOpen] = useState(false);
 
@@ -36,8 +39,8 @@ const HomeComponent = () => {
           >
             <Stack gap={2}>
               <Box className="side-profile">
-                User details
-                <Avatar src={Profile}></Avatar>
+                <img src={bgImge} s/>
+                <Avatar src={Profile} sx={{height:"60px",width:"60px"}}></Avatar>
               </Box>
 
               <Box>detailss</Box>

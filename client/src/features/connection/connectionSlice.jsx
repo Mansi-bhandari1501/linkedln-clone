@@ -41,7 +41,7 @@ export const connectionSlice = createSlice({
         builder.addCase(createConnections.fulfilled,(state,action)=>{
             state.isLoading=false
             console.log("ACTION",action.payload.connection)
-            state.connections=action.payload.connection;
+            state.requested=action.payload.connection;
             // state.requested = action.payload;
         })
         builder.addCase(createConnections.rejected,(state,action)=>{
@@ -91,7 +91,7 @@ export const connectionSlice = createSlice({
                      return item.sender !== action.payload.connection.sender
                 })
                 state.requested = newReq
-                console.log("🤦‍♂️🤦‍♂️🤦‍♂️🤦‍♂️",newReq)
+                console.log(newReq)
             }
 
         })

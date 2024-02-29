@@ -55,14 +55,15 @@ export const updateComment = async (payload) => {
 export const fetchAllComments = async (payload) => {
   console.log(payload.body)
   const comments = await commentModel.find()
-  .populate("userId", "firstName lasName company ")
+  .populate("userId", "firstName lasName companyname ")
       ;
   return { comments };
 }
 export const fetchComment = async (payload) => {
   console.log(payload.params)
-  const getComment = await commentModel.findById(payload.params) 
-  //  .populate("comment", "firstName lasName company city");
+  const {postId} =payload.params
+  const getComment = await commentModel.findById({postId:postId}) 
+   .populate("userId", "firstName lasName companyname city");
   return { getComment };
 }
 
