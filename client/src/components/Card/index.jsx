@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import "./card.css";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {
   Avatar,
   Box,
@@ -238,12 +239,17 @@ const Cards = (props) => {
                           // marginLeft: "15px",
                           backgroundColor: "#F2F2F2",
                           width: "100%",
+                          gap:"5px"
                           
                         }}
                       >
-                        <Typography sx={{marginBottom:"5px",paddingLeft:"5px"}} color={"grey"}>{items.userId}</Typography>
+                        <Box   sx={{
+                          display: "flex"}}>
+                        <Typography sx={{padding:"5px"}} color={"grey"}>{items.userId}</Typography>
+                        <MoreHorizIcon sx={{marginLeft:"200px"}}/>
+                        </Box>
 
-                        <Typography sx={{paddingLeft:"5px"}} color={"black"}>{items.body}</Typography>
+                        <Typography sx={{padding:"5px"}} color={"black"}>{items.body}</Typography>
                       </Box>
                         <Box sx={{fontSize:"10px"}}>
                           <IconButton  sx={{fontSize:"12px"}}>Like</IconButton>

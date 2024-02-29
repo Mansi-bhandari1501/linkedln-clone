@@ -6,6 +6,11 @@ import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import Icon from "../../assets/LinkedIn_icon.svg.png";
 import SearchIcon from '@mui/icons-material/SearchRounded';
 import MainFooter from '../MainFooter';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
+import LinkOutlinedIcon from '@mui/icons-material/LinkOutlined';
+import GifOutlinedIcon from '@mui/icons-material/GifOutlined';
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 
 const MessageComponent = () => {
     return (
@@ -89,11 +94,47 @@ const MessageComponent = () => {
 
 
                         </Box>
-                        <hr style={{ height: "90vh", color: 'black' }} />
+                        <hr style={{ marginTop:"2px",height: "89vh", color: 'black' }} />
                         {/* <Divider sx={{height:"500px",color:'black'}}/> */}
                         <Box sx={{ width: "80%", backgroundColor: "white" }}>
-                            <Box></Box>USERnAME
+                           <Box sx={{display:"flex",flexDirection:"row",justifyContent: "space-between",padding:"10px"}}>
+
+                            <Box>
+                            USERnAME
+                            </Box>
+                            <Box>
+                            <MoreHorizIcon />
+                            <StarBorderOutlinedIcon sx={{marginLeft:"5px"}}/>
+                            </Box>
+                           </Box>
+                           <Box sx={{height:"70vh"}}>
+                           <Divider/>
+                           CHAT
+                           </Box>
+                           <Box>
+                        <Divider/>
+                           <TextField id="filled-basic" label="write a message" variant="filled"  sx={{width:"100%"}}/>
+                           <Box>
+
+                           </Box >
+                           <Box sx={{display:"flex",justifyContent:"space-between",margin:"8px"}}>
+
+                           <Box sx={{display:"flex",gap:"20px"}}>
+                           <InsertPhotoOutlinedIcon />
+                           <LinkOutlinedIcon />
+                           <GifOutlinedIcon />
+                           <SentimentSatisfiedOutlinedIcon />
+                           </Box>
+                           <Box>
+                            <Button sx={{marginBottom:"15px"}}>
+                                send
+                            </Button>
+                            <MoreHorizIcon />
+                           </Box>
+                           </Box>
+                           </Box>
                         </Box>
+                      
                     </Box>
                 </Stack>
                 <Stack

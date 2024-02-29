@@ -58,7 +58,7 @@ export const showReceivedConnection = async (payload) => {
     const receiverId = payload.params;
     const data = await connectionModel
       .find({ receiver: receiverId, status: "pending" })
-      .populate("sender", "firstName company city")
+      .populate("sender", "firstName lasName company city")
       console.log("DATAAAA",data)
     return data;
   } catch (error) {
@@ -71,7 +71,9 @@ export const showPendingConnection = async (payload) => {
     const data = await connectionModel.find({
       sender: senderId,
       status: "pending",
-    });
+    })
+    // .populate("sender", "firstName lasName company city")
+    ;
     return data;
   } catch (error) {
     throw error;
@@ -91,7 +93,9 @@ export const showActiveConnection = async (payload) => {
         },
       ],
       status: "active",
-    });
+    })
+    // .populate("sender", "firstName lasName company city")
+    ;
     console.log(data);
     return data;
   } catch (error) {

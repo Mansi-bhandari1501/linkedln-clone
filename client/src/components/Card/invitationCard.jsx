@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Divider } from '@mui/material';
 import React from 'react'
 
 const InvitationCard = ({content}) => {
+  console.log(content.sender)
   return (
    <>
    <Box sx={{display:"flex",justifyContent:"space-between", alignItems:"center",height:"70px"}}>

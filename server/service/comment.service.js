@@ -42,7 +42,8 @@ export const updateComment = async (payload) => {
         payload.params, {
         $set: payload.body
       }
-      );
+      )
+      .populate("userId", "firstName lasName company city")      ;
     console.log(payload.body)
     return { data };
   }
@@ -53,12 +54,15 @@ export const updateComment = async (payload) => {
 }
 export const fetchAllComments = async (payload) => {
   console.log(payload.body)
-  const comments = await commentModel.find();
+  const comments = await commentModel.find()
+  .populate("userId", "firstName lasName company ")
+      ;
   return { comments };
 }
 export const fetchComment = async (payload) => {
   console.log(payload.params)
-  const getComment = await commentModel.findById(payload.params);
+  const getComment = await commentModel.findById(payload.params) 
+  //  .populate("comment", "firstName lasName company city");
   return { getComment };
 }
 
@@ -68,8 +72,8 @@ export const getCommentPaginated = async (payload) => {
   const page= payload.params
   let resultsPerPage = 5
 
-  return await commentModel.find({})
-    .sort({ createdAt: 'descending' })
+  return await commentModel.find({}) 
+  .populate("userId", "firstName lasName company city")    .sort({ createdAt: 'descending' })
     .lean()
     .limit(resultsPerPage)
     .skip(page * resultsPerPage)
