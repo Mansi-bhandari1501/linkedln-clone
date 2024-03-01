@@ -4,8 +4,9 @@ import {reactionController} from "../controllers/index.js";
 const {saveReactions,getReactions,updateReaction,removeReaction} = reactionController;
 const router = express.Router()
 
-router.post('/:postId', requireSignIn,saveReactions)
-router.get('/', requireSignIn,getReactions)
+router.post('/', requireSignIn,saveReactions)
+router.get('/:postId', requireSignIn,getReactions)
+router.get('/userReaction/:postId', requireSignIn,getReactions)
 router.put('/:reactId',requireSignIn, updateReaction )
 router.delete('/:reactId',requireSignIn, removeReaction)
 

@@ -30,21 +30,13 @@ import {
   fetchComment,
 } from "../../features/comment/commentAction";
 import Profile from "../../assets/profile.png"
-// import { ReactionBarSelector } from '@charkour/react-reactions';
-import { FacebookSelector } from '@charkour/react-reactions';
-// import { FacebookCounter } from '@charkour/react-reactions';
+import { ReactionBarSelector } from '@charkour/react-reactions';
+import { addReaction, removeReaction } from "../../features/Reaction/reactionAction";
+import { ReactionCounter } from '@charkour/react-reactions';
 
-// import EmojiPicker from "emoji-picker-react";
-// })(({ theme, expand }) => ({
-//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//   marginLeft: 'auto',
-//   transition: theme.transitions.create('transform', {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
 
 const Cards = (props) => {
- 
+
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -56,29 +48,38 @@ const Cards = (props) => {
     }),
   }));
 
-  const [open,setOpen]=useState(false);
+  const defaultReaction = <LikeIcon sx={{ height: "24px", width: "24px", marginRight: "4px", color: "#5E5E5E" }} />;
+  const emojis = {
+    Like: '👍',
+    Celebrate: '👏',
+    Support: '🫰',
+    love: '❤️',
+    Insightful: '💡',
+    Funny: '😂',
+    defaultReaction
+  }
+  // const [open, setOpen] = useState(false);
+  const [emoji, setEmoji] = useState(defaultReaction);
+  const [emojiType, setEmojiType] = useState('Like');
 
   let createdAt = props.createdAt;
-  var date = new Date(createdAt) 
+  var date = new Date(createdAt)
 
   const dispatch = useDispatch();
-  const user = useSelector(state=>state.user.userInfo);
+  const user = useSelector(state => state.user.userInfo);
   const userId = useSelector((state) => state.user.userInfo._id);
   const [expanded, setExpanded] = React.useState(false);
   const [body, setBody] = useState("");
   function handleOnEnter(body) {
     console.log("enter", body);
   }
- const handleEmoji = () =>{
-  setOpen(!open);
-  console.log(open)
- }
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
     dispatch(fetchComment(props.postId));
   };
+  const postId = props.postId;
   const handleComment = () => {
-    const postId = props.postId;
     const commentData = {
       postId,
       userId,
@@ -86,30 +87,32 @@ const Cards = (props) => {
     };
     dispatch(createComment(commentData));
   };
-
-  // const Loading = useSelector((state) => state.comments.isLoading);
-  // const iserror = useSelector((state) => state.comments.error);
+ const reactId = useSelector(state => state)
+ console.log(reactId)
+  const handleEmoji = () =>{
+    dispatch(removeReaction({reactId}))
+  }
   const comments = useSelector((state) => state.comments.comments.comment);
-  // console.log('COMMENTS', comments, iserror, Loading)
-  console.log('coMMents',comments)
+
+
+
   return (
     <div>
-      <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px" }}>
-       <Box sx={{display:"flex",justifyContent:"space-between"}}>
-        
-        <CardHeader
-          avatar={
-            <Avatar  aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}>
-              
-            </Avatar>
-          }
-          action={<IconButton aria-label="settings"></IconButton>}
-          title={props.user}
-          subheader={date.getDate() +  " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear()}
-        />
-        <MoreHorizIcon sx={{margin:"10px"}}/>
-        </Box> 
-        <CardContent sx={{marginTop:"0px",paddingTop:"0px"}}>
+      <Card sx={{ width: "550px", marginBottom: "2px", borderRadius: "8px", position: "relative" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" src={Profile} sx={{ height: "50px", width: "50px" }}>
+              </Avatar>
+            }
+            action={<IconButton aria-label="settings"></IconButton>}
+            title={props.user}
+            subheader={date.getDate() + " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear()}
+          />
+          <MoreHorizIcon sx={{ margin: "10px" }} />
+        </Box>
+        <CardContent sx={{ marginTop: "0px", paddingTop: "0px" }}>
           <Typography variant="body2" color="text.secondary">
             {props.title}
           </Typography>
@@ -120,9 +123,9 @@ const Cards = (props) => {
         </CardContent>
 
         <div className="images">
-          {props.images.map((image, index) => (
+          {props?.images?.map((image, index) => (
             <div
-            key={index}
+              key={index}
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -144,13 +147,49 @@ const Cards = (props) => {
 
         {/* {props.likes} */}
         <Divider sx={{ marginBottom: "5px" }} />
-          {open?<FacebookSelector style={{    width: "290px"}}/> : " "}
         <CardActions className="post-action" disableSpacing>
           <Stack direction="row"></Stack>
-          <IconButton onClick={handleEmoji} aria-label="add to favorites" sx={{ color: "#00000080" }}>
-            <LikeIcon />
-            <h6>Like</h6>
-          </IconButton>
+          <Button className="reaction-btn" aria-label="add to favorites" sx={{ color: "#00000080", textTransform: "none" }}>
+            <Box
+              sx={{
+                fontSize: "25px"
+              }}
+              >
+              {emoji}
+            </Box>
+            <h6 >{emojiType} </h6>
+              
+            <Box className='reaction-type'><ReactionBarSelector
+             style={{width:"310px"}}
+              reactions={[{ label: "Like", node: <node>👍</node>, key: "Like" },
+              { label: "Celebrate", node: <node>👏</node>, key: "Celebrate" },
+              { label: "Support", node: <node>🫰</node>, key: "Support" },
+              { label: "love", node: <node>❤️</node>, key: "love" },
+              { label: "Insightful", node: <node>💡</node>, key: "Insightful" },
+              { label: "Funny", node: <node>😂</node>, key: "Funny" }]}
+              onSelect={(key) => {
+                if (key === emojiType && emoji === emojis[emojiType]) {
+                  setEmoji(emojis.defaultReaction);
+                  setEmojiType("Like");
+                }
+                else {
+                  setEmoji(emojis[key]);
+                  setEmojiType(key);
+                }
+                const obj = {
+                  postId: postId,
+                  userId: userId,
+                  type: key,
+                }
+                dispatch(addReaction(obj));
+              }} />
+            </Box>
+
+
+
+          </Button>
+{/* 
+<Box><ReactionCounter/></Box> */}
           <IconButton
             aria-label="add to favorites"
             sx={{
@@ -204,7 +243,7 @@ const Cards = (props) => {
               justifyContent: "space-around",
             }}
           >
-            <Avatar aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}></Avatar>
+            <Avatar aria-label="recipe" src={Profile} sx={{ height: "50px", width: "50px" }}></Avatar>
             <InputEmoji
               multiline
               value={body}
@@ -230,7 +269,7 @@ const Cards = (props) => {
               Post
             </Button>
           </CardContent>
-          <Divider/>
+          <Divider />
           <CardContent>
             <Stack flexDirection={"row"}>
               <Box
@@ -244,33 +283,34 @@ const Cards = (props) => {
                 {comments?.map((items) => (
                   <>
                     <Box key={items._id} sx={{ display: "flex" }}>
-                      <Avatar aria-label="recipe" src={Profile} sx={{height:"50px",width:"50px"}}/>
-                      <Box sx={{width: "100%",marginLeft:"15px"}}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          // marginLeft: "15px",
-                          backgroundColor: "#F2F2F2",
-                          width: "100%",
-                          gap:"5px"
-                          
-                        }}
-                      >
-                        <Box   sx={{
-                          display: "flex",
-                          justifyContent:"space-between"}}>
-                        <Typography sx={{padding:"5px"}} color={"black"}>
-                          {items?.userId?.firstName} {items?.userId?.lasName}
-                          </Typography>
-                        <MoreHorizIcon sx={{marginLeft:"200px"}}/>
-                        </Box>
+                      <Avatar aria-label="recipe" src={Profile} sx={{ height: "50px", width: "50px" }} />
+                      <Box sx={{ width: "100%", marginLeft: "15px" }}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            // marginLeft: "15px",
+                            backgroundColor: "#F2F2F2",
+                            width: "100%",
+                            gap: "5px"
 
-                        <Typography sx={{padding:"5px"}} color={"black"}>{items.body}</Typography>
-                      </Box>
-                        <Box sx={{fontSize:"10px"}}>
-                          <IconButton  sx={{fontSize:"12px"}}>Like</IconButton>
-                          <IconButton  sx={{fontSize:"12px"}}>Reply</IconButton>
+                          }}
+                        >
+                          <Box sx={{
+                            display: "flex",
+                            justifyContent: "space-between"
+                          }}>
+                            <Typography sx={{ padding: "5px" }} color={"black"}>
+                              {items?.userId?.firstName} {items?.userId?.lasName}
+                            </Typography>
+                            <MoreHorizIcon sx={{ marginLeft: "200px" }} />
+                          </Box>
+
+                          <Typography sx={{ padding: "5px" }} color={"black"}>{items.body}</Typography>
+                        </Box>
+                        <Box sx={{ fontSize: "10px" }}>
+                          <IconButton sx={{ fontSize: "12px" }}>Like</IconButton>
+                          <IconButton sx={{ fontSize: "12px" }}>Reply</IconButton>
                           {/* <IconButton  sx={{fontSize:"12px"}}>Delete</IconButton> */}
                         </Box>
                       </Box>

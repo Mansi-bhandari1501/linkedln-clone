@@ -9,15 +9,17 @@ import MyConnectionCard from '../Card/myConnection';
 const MyConnections = () => {
     const dispatch= useDispatch();
     const user = useSelector((state) => state.user);
-    const connections = useSelector((state) => state.connection.connections);
-    console.log(connections)
     const token = user.userToken
     const userId = user.userId;
     // console.log(userId)
     useEffect( () => {
-       
+        console.log("fetchhhhhhhh")
         dispatch(fetchActiveConnection({userId,token}));
     }, [dispatch])
+    // dispatch(fetchActiveConnection({userId,token}));
+    console.log("fetchhhhhhhh")
+    const connections = useSelector((state) => state.connection.active);
+    console.log(connections)
     return (
         <Box sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "30px" }}>
             <Box className="home-nav">

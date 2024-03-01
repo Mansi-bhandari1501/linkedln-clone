@@ -9,12 +9,34 @@
     font-weight: 600;
     font-style: normal;
     color: rgba(0, 0, 0, 0.5);
-    padding-left: 5px;
+    margin-left: 0px;
     border-radius: 0px;
 }
 .images{
     display: flex;
     flex-wrap: wrap;
-}.comment-btn.css-1asyz4n-MuiButtonBase-root-MuiIconButton-root{
+}
+.comment-btn.css-1asyz4n-MuiButtonBase-root-MuiIconButton-root{
     height: 50px;
+}
+
+.reaction-btn {
+    position:relative;
+}
+
+.reaction-type{
+    display: none;
+    /* width: 1000px; */
+    z-index: 4;
+}
+.reaction-btn:hover >.reaction-type{
+    display: block;
+    position:absolute;
+    top:-50px;
+    left:-50px;
+  
+}
+
+body {
+    background-color: black;
 }

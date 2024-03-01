@@ -10,9 +10,13 @@ const reactionSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Posts"
     },
+    commentid:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Comments"
+    },
     type:{
         type:String,
-        enum:['like','celebrate','support','love','insightful','funny'],
+        enum:['Like','Celebrate','Support','Love','Insightful','Funny'],
     }
 },{timestamps:true})
-export const reactionModel = mongoose.model('reaction',reactionSchema) ;
+export const reactionModel = mongoose.model('Reactions',reactionSchema) ;

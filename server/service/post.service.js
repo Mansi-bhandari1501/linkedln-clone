@@ -58,7 +58,7 @@ export const fetchAllPosts = async (payload) => {
 
         // handle validation
 
-        console.log(payload.body)
+        // console.log(payload.body)
         const posts = await postModel.find().populate('userid',"email")
         // .populate('user');
         return { posts };
@@ -88,10 +88,10 @@ export const fetchAllPosts = async (payload) => {
 
 export const fetchPost = async (payload) => {
     try {
-        console.log(payload.params)
+        // console.log(payload.params)
         const getpost = await postModel.findById(payload.params)
         // .populate("user","Name");
-        console.log(getpost)
+        // console.log(getpost)
         return { getpost };
     } catch (error) {
         throw error;

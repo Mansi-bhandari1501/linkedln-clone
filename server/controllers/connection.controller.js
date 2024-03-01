@@ -5,8 +5,8 @@ export const sendConnection = async (req, res) => {
     try {
       const response = await connectionService.createConnection(req);
       return res.status(201).json({
-        success: true,
-        connection: response,
+        // success: true,
+        response
       });
     } catch (error) {
       errorHandler(res, error);

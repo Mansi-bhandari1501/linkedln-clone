@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit"
 import axios from 'axios'
-import { fetchReactions, postReactions, userReaction } from "./Reaction.type"
+import { fetchReactions, postReactions, userReaction } from "./reactionType"
 
 export const getUserReactions = createAsyncThunk(
     userReaction,
@@ -30,12 +30,29 @@ export const getReactions = createAsyncThunk(
     }
 )
 
-export const addReactions = createAsyncThunk(
+export const addReaction = createAsyncThunk(
     postReactions,
-    async(input)=> {
+    async(obj)=> {
         try {
-            const response = await axios.post('http://localhost:8080/reactions', input)
+            console.log(obj)
+            const response = await axios.post(`http://localhost:8080/reactions/`,obj)
             const data = await response.data
+            console.log(data)
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    }
+)
+
+export const removeReaction = createAsyncThunk(
+    postReactions,
+    async(obj)=> {
+        try {
+            console.log(obj)
+            const response = await axios.post(`http://localhost:8080/reactions/`,obj)
+            const data = await response.data
+            console.log(data)
             return data;
         } catch (error) {
             throw error;

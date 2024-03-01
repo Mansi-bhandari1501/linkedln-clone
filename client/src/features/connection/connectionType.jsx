@@ -1,5 +1,5 @@
 export const CONNECTION_TYPE = {
-    ADD_CONNECTION: 'connection/addConnection',
+    ADD_CONNECTION: 'connection/acceptConnection',
     CREATE_CONNECTION: 'connection/createConnection',
     GET_PENDING_CONNECTION: 'connection/getPendingConnection',
     GET_RECEIVED_CONNECTION: 'connection/getreceivedConnection',

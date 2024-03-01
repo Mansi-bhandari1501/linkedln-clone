@@ -1,5 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit";
-import { addConnection, createConnections, fetchActiveConnection, fetchPendingConnection, fetchReceivedConnection, rejectConnection } from "./connectionAction";
+import { acceptConnection, createConnections, fetchActiveConnection, fetchPendingConnection, fetchReceivedConnection, rejectConnection } from "./connectionAction";
 import Received from './../../components/Invitation/received';
 
 
@@ -11,6 +11,7 @@ const initialState ={
     error:null,
     requested:[],
     received:[],
+    active:[]
   
 }
 export const connectionSlice = createSlice({
@@ -40,10 +41,10 @@ export const connectionSlice = createSlice({
         })
         builder.addCase(createConnections.fulfilled,(state,action)=>{
             state.isLoading=false
-            console.log("ACTION",action.payload.connection)
-            state.requested=action.payload.connection;
-            // state.requested = action.payload;
+            console.log("ACTION",action.payload)
+            state.requested = action.payload
         })
+      
         builder.addCase(createConnections.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
@@ -55,10 +56,9 @@ export const connectionSlice = createSlice({
         })
         builder.addCase(fetchPendingConnection.fulfilled,(state,action)=>{
             state.isLoading=false
-            console.log(state.requested)
-            // console.log("ACTION",action.payload.connection)
-            state.requested=action.payload.connection;
-            // state.requested = action.payload;
+            state.connections = action.payload;
+            console.log(state.connections)
+
         })
         builder.addCase(fetchPendingConnection.rejected,(state,action)=>{
             state.isLoading=false
@@ -71,7 +71,9 @@ export const connectionSlice = createSlice({
         })
         builder.addCase(fetchActiveConnection.fulfilled,(state,action)=>{
             state.isLoading=false
-            state.connections=action.payload.connection;
+            console.log(action.payload.connection)
+            state.active=action.payload.connection;
+            console.log(state.connections)
         })
         builder.addCase(fetchActiveConnection.rejected,(state,action)=>{
             state.isLoading=false
@@ -86,8 +88,9 @@ export const connectionSlice = createSlice({
         builder.addCase(rejectConnection.fulfilled,(state,action)=>{
             state.isLoading=false
             console.log(action.payload.connection)
+            console.log(action.payload.connection.status)
             if(action.payload.connection.status === 'rejected'){
-                const newReq = state.requested.filter((item) => {
+                const newReq = state.connections.filter((item) => {
                      return item.sender !== action.payload.connection.sender
                 })
                 state.requested = newReq
@@ -100,11 +103,11 @@ export const connectionSlice = createSlice({
             state.error= action.error.message
         })
         
-        //addConnection
-        builder.addCase(addConnection.pending,(state)=>{
+        //acceptConnection
+        builder.addCase(acceptConnection.pending,(state)=>{
             state.isLoading=true;
         })
-        builder.addCase(addConnection.fulfilled,(state,action)=>{
+        builder.addCase(acceptConnection.fulfilled,(state,action)=>{
             state.isLoading=false
             console.log("ACTION",action.payload)
             state.received= state.received.filter((a)=>{
@@ -112,7 +115,7 @@ export const connectionSlice = createSlice({
             }) 
             // console.log( state.connections)
         })
-        builder.addCase(addConnection.rejected,(state,action)=>{
+        builder.addCase(acceptConnection.rejected,(state,action)=>{
             state.isLoading=false
             state.error= action.error.message
             console.log("error",state.error)

@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Divider, Stack, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addConnection, fetchReceivedConnection, rejectConnection } from '../../features/connection/connectionAction'
+import { acceptConnection, fetchReceivedConnection, rejectConnection } from '../../features/connection/connectionAction'
 import Profile from "../../assets/profile.png" 
 
 const Received = () => {
@@ -16,7 +16,7 @@ const Received = () => {
   
   const handleConnect = (i) => {
     const status = "active";
-    dispatch(addConnection({ senderId: i, receiverId, status, token }))
+    dispatch(acceptConnection({ senderId: i, receiverId, status, token }))
   }
   const handleIgnore =(i) =>{
     

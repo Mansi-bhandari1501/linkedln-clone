@@ -2,20 +2,44 @@
 import {reactionModel} from '../models/reaction.model.js'
 
 
-export const saveReaction = async (req) => {
+export const saveReaction = async (payload) => {
     try{ 
-        const {postId} = req.params
-        const {userId, type} = req.body
+        console.log(payload.body)
+        const {postId,userId, type} = payload.body
 
-        const existinReaction = await reactionModel.findOne({userid:userId, postid:postId});
-        
+        const existinReaction = await reactionModel.findOne( {
+            $and: [
+              {
+                postid: postId,
+              },
+              {
+                userid: userId,
+              },
+            ],
+          })
+          .populate("userid","firstName lasName city Education");
+        console.log("existinReaction",existinReaction)
         let reaction;
         if(existinReaction) {
-            reaction = await reactionModel.findOneAndUpdate({postid:postId,userid:userId,type},{new: true})
+            reaction = await reactionModel.findOneAndUpdate(
+                {
+                  $and: [
+                    {
+                        postid: postId,
+                    },
+                    {
+                        userid: userId,
+                    },
+                  ],
+                },
+                {
+                  $set: { type: type },
+                }
+              );
         } else {
             reaction = new reactionModel({
-                postId: postId,
-                userId,
+                postid: postId,
+                userid:userId,
                 type
             })
             await reaction.save()
@@ -26,9 +50,23 @@ export const saveReaction = async (req) => {
     }
 }
 
-export const getReactions = async () => {
+export const getReactions = async (payload) => {
     try{
-        const reactions = await reactionModel.find()
+        console.log("PAYLOAD",payload.params)
+        const {postId} = payload.params
+        const reactions = await reactionModel.find({postid:postId})
+        return reactions
+    }
+    catch(error) {
+        throw error;
+    }
+}
+export const getUserReactions = async (payload) => {
+    try{
+        console.log("PAYLOAD",payload.params)
+        const {postId} = payload.params
+        const {userId} = payload.body
+        const reactions = await reactionModel.find({postid:postId,userid:userId})
         return reactions
     }
     catch(error) {
@@ -36,13 +74,13 @@ export const getReactions = async () => {
     }
 }
 
-export const updateReaction = async (req) => {
-    const {reactionId} = req.params
-    const {userId, type} = req.body
+export const updateReaction = async (payload) => {
+    const {reactionId} = payload.params
+    const {userId, type} = payload.body
     const currentUserId = await reactionModel.findById(reactionId)
 
     try{
-        if(userId == currentUserId.userId ){
+        if(userId == currentUserId.userid ){
             const edit = await reactionModel.findByIdAndUpdate(reactionId, {type}, {new: true})
             return edit
         }   
@@ -54,14 +92,16 @@ export const updateReaction = async (req) => {
     }
 }
 
-export const removeReaction = async (req) => {
-    const {reactionId} = req.params
-    const {userId} = req.body
-    const currentUserId = await reactionModel.findById(reactionId)
-
+export const removeReaction = async (payload) => {
+    const {reactId} = payload.params
+    const {userId} = payload.body
+    console.log( payload.params)
+    console.log( payload.body)
+    const currentUserId = await reactionModel.findOne({userid:userId})
+    console.log(currentUserId)
     try{
-        if(userId == currentUserId.userId ){
-            const edit = await reactionModel.findByIdAndDelete(reactionId)
+        if(userId == currentUserId.userid ){
+            const edit = await reactionModel.findByIdAndDelete(reactId)
             return edit
         }   
         else {

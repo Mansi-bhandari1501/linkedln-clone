@@ -1,8 +1,8 @@
 import { createSlice} from "@reduxjs/toolkit"
-import { getReactions, addReactions, getUserReactions } from "./Reaction.action"
+import { getReactions, addReaction, getUserReactions } from "./reactionAction"
 
 const initialState = {
-    reactions : {},
+    reactions : [],
     isLoading : false,
     error: null,
 }
@@ -19,21 +19,40 @@ export const reactionSlice = createSlice({
         })
         builder.addCase(getReactions.fulfilled, (state, action)=> {
             state.isLoading = false;
-            state.reactions[action.payload[0].postId] = action.payload;
-            // state.comments[action.payload[0].postId] = action.payload;
+            // state.reactions[action.payload[0].postId] = action.payload;
+            state.reactions = action.payload
         })
         builder.addCase(getReactions.rejected, (state, action)=> {
             state.isLoading = false;
             state.reactions = action.error;
         })
-        builder.addCase(addReactions.pending, (state, action)=> {
+
+
+        // builder.addCase(getReactions.pending, (state, action)=> {
+        //     state.isLoading = true;
+        // })
+        // builder.addCase(getReactions.fulfilled, (state, action)=> {
+        //     state.isLoading = false;
+        //     // state.reactions[action.payload[0].postId] = action.payload;
+        //     state.reactions = action.payload
+        // })
+        // builder.addCase(getReactions.rejected, (state, action)=> {
+        //     state.isLoading = false;
+        //     state.reactions = action.error;
+        // })
+
+
+        builder.addCase(addReaction.pending, (state, action)=> {
             state.isLoading = true;
         })
-        builder.addCase(addReactions.fulfilled, (state, action)=> {
+        builder.addCase(addReaction.fulfilled, (state, action)=> {
+            console.log( state.reactions)
+            console.log(action.payload)
             state.isLoading = false;
+            state.reactions = action.payload
          
         })
-        builder.addCase(addReactions.rejected, (state, action)=> {
+        builder.addCase(addReaction.rejected, (state, action)=> {
             state.isLoading = false;
             state.error = action.error;
         })
