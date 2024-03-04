@@ -11,12 +11,14 @@ const initialState ={
 // axios.get(webApiUrl, { headers: {"Authorization" : `Bearer ${tokenStr}`} });
 export const fetchPost = createAsyncThunk(
     'post/fetchPost',
-    async(token)=>{
+    async({token,page})=>{
         // console.log(token)
-        let postUrl= "http://localhost:8080/posts"
+        console.log("FETCHPOSTSSS",page)
+
+        let postUrl= `http://localhost:8080/posts?page=${page}`
         const res = await axios.get(postUrl,{headers:{Authorization: token}});
-        // console.log(res);
         const data = await res.data;
+        console.log(data,page);
         return data;
     }
 )
@@ -51,6 +53,10 @@ export const postSlice = createSlice({
         builder.addCase(fetchPost.fulfilled,(state,action)=>{
             state.isLoading=false;
             state.error=null
+            console.log(action.payload)
+            console.log( state.contents)
+            // const prevPosts =state.contents
+            // console.log(prevPosts)
             state.contents=action.payload.posts;
         })
         builder.addCase(fetchPost.rejected,(state,action)=>{

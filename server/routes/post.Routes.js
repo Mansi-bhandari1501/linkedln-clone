@@ -5,7 +5,7 @@ const { deletePost, fetchAllPosts, fetchPost, createPost, updatePost } =postCont
 import upload from "../middlewares/upload.middleware.js"
 const router = express.Router();
 
-router.post('/',upload,createPost);
+router.post('/',requireSignIn,upload,createPost);
 router.get('/',requireSignIn,fetchAllPosts);
 router.get('/:_id',requireSignIn,fetchPost);
 router.delete('/:_id',requireSignIn,deletePost);

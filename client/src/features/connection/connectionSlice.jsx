@@ -1,6 +1,6 @@
 import { createSlice} from "@reduxjs/toolkit";
 import { acceptConnection, createConnections, fetchActiveConnection, fetchPendingConnection, fetchReceivedConnection, rejectConnection } from "./connectionAction";
-import Received from './../../components/Invitation/received';
+// import Received from './../../components/Invitation/received';
 
 
 
@@ -110,9 +110,7 @@ export const connectionSlice = createSlice({
         builder.addCase(acceptConnection.fulfilled,(state,action)=>{
             state.isLoading=false
             console.log("ACTION",action.payload)
-            state.received= state.received.filter((a)=>{
-                a._id=== action.payload._id
-            }) 
+            state.received= state.received.filter((a) => a._id=== action.payload._id) 
             // console.log( state.connections)
         })
         builder.addCase(acceptConnection.rejected,(state,action)=>{

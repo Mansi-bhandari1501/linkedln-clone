@@ -81,7 +81,8 @@ const usersSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    Education:{
+    Education:[{
+
       type: Object,
         name: {
           type: String,
@@ -107,7 +108,7 @@ const usersSchema = new mongoose.Schema({
               default:"present"
             },
         }
-    },
+    }],
     skills:{
 
         type: Object,

@@ -1,110 +1,144 @@
 import postModel from "../models/post.model.js";
 
 export const createPost = async (payload) => {
+  try {
+    let { userId, title } = payload.body;
+   
 
-    try {
-        let { userId, title } = payload.body
-
-        if (!userId || !title ) {
-            throw Object.assign(new Error(), { name: "BAD_REQUEST", message: 'Invalid Payload' });
-        }
-
-        const files = payload.files;
-
-        const image1 = files?.image1 && (files?.image1[0]?.path || null);
-        const image2 = files?.image2 && (files?.image2[0]?.path || null);
-        const image3 = files?.image3 && (files?.image3[0]?.path || null);
-        const image4 = files?.image4 && (files?.image4[0]?.path || null);
-
-        const newPostData = {
-            userid: userId,
-            title: title,
-            images: [image1, image2, image3, image4].filter(Boolean),
-        };
-
-        let post = await new postModel(newPostData).save();
-        return { post }
+    if (!userId || !title) {
+      throw Object.assign(new Error(), {
+        name: "BAD_REQUEST",
+        message: "Invalid Payload",
+      });
     }
-    catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
+
+    const files = payload.files;
+
+    const image1 = files?.image1 && (files?.image1[0]?.path || null);
+    const image2 = files?.image2 && (files?.image2[0]?.path || null);
+    const image3 = files?.image3 && (files?.image3[0]?.path || null);
+    const image4 = files?.image4 && (files?.image4[0]?.path || null);
+
+    const newPostData = {
+      userid: userId,
+      title: title,
+      images: [image1, image2, image3, image4].filter(Boolean),
+    };
+
+    let post = await new postModel(newPostData).save();
+    return { post };
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 export const deletePost = async (payload) => {
-    try {
-        const { _id } = payload.params;
+  try {
+    const { _id } = payload.params;
 
-        // handle validation here
+    // handle validation here
 
-        let data = await postModel.findByIdAndDelete(_id)
+    let data = await postModel.findByIdAndDelete(_id);
 
-        return { data };
-    } catch (error) {
-        throw error;
-    }
-}
+    return { data };
+  } catch (error) {
+    throw error;
+  }
+};
 export const updatePost = async (payload) => {
-    try {
-        let data = await postModel.findByIdAndUpdate( payload.params, { $set: payload.body });
-        return { data };
-    } catch (error) {
-        throw error;
-    }
-}
+  try {
+    let data = await postModel.findByIdAndUpdate(payload.params, {
+      $set: payload.body,
+    });
+    return { data };
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const fetchAllPosts = async (payload) => {
-    try {
+  // try {
 
-        // handle validation
+  // //     // handle validation
 
-        // console.log(payload.body)
-        const posts = await postModel.find().populate('userid',"email")
-        // .populate('user');
-        return { posts };
-    }
-    catch (error) {
-        throw error;
-    }
-    // try {
-    //     let page = Number(payload.param) || 0; "";
-    //     let resultsPerPage = 10; 
-      
-    //     if(!page || page.trim() === '') {
-    //       page = 0;
-    //     }
-    //     return await postModel.find({})
-    //         .sort({ createdAt: 'descending' })
-    //         .lean()
-    //         .limit(resultsPerPage)
-    //         .skip(page * resultsPerPage)
-    // }
-    // catch (error) {
-    //     throw error;
-    // }
+  // //     // console.log(payload.body)
+  //     const page = payload.query
+  //     console.log(payload.query)
+  //     console.log("hdugduw---------->>>>>",page)
+  //     const query = skip(5).limit(5);
+  //     const posts = await postModel.find({query}).populate('userid',"email")
 
-}
+  //     console.log("posts------>>>>",posts)
+  //     return { posts };
+  // }
+  // catch (error) {
+  //     throw error;
+  // }
+  // try {
+  //   const page = payload.query.page || 1;
+  //   // const limit = payload.query.limit || 5;
+  //   const skips = (page - 1) * 2;
+  //   const query = skip(5).limit(5);
+  //   // const postCount = postModel.countDocuments();
+  //   // if (req.query.page) {
+  //   //   console.log(postCount);
+  //   //   if (skip >= postCount) {
+  //   //     throw new Error("this page is not found");
+  //   //   }
+  //   // }
+  //   const posts = await postModel
+  //     .find(query)
+  //     .populate("userid", "email")
+  //     // .limit(2)
+  //     .sort({ createdAt: -1 });
+  //   return posts;
+  // } catch (error) {
+  //   console.log(error)
+  //   throw error;
+  // }
 
+  try {
+    // console.log("HELLO",payload.user._id )
+    console.log("payload------>>>>",payload.query)
+      let page = Number(payload.query.page) ;
+      let resultsPerPage = 5;
+      console.log("PAGESS",page)
+      // if(!page || page.trim() === '') {
+      //   page = 0;
+      // }
+     const posts = await postModel.find({})
+          .sort({ createdAt: 'descending' })
+          .populate('userid',"email firstName lasName")
+          .lean()
+          .limit(resultsPerPage)
+          .skip(page * resultsPerPage)
+          console.log(posts)
+     return posts
+  }
+  catch (error) {
+      throw error;
+  }
+};
 
 export const fetchPost = async (payload) => {
-    try {
-        // console.log(payload.params)
-        const getpost = await postModel.findById(payload.params)
-        // .populate("user","Name");
-        // console.log(getpost)
-        return { getpost };
-    } catch (error) {
-        throw error;
-    }
-}
-
+  try {
+    // console.log(payload.params)
+    const getpost = await postModel.findById(payload.params)
+    .populate("user","Name");
+    // console.log(getpost)
+    return { getpost };
+  } catch (error) {
+    throw error;
+  }
+};
 
 const postService = {
-    createPost,
-    updatePost,
-    deletePost,
-    fetchAllPosts,
-    fetchPost,
-}
+  createPost,
+  updatePost,
+  deletePost,
+  fetchAllPosts,
+  fetchPost,
+};
 
 export default postService;

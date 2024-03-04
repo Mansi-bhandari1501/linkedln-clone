@@ -19,20 +19,25 @@ export const createPost = async (req, res) => {
 };
 
 export const fetchAllPosts = async (req, res) => {
+  // return res.json("hello")
   try {
-    const response = await postService.fetchAllPosts(req);
-
-    if(!response || response.posts.length === 0) {
+    console.log("fetch posts----->>>>>")
+    // console.log(req)
+    const post = await postService.fetchAllPosts(req);
+console.log("RESPONSE",post)
+    if(!post || post.length === 0) {
       return res.status(204)
     }
 
     return res.status(200).json({
-      success: true,
-      posts: response.posts, // handle in frontend also 
+      posts: post, // handle in frontend also 
+      // success: true,
     });
 
   } catch (error) {
+    console.log(error)
     errorHandler(res, error);
+
   }
 };
 

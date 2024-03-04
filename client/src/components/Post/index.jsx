@@ -6,18 +6,48 @@ import { fetchPost } from "../../features/slices/postSlice";
 
 import "./post.css";
 import Cards from "../Card";
+// import Loading from "./Loading";
 // import { Card } from '@mui/material';
+
+
 function Post() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
+  // const [card, setCard] = useState([]);
+  const [page, setPage] = useState(0);
+  // const [loading, setLoading] = useState(true);
   useEffect(() => {
     const token = user.userToken;
-    dispatch(fetchPost(token));
-  }, [dispatch]);
-
+    console.log("PaGe",page)
+    dispatch(fetchPost({token,page}));
+  }, [dispatch,page]);
   const posts = useSelector((state) => state.post.contents);
-  // console.log(posts.userid);
+  const handelInfiniteScroll = async () => {
+    // console.log("scrollHeight" + document.documentElement.scrollHeight);
+    // console.log("innerHeight" + window.innerHeight);
+    // console.log("scrollTop" + document.documentElement.scrollTop);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        // setLoading(true);
+        setPage((prev) => prev + 1);
+      }
+      if(posts.length === 0){
+        setPage((prev)=>prev)
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handelInfiniteScroll);
+    return () => window.removeEventListener("scroll", handelInfiniteScroll);
+  }, []);
+  console.log(posts);
 
   const isLoading = useSelector((state) => state.post.isLoading);
 
@@ -32,7 +62,7 @@ function Post() {
   return (
     <div className="post-container">
       {posts.length === 0 && <>No new posts's</>}
-      {posts?.map((content) => (
+      {posts && posts.length && posts?.map((content) => (
         <div key={content._id}>
           <Cards
             title={content.title}
@@ -42,7 +72,7 @@ function Post() {
             postId={content._id}
             images={content.images}
             email= {content.email}
-            user={content.userid.email}
+            // user={content.userid.email}
             content={content}
           />
           {/* <h3>name : {content.name} </h3> */}
@@ -61,6 +91,7 @@ function Post() {
         </div>
       ))}
     </div>
+      // {isloading && <Loading>}
   );
 }
 

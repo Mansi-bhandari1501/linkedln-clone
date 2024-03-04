@@ -5,6 +5,7 @@ import MainFooter from '../MainFooter';
 import Received from './received.jsx';
 import Sent from './send.jsx';
 import Profile from "../../assets/profile.png"
+
 const ManageInvitation = () => {
   const [type,setType] =  useState(true);
   return (

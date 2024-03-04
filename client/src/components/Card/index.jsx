@@ -36,7 +36,7 @@ import { ReactionCounter } from '@charkour/react-reactions';
 
 
 const Cards = (props) => {
-
+console.log(props)
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -87,11 +87,11 @@ const Cards = (props) => {
     };
     dispatch(createComment(commentData));
   };
- const reactId = useSelector(state => state)
- console.log(reactId)
-  const handleEmoji = () =>{
-    dispatch(removeReaction({reactId}))
-  }
+//  const reactId = useSelector(state => state)
+//  console.log(reactId)
+  // const handleEmoji = () =>{
+  //   dispatch(removeReaction({reactId}))
+  // }
   const comments = useSelector((state) => state.comments.comments.comment);
 
 
