@@ -28,7 +28,7 @@ export const createPost = async (payload) => {
     let post = await new postModel(newPostData).save();
     return { post };
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw error;
   }
 };
@@ -113,7 +113,7 @@ export const fetchAllPosts = async (payload) => {
           .lean()
           .limit(resultsPerPage)
           .skip(page * resultsPerPage)
-          console.log(posts)
+          // console.log(posts)
      return posts
   }
   catch (error) {

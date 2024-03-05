@@ -1,4 +1,4 @@
 export const CHAT_TYPE = {
-    ADD_CHAT: 'comment/addChat',
-    GET_CHAT: 'comment/getChat'
+    ADD_CHAT: 'chats/addChat',
+    GET_CHAT: 'chats/fetchChats'
   }

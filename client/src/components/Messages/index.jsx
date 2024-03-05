@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import {
   Avatar,
@@ -13,24 +13,38 @@ import {
 import { ReactComponent as Edit } from "../../utils/edIT.svg";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EditCalendarIcon from "@mui/icons-material/EditCalendar";
-import Icon from "../../assets/LinkedIn_icon.svg.png";
+
 import SearchIcon from "@mui/icons-material/SearchRounded";
 import MainFooter from "../MainFooter";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
-import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
-import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
-import GifOutlinedIcon from "@mui/icons-material/GifOutlined";
-import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
+
 import TuneIcon from "@mui/icons-material/Tune";
-import Textarea from "@mui/joy/Textarea";
+
 import UserMesssageCard from "./userMesssageCard";
 import OtherMessage from "./otherMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChats } from "../../features/chat/chatAction";
+import MessageTab from "./messageTab";
 
 const MessageComponent = () => {
   const [type, setType] = useState(true);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const logId = user.userInfo._id
+  console.log(logId)
+  // const chats = useSelector((state)=>state)
+  // console.log(chats)
 
+  useEffect(() => {
+    const token = user.userToken;
+    dispatch(fetchChats({ token, logId }));
+
+  }, [dispatch]);
+
+  const chats = useSelector((state) => state.chats.chats);
+  console.log(chats)
   return (
+    // <Stack sx={{ display: 'flex', flexDirection: 'column' }}>
+    //   {connections?.map((content) => {
     <Box
       sx={{ backgroundColor: "#F4F2EE", height: "100vh", marginTop: "10px" }}
     >
@@ -86,7 +100,7 @@ const MessageComponent = () => {
                   </Box>
                   <Box>
                     {/* <EditCalendarIcon /> */}
-                    <Edit style={{height:"30px",width:"22px"}}/>
+                    <Edit style={{ height: "30px", width: "22px" }} />
                   </Box>
                 </Box>
               </Box>
@@ -110,7 +124,7 @@ const MessageComponent = () => {
                     "& .MuiOutlinedInput-root": {
                       height: "28px",
                       width: "15vw",
-                      backgroundColor:"#EDF3F8",
+                      backgroundColor: "#EDF3F8",
                     },
                     "&.MuiInputBase-input-MuiOutlinedInput-input": {
                       padding: "10px",
@@ -119,7 +133,7 @@ const MessageComponent = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <SearchIcon style={{ color: "black" , fontSize:"20px"}} />
+                        <SearchIcon style={{ color: "black", fontSize: "20px" }} />
                       </InputAdornment>
                     ),
                     endAdornment: (
@@ -148,7 +162,22 @@ const MessageComponent = () => {
               </Box>
 
               <Divider />
-              <Box sx={{ height: "10vh" }}>{type ?<Box sx={{overflowY:"scroll",height:"75vh"}}><UserMesssageCard /> <UserMesssageCard /></Box> : <OtherMessage/>}</Box>
+              <Box sx={{ height: "10vh" }}>{type ? <Box sx={{ overflowY: "scroll", height: "75vh" }}>
+                <>
+                  {chats && chats?.map((content, i) => {
+                    return (
+                      <div key={content._id}>
+
+                        <UserMesssageCard
+                          content={content} />
+                      </div>
+                    )
+                  })}
+                </>
+              </Box>
+                :
+                <OtherMessage />}
+              </Box>
             </Box>
             <hr
               style={{
@@ -159,7 +188,8 @@ const MessageComponent = () => {
               }}
             />
             {/* <Divider sx={{height:"500px",color:'black'}}/> */}
-            <Box sx={{ width: "80%" }}>
+            <MessageTab />
+            {/* <Box sx={{ width: "80%" }}>
               <Box
                 sx={{
                   display: "flex",
@@ -174,20 +204,27 @@ const MessageComponent = () => {
                   <StarBorderOutlinedIcon sx={{ marginLeft: "5px" }} />
                 </Box>
               </Box>
-              <Box sx={{ height: "70vh" }}>
+              <Box sx={{ height: "65vh" }}>
                 <Divider />
-                CHAT
+                <Box>
+
+
+
+                </Box>
               </Box>
-              <Box>
+              <Box >
                 <Divider />
                 <Textarea
-                  minRows={2}
+                  minRows={4}
                   variant="soft"
                   placeholder="write a message"
-                  sx={{ width: "90%" }}
+                  sx={{
+                    width: "90%", overflow: "none", backgroundColor: "#F4F2EE", border: "none",margin:"10px"
+                  }}
+
                 />
                 {/* <TextField id="filled-basic" label="write a message" variant="filled"  sx={{width:"100%"}}/> */}
-                <Box></Box>
+            {/* <Box></Box>
                 <Box
                   sx={{
                     display: "flex",
@@ -207,7 +244,7 @@ const MessageComponent = () => {
                   </Box>
                 </Box>
               </Box>
-            </Box>
+            </Box>  */}
           </Box>
         </Stack>
         <Stack

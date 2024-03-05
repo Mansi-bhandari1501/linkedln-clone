@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState ={
@@ -55,9 +55,12 @@ export const postSlice = createSlice({
             state.error=null
             console.log(action.payload)
             console.log( state.contents)
+            const prevPosts = current(state.contents);
+            console.log('prevPosts',prevPosts);
             // const prevPosts =state.contents
-            // console.log(prevPosts)
-            state.contents=action.payload.posts;
+            const newPosts = action.payload.posts
+            console.log(newPosts,[...prevPosts,...newPosts]);
+            state.contents= action.payload.posts;
         })
         builder.addCase(fetchPost.rejected,(state,action)=>{
             state.isLoading=false

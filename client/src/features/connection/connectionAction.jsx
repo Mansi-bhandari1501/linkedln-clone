@@ -6,7 +6,7 @@ import { CONNECTION_TYPE } from "./connectionType";
 export const fetchReceivedConnection = createAsyncThunk(
     CONNECTION_TYPE.GET_RECEIVED_CONNECTION,
     async ({receiverId,token}) => {
-        console.log(receiverId)
+        // console.log(receiverId)
         // console.log(token)
         const res = await axios.get(`http://localhost:8080/connections/${receiverId}`,
         {headers:{Authorization: token}});
@@ -18,8 +18,8 @@ export const fetchReceivedConnection = createAsyncThunk(
 export const fetchPendingConnection = createAsyncThunk(
     CONNECTION_TYPE.GET_PENDING_CONNECTION,
     async ({senderId,token}) => {
-        console.log(senderId)
-        console.log(token)
+        // console.log(senderId)
+        // console.log(token)
         const res = await axios.get(`http://localhost:8080/connections/pending/${senderId}`,
         {headers:{Authorization: token}});
         const data =  res.data;
@@ -30,7 +30,7 @@ export const fetchPendingConnection = createAsyncThunk(
 export const rejectConnection = createAsyncThunk(
     CONNECTION_TYPE.REJECT_CONNECTION,
     async ({senderId, receiverId, status,token}) => {
-        console.log({senderId, receiverId, status})
+        // console.log({senderId, receiverId, status})
         const res = await axios.put(`http://localhost:8080/connections/remove/`,{senderId, receiverId, status},
         {headers:{Authorization: token}});
         const data =  res.data;
@@ -53,7 +53,7 @@ export const fetchActiveConnection = createAsyncThunk(
 export const acceptConnection = createAsyncThunk(
     CONNECTION_TYPE.ADD_CONNECTION,
     async ({senderId, receiverId, status,token}) => {
-        console.log({senderId, receiverId, status})
+        // console.log({senderId, receiverId, status})
         const res = await axios.patch(`http://localhost:8080/connections/`,{senderId, receiverId, status},
         {headers:{Authorization: token}}
         );
@@ -67,7 +67,7 @@ export const acceptConnection = createAsyncThunk(
 export const createConnections = createAsyncThunk(
     CONNECTION_TYPE.CREATE_CONNECTION,
     async ({senderId, receiverId,token}) => {
-        console.log({senderId, receiverId})
+        // console.log({senderId, receiverId})
         const res = await axios.post(`http://localhost:8080/connections/`,{senderId, receiverId},
         {headers:{Authorization: token}}
         );

@@ -7,10 +7,10 @@ const router = express.Router();
 
 
 router.post('/',requireSignIn, createChat);
-router.get("/", requireSignIn,fetchChats);
+router.get("/:logId",fetchChats);
 router.post("/group",requireSignIn, createGroupChat);
-router.put("/rename",requireSignIn, renameGroup);
-router.put("/groupremove",requireSignIn, removeFromGroup);
-router.put("/groupadd",requireSignIn, addToGroup);
+router.put("/renameChat",requireSignIn, renameGroup);
+router.put("/groupRemove",requireSignIn, removeFromGroup);
+router.put("/groupAdd",requireSignIn, addToGroup);
 
 export default router;

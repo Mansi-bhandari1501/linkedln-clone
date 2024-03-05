@@ -65,13 +65,13 @@ function Post() {
       {posts && posts.length && posts?.map((content) => (
         <div key={content._id}>
           <Cards
-            title={content.title}
-            body={content.body}
-            likes={content.likes}
-            createdAt={content.createdAt}
-            postId={content._id}
-            images={content.images}
-            email= {content.email}
+            // title={content.title}
+            // body={content.body}
+            // likes={content.likes}
+            // createdAt={content.createdAt}
+            // postId={content._id}
+            // images={content.images}
+            // email= {content.email}
             // user={content.userid.email}
             content={content}
           />

@@ -7,6 +7,7 @@ import reactionSlice from "../features/Reaction/reactionSlice";
 
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+import chatSlice from "../features/chat/chatSlice";
 const persistConfig = {
     key: 'root',
     storage,
@@ -17,6 +18,7 @@ const rootreducer = combineReducers({
     post: postSlice,
     connection: connectionSlice,
     reaction: reactionSlice,
+    chats: chatSlice,
 })
 const persistedReducer = persistReducer(persistConfig, rootreducer)
 export const store = configureStore({

@@ -36,7 +36,9 @@ import { ReactionCounter } from '@charkour/react-reactions';
 
 
 const Cards = (props) => {
-console.log(props)
+// console.log(props.content.images)
+const images = props.content.images;
+// const name= props.content.userid.firstName 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -62,7 +64,7 @@ console.log(props)
   const [emoji, setEmoji] = useState(defaultReaction);
   const [emojiType, setEmojiType] = useState('Like');
 
-  let createdAt = props.createdAt;
+  let createdAt = props.content.createdAt;
   var date = new Date(createdAt)
 
   const dispatch = useDispatch();
@@ -107,23 +109,23 @@ console.log(props)
               </Avatar>
             }
             action={<IconButton aria-label="settings"></IconButton>}
-            title={props.user}
+            title={props.content.userid.firstName +  props.content.userid.lasName }
             subheader={date.getDate() + " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear()}
           />
           <MoreHorizIcon sx={{ margin: "10px" }} />
         </Box>
         <CardContent sx={{ marginTop: "0px", paddingTop: "0px" }}>
           <Typography variant="body2" color="text.secondary">
-            {props.title}
+            {props.content.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.body}
-            {props.content.user}
+            {/* {props.content.userid.firstName}  {props.content.userid.firsName} */}
           </Typography>
         </CardContent>
 
         <div className="images">
-          {props?.images?.map((image, index) => (
+          {images?.map((image, index) => (
             <div
               key={index}
               style={{
@@ -135,8 +137,8 @@ console.log(props)
               <CardMedia
                 key={index}
                 component="img"
-                height={props.images.length > 1 ? "100%" : "100%"}
-                width={props.images.length > 1 ? "50%" : "100%"}
+                height={images.length > 1 ? "100%" : "100%"}
+                width={images.length > 1 ? "50%" : "100%"}
                 image={`${image}`}
                 alt="post image"
                 sx={{ marginBottom: "5px", display: "inline-flex" }}
