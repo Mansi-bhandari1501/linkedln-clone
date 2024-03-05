@@ -12,7 +12,9 @@ const UserMesssageCard = (content) => {
   // console.log(date)
   console.log(content.content)
   const chats = content.content
-  console.log(chats)
+  console.log(chats.users)
+  const users = chats.users;
+  console.log(users[0].firstName);
   let updatedAt = content.content.updatedAt;
   var date = new Date(updatedAt)
   return (
@@ -29,7 +31,8 @@ const UserMesssageCard = (content) => {
               className="userName"
               sx={{ fontSize: "16px", lineHeight: "20px" }}
             >
-              {chats.users[1].firstName} {chats.users[1].lasName}
+              {users[0].firstName}
+              {/* {chats} {chats.users[1].lasName} */}
               {/* {chats.chatName} */}
             </Typography>
             <Typography

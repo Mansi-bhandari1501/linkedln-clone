@@ -40,7 +40,7 @@ export const accessChat = async (payload) => {
       console.log("ChatCreated", createdChat)
       const FullChat = await chatModel.findOne({ _id: createdChat._id }).populate(
         "users",
-        " "
+        "firstName lasName "
       );
       return FullChat;
       // res.status(200).json(FullChat);

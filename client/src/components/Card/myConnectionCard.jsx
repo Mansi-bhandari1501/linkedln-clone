@@ -11,23 +11,45 @@ import {
 import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Profile from "../../assets/profile.png"
-const MyConnectionCard = (content) => {
+import Profile from "../../assets/profile.png";
+import { useDispatch, useSelector } from "react-redux";
+import { addChats } from "../../features/chat/chatAction";
+import { Navigate, useLocation, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
-  console.log(content.content) 
+
+const MyConnectionCard = (content) => {
+ const dispatch = useDispatch()
+  console.log(content.content._id) 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const user = useSelector((state) => state.user);
+  const logId = user.userInfo._id
+  console.log(logId)
+  // const chats = useSelector((state)=>state)
+  // console.log(chats)
 
+  const userId =content.content._id
+  console.log(userId)
+  const handleMessage=()=>{
+    const token = user.userToken;
+    dispatch(addChats({userId,logId,token}));
+    navigate(location.state || "/message");
+    
+  }
 
   return (
     <>
       <Box
+      key={content.content._id}
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -52,7 +74,7 @@ const MyConnectionCard = (content) => {
             </Box>
         </Box>
         <Box>
-          <Button sx={{ border: "1px solid #0B66C2", borderRadius: "20px" }}>
+          <Button onClick={handleMessage} sx={{ border: "1px solid #0B66C2", borderRadius: "20px" }}>
             message
           </Button>
           <IconButton

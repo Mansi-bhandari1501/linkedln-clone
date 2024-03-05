@@ -10,6 +10,7 @@ import Textarea from "@mui/joy/Textarea";
 // import Icon from "../../assets/LinkedIn_icon.svg.png";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector } from 'react-redux';
+import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:8080"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
@@ -17,11 +18,12 @@ const MessageTab = () => {
     const [socketConnected,setSocketConnected]= useState(false)
     const user = useSelector((state)=>state.chats)
     console.log(user)
-    useEffect(()=>{
-        socket = io(ENDPOINT);
-        socket.emit("setup",user);
-        socket.on("connected",()=>setSocketConnected(true));
-    },[])
+
+    // useEffect(()=>{
+    //     socket = io(ENDPOINT);
+    //     socket.emit("setup",user);
+    //     socket.on("connected",()=>setSocketConnected(true));
+    // },[])
   return (
     <Box sx={{ width: "80%" }}>
     <Box

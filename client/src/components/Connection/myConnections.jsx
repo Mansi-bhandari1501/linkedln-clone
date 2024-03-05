@@ -5,7 +5,7 @@ import MainFooter from '../MainFooter';
 import InvitationCard from '../Card/invitationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchActiveConnection} from "../../features/connection/connectionAction"
-import MyConnectionCard from '../Card/myConnection';
+import MyConnectionCard from '../Card/myConnectionCard';
 const MyConnections = () => {
     const dispatch= useDispatch();
     const user = useSelector((state) => state.user);
