@@ -6,7 +6,7 @@ import chatService from "../service/chat.service.js";
 export const createChat = async (req, res) => {
   try {
     const response = await chatService.accessChat(req);
-    console.log(response);
+    // console.log(response);
     // res.send("commented");
     return res.status(201).json({
       success: true,
@@ -19,7 +19,7 @@ export const createChat = async (req, res) => {
 export const fetchChats = async (req, res) => {
   try {
     const results = await chatService.getChats(req);
-    console.log("<<<<------>>>>>>",results);
+    // console.log("<<<<------>>>>>>",results);
     return res.status(200).json({
       success: true,
       chat: results,
@@ -32,7 +32,7 @@ export const fetchChats = async (req, res) => {
 export const createGroupChat = async (req, res) => {
   try {
     const results = await chatService.newGroupChat(req);
-    console.log(results);
+    // console.log(results);
     return res.status(200).json({
       success: true,
       chat: results,
@@ -45,7 +45,7 @@ export const createGroupChat = async (req, res) => {
 export const renameGroup = async (req, res) => {
   try {
     const results = await chatService.updateGroupName(req);
-    console.log(results);
+    // console.log(results);
     return res.status(200).json({
       success: true,
       chat: results,
@@ -58,7 +58,7 @@ export const renameGroup = async (req, res) => {
 export const removeFromGroup = async (req, res) => {
   try {
     const results = await chatService.removeUserGroup(req);
-    console.log(results);
+    // console.log(results);
     return res.status(200).json({
       success: true,
       chat: results,
@@ -71,7 +71,7 @@ export const removeFromGroup = async (req, res) => {
 export const addToGroup = async (req, res) => {
   try {
     const results = await chatService.addUserGroup(req);
-    console.log(results);
+    // console.log(results);
     return res.status(200).json({
       success: true,
       chat: results,

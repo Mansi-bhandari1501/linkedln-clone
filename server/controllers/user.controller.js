@@ -31,8 +31,11 @@ export const registerController = async (req, res) => {
 // POST LOGIN
 export const loginController = async (req, res) => {
   try {
+    console.log('user')
+
     const response = await userService.loginUser(req);
   
+    console.log('user',response.user)
      return res.status(200).send({
         success: true,
         message: "login successfully",
@@ -40,8 +43,10 @@ export const loginController = async (req, res) => {
         token: response.token,
       });
   } catch (error) {
+    console.log(error)
     errorHandler(res,error);
   }}
+
 export const userDetail = async (req, res) => {
   try {
     const response = await userService.userDetail(req);

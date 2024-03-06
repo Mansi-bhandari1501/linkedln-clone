@@ -24,24 +24,42 @@ import OtherMessage from "./otherMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChats } from "../../features/chat/chatAction";
 import MessageTab from "./messageTab";
+// import { Link } from "react-router-dom";
 
-const MessageComponent = () => {
+const MessageComponent = (socket) => {
   const [type, setType] = useState(true);
+  const [istrue, setIsTrue] = useState(false);
+  const [messages, setMessages] = useState({});
+  const [toggle, setToggle] = useState(false)
+  const [recievedData, setRecievedData] = useState({
+    chatId: "",
+    chatName: ""
+  });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const logId = user.userInfo._id
-  console.log(logId)
+  // console.log(logId)
   // const chats = useSelector((state)=>state)
+  // console.log(chats)
+  const chats = useSelector((state) => state.chats.chats);
   // console.log(chats)
 
   useEffect(() => {
     const token = user.userToken;
-    dispatch(fetchChats({ token, logId }));
-
+    dispatch(fetchChats({ logId, token }));
+    setMessages(chats);
   }, [dispatch]);
 
-  const chats = useSelector((state) => state.chats.chats);
-  console.log(chats)
+  // console.log(messages)
+
+  const handleChats = (chatId, chatName) => {
+    setRecievedData({ chatId: chatId, chatName: chatName });
+    console.log(recievedData)
+    setIsTrue(true);
+    setToggle(!toggle)
+  }
+  // console.log(istrue)
+  // console.log(recievedData)
   return (
     // <Stack sx={{ display: 'flex', flexDirection: 'column' }}>
     //   {connections?.map((content) => {
@@ -163,17 +181,9 @@ const MessageComponent = () => {
 
               <Divider />
               <Box sx={{ height: "10vh" }}>{type ? <Box sx={{ overflowY: "scroll", height: "75vh" }}>
-                <>
-                  {chats && chats?.map((content, i) => {
-                    return (
-                      <div key={content._id}>
-
-                        <UserMesssageCard
-                          content={content} />
-                      </div>
-                    )
-                  })}
-                </>
+                <UserMesssageCard
+                  chats={chats}
+                  handleChats={handleChats} />
               </Box>
                 :
                 <OtherMessage />}
@@ -188,63 +198,16 @@ const MessageComponent = () => {
               }}
             />
             {/* <Divider sx={{height:"500px",color:'black'}}/> */}
-            <MessageTab />
-            {/* <Box sx={{ width: "80%" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  padding: "10px",
-                }}
-              >
-                <Box>USERnAME</Box>
-                <Box>
-                  <MoreHorizIcon />
-                  <StarBorderOutlinedIcon sx={{ marginLeft: "5px" }} />
-                </Box>
-              </Box>
-              <Box sx={{ height: "65vh" }}>
-                <Divider />
-                <Box>
+            {istrue ?
+              <MessageTab
+                toggle={toggle}
+                socket={socket}
+                receivedData={recievedData}
+              />
+              :
+              <>start Messaging</>
+            }
 
-
-
-                </Box>
-              </Box>
-              <Box >
-                <Divider />
-                <Textarea
-                  minRows={4}
-                  variant="soft"
-                  placeholder="write a message"
-                  sx={{
-                    width: "90%", overflow: "none", backgroundColor: "#F4F2EE", border: "none",margin:"10px"
-                  }}
-
-                />
-                {/* <TextField id="filled-basic" label="write a message" variant="filled"  sx={{width:"100%"}}/> */}
-            {/* <Box></Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    margin: "8px",
-                  }}
-                >
-                  <Box sx={{ display: "flex", gap: "20px" }}>
-                    <InsertPhotoOutlinedIcon />
-                    <LinkOutlinedIcon />
-                    <GifOutlinedIcon />
-                    <SentimentSatisfiedOutlinedIcon />
-                  </Box>
-                  <Box>
-                    <Button sx={{ marginBottom: "15px" }}>send</Button>
-                    <MoreHorizIcon />
-                  </Box>
-                </Box>
-              </Box>
-            </Box>  */}
           </Box>
         </Stack>
         <Stack

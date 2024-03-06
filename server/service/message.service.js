@@ -28,7 +28,7 @@ export const sendNewMessage = async (payload) => {
             content: content,
             chat: chatId,
         };
-        console.log("MESSAGE", newMessage)
+        // console.log("MESSAGE", newMessage)
         var message = await messageModel.create(newMessage)
        
 
@@ -47,9 +47,47 @@ export const sendNewMessage = async (payload) => {
     }
 };
 
+export const sendMessage = async (socket,payload) => {
+    const { content, chatId, senderId } = payload;
+    console.log('payload', payload);
+    console.log(content, chatId, senderId)
+
+    if (!content || !chatId) {
+        const error = Object.assign(new Error(), { name: "BAD_REQUEST", message: "Invalid data passed into request" });
+        socket.emit('error',error);
+    }
+
+    try {
+        var newMessage = {
+            sender: senderId,
+            content: content,
+            chat: chatId,
+        };
+        // console.log("MESSAGE", newMessage)
+        var message = await messageModel.create(newMessage)
+       
+
+        message = await message.populate("sender", "name ");
+        message = await message.populate("chat");
+        // message = await users.populate(message, {
+        //     path: "chat.users",
+        //     select: "name pic email",
+        // });
+        await chatModel.findByIdAndUpdate(chatId, { latestMessage: message });
+        console.log("----->>",message);
+
+        socket.emit(chatId, message);
+        // return message;
+        
+    } catch (error) {
+        socket.emit('error',error);
+    }
+}
+
 
 const messageService = {
     sendNewMessage,
-    getAllMessages
+    getAllMessages,
+    sendMessage
 }
 export default messageService;

@@ -4,7 +4,7 @@ import messageService from "../service/message.service.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    console.log("HELLO")
+    // console.log("HELLO")
     const response = await messageService.sendNewMessage(req);
     console.log(response);
     // res.send("commented");
@@ -19,7 +19,7 @@ export const sendMessage = async (req, res) => {
 export const allMessages = async (req, res) => {
   try {
     const response = await messageService.getAllMessages(req);
-    console.log(response);
+    // console.log(response);
     // res.send("commented");
     return res.status(201).json({
       success: true,

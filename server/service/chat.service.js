@@ -55,7 +55,7 @@ export const accessChat = async (payload) => {
 export const getChats = async (payload) => {
   try {
     const { logId } = payload.params;
-    console.log("logId",logId)
+    // console.log("logId",logId)
     const results = chatModel.find({ users: { $elemMatch: { $eq: logId } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
@@ -85,7 +85,7 @@ export const newGroupChat = async (payload) => {
     throw Object.assign(new Error(), { name: "BAD_REQUEST", message: "Please Fill all the feilds" });
   }
   var users = payload.body.users;
-console.log("length",users.length)
+// console.log("length",users.length)
   if (users.length < 3) {
     throw Object.assign(new Error(), { name: "BAD_REQUEST", message: "More than 2 users are required to form a group chat" });
   }

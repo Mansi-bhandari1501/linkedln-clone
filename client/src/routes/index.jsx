@@ -12,7 +12,9 @@ import ManageNetwork from '../pages/Network/manageNetwork';
 import ActiveConnections from '../pages/Network/myConnections';
 import Message from '../pages/Message';
 // import Example from '../page';
+import io from "socket.io-client";
 
+const socket =io.connect("http://localhost:8080/")
 const Router = () => {
   return (
     <div>
@@ -26,7 +28,7 @@ const Router = () => {
           {/* <Route path='/' element={<Example />} /> */}
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/message' element={<Message />} />
+          <Route path='/message' element={<Message socket={socket}/>} />
           <Route path='/mynetwork' element={<Network />} />
           <Route path='/mynetwork/invitation-manager' element={<ManageNetwork />} />
           <Route path='/mynetwork/invite-connect/connections' element={<ActiveConnections />} />
