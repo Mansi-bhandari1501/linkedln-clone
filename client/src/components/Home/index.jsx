@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 const HomeComponent = () => {
 
   const user = useSelector((state) => state.user.userInfo);
-console.log(user)
+// console.log(user)
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

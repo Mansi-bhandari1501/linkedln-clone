@@ -180,7 +180,7 @@ const MessageComponent = (socket) => {
               </Box>
 
               <Divider />
-              <Box sx={{ height: "10vh" }}>{type ? <Box sx={{ overflowY: "scroll", height: "75vh" }}>
+              <Box sx={{ height: "10vh" }}>{type ? <Box sx={{ overflowY: "auto", height: "75vh" }}>
                 <UserMesssageCard
                   chats={chats}
                   handleChats={handleChats} />

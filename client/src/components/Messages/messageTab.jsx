@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Stack } from '@mui/material'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
@@ -34,7 +34,7 @@ const MessageTab = (props) => {
   const senderId = user.userId;
   const token = user.userToken;
   const dispatch = useDispatch();
- const Toggle = useSelector((state)=>state.messages)
+//  const Toggle = useSelector((state)=>state.messages)
 //  console.log(Toggle)
   const chatId = props.receivedData.chatId;
   const chatName = props.receivedData.chatName;
@@ -42,6 +42,27 @@ const MessageTab = (props) => {
   useEffect(() => {
     dispatch(fetchMessage({ chatId, token }))
   }, [dispatch,props.toggle])
+
+  
+
+    const messagesEndRef = useRef(null)
+  
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+  
+    // useEffect(() => {
+    //   scrollToBottom()
+    // }, [messages]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(content)
+    socket.emit('message',{chatId,content,senderId});
+    // dispatch(addMessage({content, chatId, senderId,token}))
+    // content, chatId, senderId
+    // socket.emit("message", { content: x, chatId,userId });
+    setContent("");
+  };
 
   // console.log(props.receivedData)
   const messages = useSelector((state) => state.messages.messages);
@@ -63,25 +84,17 @@ const MessageTab = (props) => {
 
     socket.on(chatId, (data) => {
       console.log(data);
-      // setMessage((messages) => [...messages, data]);
+      setMessage((messages) => [...messages, data]);
+      scrollToBottom()
       // dispatch(addMessage({content, chatId, senderId,token}))
     })
-console.log(message);
+    console.log(messages);
     return () => {
       socket.disconnect();
     };
 
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(content)
-    socket.emit('message',{chatId,content,senderId});
-    // dispatch(addMessage({content, chatId, senderId,token}))
-    // content, chatId, senderId
-    // socket.emit("message", { content: x, chatId,userId });
-    // setContent("");
-  };
 
 // console.log(content)
 
@@ -108,24 +121,24 @@ console.log(message);
         <Box sx={{ height: "65vh" }}>
           <Divider />
           <Stack>
-            <Avatar src={Profile} sx={{ height: "100px", width: "100px" }} ></Avatar>
+            <Avatar src={Profile} sx={{ height: "100px", width: "100px" ,margin:"15px"}} ></Avatar>
           </Stack>
           <Divider />
-          <Box sx={{overflow:"auto"}}>
+          <Box sx={{overflowY:"auto",height:"49vh", autoFocus:"true"}}>
 
             {messages && messages?.map((content, i) => {
               return (
 
-                <Stack key={content._id}sx={{overflow:"auto",marginTop:"5px"}}>
-                  <Stack sx={{ flexDirection: "row", gap: "5px",marginTop:"5px" }}>
+                <Stack key={content._id}>
+                  <Stack sx={{ flexDirection: "row", gap: "5px",marginTop:"15px" ,marginLeft:"8px" }}>
 
-                    <Avatar src={Profile}></Avatar>
-                    <Stack>
+                    <Avatar sx={{height:"60px",width:"60px"}} src={Profile}></Avatar>
+                    <Stack sx={{gap:"12px"}}>
 
-                      <Typography>
+                      <Typography sx={{fontSize:"14px",fontFamily:"system-ui",fontWeight:600,lineHeight:"20px",fontStyle:"normal",color:"rgba(0 0 0 0.9)"}}>
                         {content.sender?.email}
                       </Typography>
-                      <Typography>
+                      <Typography sx={{fontSize:"14px",fontFamily:"system-ui",fontWeight:400,lineHeight:"20px",fontStyle:"normal",color:"rgba(0 0 0 0.9)"}}>
 
                         {content.content}
                       </Typography>
@@ -136,7 +149,8 @@ console.log(message);
                 </Stack>
               )
             })}
-          </Box>
+            <div useRef={messagesEndRef}/>
+          </Box >
         </Box>
         <Box >
           <Divider />
