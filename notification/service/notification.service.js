@@ -13,10 +13,10 @@ export const sendNotifications = async (req, res) => {
 }
 export const getNotifications = async (req, res) => {
     const { receiverId } = req.body;
-    console.log(receiverId)
+    console.log("----RECEIVERiD-----",receiverId)
     const getNotifications = await  notificationsModel.find({
-        receiver: receiverId,
-        
+        receiver: receiverId
     })
+    console.log(getNotifications)
     return res.json(getNotifications)
 }

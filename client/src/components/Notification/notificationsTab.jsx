@@ -3,9 +3,11 @@ import React, { useEffect, useMemo } from 'react'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import "./notificationsTab.css"
 import io from "socket.io-client";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNotifications } from '../../features/notification/notification.action';
 
 const NotificationsTab = (props) => {
+
     const socket = useMemo(
         () =>
           io("http://localhost:4000", {
@@ -13,8 +15,12 @@ const NotificationsTab = (props) => {
           }),
         []
       );
-
+const dispatch  = useDispatch();
 const receiverId = useSelector((state)=>state.user.userId)
+
+useEffect(()=>{
+    dispatch(fetchNotifications({receiverId}))
+},[dispatch])
 useEffect(() => {
     // socket = io(ENDPOINT);
     // socket.emit("setup", user);
