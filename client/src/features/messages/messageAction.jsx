@@ -14,15 +14,15 @@ export const fetchMessage= createAsyncThunk(
         return data.message;
     }
 )
-export const addMessage= createAsyncThunk(
-    MESSAGE_TYPE.ADD_MESSAGE,
-    async ({content, chatId, senderId,token}) => {
-        console.log(content, chatId, senderId)
-        console.log(token)
-        const res = await axios.post(`http://localhost:8080/message`,{content, chatId, senderId},
-        {headers:{Authorization: token}});
-        const data =  res.data;
-        console.log("chat", data.chat)
-        return data.chat;
-    }
-)
+// export const addMessage= createAsyncThunk(
+//     MESSAGE_TYPE.ADD_MESSAGE,
+//     async ({content, chatId, senderId,token}) => {
+//         console.log(content, chatId, senderId)
+//         console.log(token)
+//         const res = await axios.post(`http://localhost:8080/message`,{content, chatId, senderId},
+//         {headers:{Authorization: token}});
+//         const data =  res.data;
+//         console.log("chat", data.chat)
+//         return data.chat;
+//     }
+// )

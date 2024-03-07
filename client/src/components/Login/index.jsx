@@ -30,7 +30,7 @@ const LoginComponent = () => {
     const location = useLocation();
 
     const handleSubmit = async () => {
-        console.log("frontend", email, password);
+        // console.log("frontend", email, password);
         dispatch(loginUser({ email, password }))
             .unwrap()
             .then((res) => {

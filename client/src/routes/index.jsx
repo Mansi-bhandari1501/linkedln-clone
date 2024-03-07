@@ -13,8 +13,10 @@ import ActiveConnections from '../pages/Network/myConnections';
 import Message from '../pages/Message';
 // import Example from '../page';
 import io from "socket.io-client";
+import Notifications from '../pages/Notification/notifications';
 
 const socket =io.connect("http://localhost:8080/")
+const socketNotify =io.connect("http://localhost:4000/")
 const Router = () => {
   return (
     <div>
@@ -30,6 +32,7 @@ const Router = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/message' element={<Message socket={socket}/>} />
           <Route path='/mynetwork' element={<Network />} />
+          <Route path='/notifications' element={<Notifications socket={socketNotify}/>} />
           <Route path='/mynetwork/invitation-manager' element={<ManageNetwork />} />
           <Route path='/mynetwork/invite-connect/connections' element={<ActiveConnections />} />
           {/* <ToastContainer /> */}

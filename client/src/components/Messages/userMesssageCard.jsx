@@ -11,7 +11,7 @@ const UserMesssageCard = (props) => {
   // var date = new Date(updatedAt)
   // console.log(date)
   console.log(props)
-  const chats = props.chats;
+  const chats = props.chats.chats;
   console.log(chats)
   // console.log(props.props)
   // const props = props.props
@@ -23,7 +23,7 @@ const UserMesssageCard = (props) => {
   return (
     <div>
 
-      {chats && chats?.map((content) => {
+      {chats && chats.length>0 && chats.map && chats?.map((content) => {
         return (
 
           <Box key={content._id}>

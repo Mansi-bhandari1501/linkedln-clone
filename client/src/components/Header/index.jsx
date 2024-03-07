@@ -68,7 +68,7 @@ const Header = () => {
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/'style={{textDecoration:"none"}}>
+              <Link to='/jobs'style={{textDecoration:"none"}}>
                 <JobsLogo className="menu-logo" />
                 <h4 style={{fontSize:"12px",textTransform:"none"}}>Jobs</h4>
 
@@ -86,7 +86,7 @@ const Header = () => {
           </li>
           <li className='menu-content' style={{ display: "flex", flexDirection: "column" }}>
             <Button>
-              <Link to='/'style={{textDecoration:"none"}}>
+              <Link to='/notifications'style={{textDecoration:"none"}}>
 
                 <NotificationLogo className="menu-logo" />
                 <h4 style={{fontSize:"12px",textTransform:"none"}}>Notifications</h4>

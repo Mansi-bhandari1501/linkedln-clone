@@ -4,10 +4,11 @@ import morgon from 'morgan';
 import connectDB from './config/db.js';
 import routes from './routes/index.js'
 import cors from 'cors';
-import path from "path";
+// import path from "path";
 import http from 'http';
 import { Server } from "socket.io";
 import { handleSocketEvents } from './socket/index.js';
+// import { handleSocketEvents } from './socket/index.js';
 
 dotenv.config()
 connectDB();
@@ -26,20 +27,22 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(morgon('dev'));
 
-const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname + '/uploads')));
+
 
 // routes
+// app.use('/', routes);
+// app.get("/",(req,res)=>{
+//     res.send("hello")
+// })
 app.use('/', routes);
-
 //Port
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4000;
 
 // run listen
 
 const server = http.createServer(app);
 server.listen(PORT, () => {
-    console.log(`Server Running on ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white);
+    console.log(`Server Running on ${process.env.DEV_MODE} mode on port ${PORT}`.bgGreen.white);
 })
 
 const io = new Server(server, {cors: corsOptions});

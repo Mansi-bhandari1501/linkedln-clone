@@ -41,8 +41,8 @@ const MessageComponent = (socket) => {
   // console.log(logId)
   // const chats = useSelector((state)=>state)
   // console.log(chats)
-  const chats = useSelector((state) => state.chats.chats);
-  // console.log(chats)
+  const chats = useSelector((state) => state.chats);
+  console.log(chats)
 
   useEffect(() => {
     const token = user.userToken;

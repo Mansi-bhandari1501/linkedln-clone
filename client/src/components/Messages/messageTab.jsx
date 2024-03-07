@@ -11,13 +11,14 @@ import Textarea from "@mui/joy/Textarea";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDispatch, useSelector } from 'react-redux';
 import io from "socket.io-client";
-import { addMessage, fetchMessage } from '../../features/messages/messageAction';
+import { fetchMessage } from '../../features/messages/messageAction';
 import { Typography } from '@mui/material';
 import { Avatar } from '@mui/material';
 import Profile from "../../assets/profile.png"
+import { newMessage } from '../../features/messages/messageSlice';
 
-const ENDPOINT = "http://localhost:8080"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
-var socket, selectedChatCompare;
+// const ENDPOINT = "http://localhost:8080"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+// var socket, selectedChatCompare;
 const MessageTab = (props) => {
   const socket = useMemo(
     () =>
@@ -28,44 +29,33 @@ const MessageTab = (props) => {
   );
 
   const [socketConnected, setSocketConnected] = useState(false)
-  const [message, setMessage] = useState([]);  
+  const [message, setMessage] = useState([]);
+
   const [content, setContent] = useState("");
+  const messagesEndRef = useRef(null)
   const user = useSelector((state) => state.user);
   const senderId = user.userId;
   const token = user.userToken;
   const dispatch = useDispatch();
-//  const Toggle = useSelector((state)=>state.messages)
-//  console.log(Toggle)
+
   const chatId = props.receivedData.chatId;
   const chatName = props.receivedData.chatName;
-  // console.log(chatId, " ", chatName)
   useEffect(() => {
     dispatch(fetchMessage({ chatId, token }))
-  }, [dispatch,props.toggle])
+  }, [dispatch, props.toggle])
 
-  
+  const messages = useSelector((state) => state.messages.messages);
+ console.log(messages)
 
-    const messagesEndRef = useRef(null)
-  
-    const scrollToBottom = () => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }
-  
-    // useEffect(() => {
-    //   scrollToBottom()
-    // }, [messages]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(content)
-    socket.emit('message',{chatId,content,senderId});
-    // dispatch(addMessage({content, chatId, senderId,token}))
-    // content, chatId, senderId
-    // socket.emit("message", { content: x, chatId,userId });
-    setContent("");
-  };
+
+
+
+  // useEffect(() => {
+  //   scrollToBottom()
+  // }, [messages]);
 
   // console.log(props.receivedData)
-  const messages = useSelector((state) => state.messages.messages);
+
   // console.log("👍", messages)
 
 
@@ -73,30 +63,49 @@ const MessageTab = (props) => {
     // socket = io(ENDPOINT);
     // socket.emit("setup", user);
     // socket.on("connected", () => setSocketConnected(true));
-      socket.on("connect", () => {
-      setSocketConnected(true)
-      console.log("connected", socket.id);
-    });
-
     socket.on("welcome", (s) => {
       console.log(s);
     });
-
-    socket.on(chatId, (data) => {
-      console.log(data);
-      setMessage((messages) => [...messages, data]);
-      scrollToBottom()
-      // dispatch(addMessage({content, chatId, senderId,token}))
+    console.log(chatId)
+    socket.emit("join-room", chatId)
+    socket.on("receive-message", (data) => {
+      console.log(data.message)
+      dispatch(newMessage(data.message))
     })
-    console.log(messages);
+    // socket.on("connect", () => {
+    //   setSocketConnected(true)
+    //   console.log("connected", socket.id);
+    // });
+
+    // socket.on(chatId, (data) => {
+    //   console.log(data);
+
+    //   dispatch(newMessage(data))
+    // })
+    console.log(messages)
+   
+
+    messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" })
+
     return () => {
-      socket.disconnect();
+      socket.off('welcome')
+      socket.off("connect")
+      socket.off(chatId)
+      // socket.disconnect();
     };
 
-  }, []);
+  }, [socketConnected]);
 
 
-// console.log(content)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(content)
+    socket.emit('message', { chatId, content, senderId })
+    // setSocketConnected(!socketConnected)
+    console.log(socketConnected)
+    setContent("");
+  };
+  // console.log(content)
 
   return (
     <Box className="message tab" sx={{ width: "80%" }}>
@@ -121,24 +130,24 @@ const MessageTab = (props) => {
         <Box sx={{ height: "65vh" }}>
           <Divider />
           <Stack>
-            <Avatar src={Profile} sx={{ height: "100px", width: "100px" ,margin:"15px"}} ></Avatar>
+            <Avatar src={Profile} sx={{ height: "100px", width: "100px", margin: "15px" }} ></Avatar>
           </Stack>
           <Divider />
-          <Box sx={{overflowY:"auto",height:"49vh", autoFocus:"true"}}>
+          <Box sx={{ overflowY: "auto", height: "49vh", autoFocus: "true" }}>
 
             {messages && messages?.map((content, i) => {
               return (
 
                 <Stack key={content._id}>
-                  <Stack sx={{ flexDirection: "row", gap: "5px",marginTop:"15px" ,marginLeft:"8px" }}>
+                  <Stack sx={{ flexDirection: "row", gap: "5px", marginTop: "15px", marginLeft: "8px" }}>
 
-                    <Avatar sx={{height:"60px",width:"60px"}} src={Profile}></Avatar>
-                    <Stack sx={{gap:"12px"}}>
+                    <Avatar sx={{ height: "60px", width: "60px" }} src={Profile}></Avatar>
+                    <Stack sx={{ gap: "12px" }}>
 
-                      <Typography sx={{fontSize:"14px",fontFamily:"system-ui",fontWeight:600,lineHeight:"20px",fontStyle:"normal",color:"rgba(0 0 0 0.9)"}}>
+                      <Typography sx={{ fontSize: "14px", fontFamily: "system-ui", fontWeight: 600, lineHeight: "20px", fontStyle: "normal", color: "rgba(0 0 0 0.9)" }}>
                         {content.sender?.email}
                       </Typography>
-                      <Typography sx={{fontSize:"14px",fontFamily:"system-ui",fontWeight:400,lineHeight:"20px",fontStyle:"normal",color:"rgba(0 0 0 0.9)"}}>
+                      <Typography sx={{ fontSize: "14px", fontFamily: "system-ui", fontWeight: 400, lineHeight: "20px", fontStyle: "normal", color: "rgba(0 0 0 0.9)" }}>
 
                         {content.content}
                       </Typography>
@@ -149,7 +158,7 @@ const MessageTab = (props) => {
                 </Stack>
               )
             })}
-            <div useRef={messagesEndRef}/>
+            <Box useRef={messagesEndRef} />
           </Box >
         </Box>
         <Box >
