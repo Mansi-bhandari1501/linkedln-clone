@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Post from "../Post";
 import Header from "../Header";
 import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
@@ -24,7 +24,7 @@ const HomeComponent = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   return (
     <div style={{ backgroundColor: "#F4F2EE", height: "100vh" }}>
       <Stack flexDirection={"column"} className="Home">

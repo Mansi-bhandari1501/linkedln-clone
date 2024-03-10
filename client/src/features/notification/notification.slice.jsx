@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { fetchNotifications } from "./notification.action";
 
 const initialState ={
@@ -9,7 +10,7 @@ const initialState ={
     active:[]
   
 }
-export const connectionSlice = createSlice({
+export const notificationSlice = createSlice({
     name:'notification',
     initialState,
     reducers:{},

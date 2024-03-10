@@ -11,7 +11,7 @@ ACTION_TYPE.ADD_USER,
         headers: {
           "Content-Type": "application/json",
         },
-      };
+      };  
       console.log(email,password)
       const res = await axios.post(`http://localhost:8080/users/register`,{email,password},config)
 

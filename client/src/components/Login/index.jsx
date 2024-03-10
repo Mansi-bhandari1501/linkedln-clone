@@ -232,6 +232,14 @@ const LoginComponent = () => {
                                     lineHeight: "52px",
                                     fontSize: "16px",
                                     fontFamily: "system-ui",
+                                    "&:focus-within": {
+                                        outline: "1px solid #0A66C2",
+                                        backgroundColor: "#004182",
+                                    },
+                                    "&:hover": {
+                                        backgroundColor: "#004182",
+                                    },
+
                                 }}
                             >
                                 Sign in

@@ -2,13 +2,13 @@ import errorHandler from "../lib/utils.js";
 import postService from "../service/post.service.js";
 
 export const createPost = async (req, res) => {
-  const {userId,title,body}= req.body;
-  
-  console.log("body",req.body)
+  const { userId, title, body } = req.body;
+
+  console.log("body", req.body);
   try {
-    const {userId,title,body}= req.body;
+    const { userId, title, body } = req.body;
     const response = await postService.createPost(req);
-    console.log(response)
+    console.log(response);
     return res.status(201).json({
       success: true,
       post: response.post,
@@ -21,33 +21,30 @@ export const createPost = async (req, res) => {
 export const fetchAllPosts = async (req, res) => {
   // return res.json("hello")
   try {
-    console.log("fetch posts----->>>>>")
+    console.log("fetch posts----->>>>>");
     // console.log(req)
     const post = await postService.fetchAllPosts(req);
-console.log("RESPONSE",post)
-    if(!post || post.length === 0) {
-      return res.status(204)
+    console.log("RESPONSE", post);
+    if (!post || post.length === 0) {
+      return res.status(204);
     }
-
     return res.status(200).json({
-      posts: post, // handle in frontend also 
+      posts: post.posts,
+      count: post.postsCount, // handle in frontend also
       // success: true,
     });
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
     errorHandler(res, error);
-
   }
 };
-
 
 export const fetchPost = async (req, res) => {
   try {
     const response = await postService.fetchPost(req);
 
-    if(!response) {
-      return res.status(204)
+    if (!response) {
+      return res.status(204);
     }
 
     return res.status(200).json({

@@ -15,13 +15,16 @@ function Post() {
   const user = useSelector((state) => state.user);
   // const [card, setCard] = useState([]);
   const [page, setPage] = useState(0);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const isLoading = useSelector((state) => state.post.isLoading);
   useEffect(() => {
     const token = user.userToken;
     console.log("PaGe",page)
     dispatch(fetchPost({token,page}));
   }, [dispatch,page]);
   const posts = useSelector((state) => state.post.contents);
+  const postCount = useSelector((state) => state);
+  console.log("PoPOpo",postCount)
   const handelInfiniteScroll = async () => {
     // console.log("scrollHeight" + document.documentElement.scrollHeight);
     // console.log("innerHeight" + window.innerHeight);
@@ -34,26 +37,32 @@ function Post() {
         // setLoading(true);
         setPage((prev) => prev + 1);
       }
-      if(posts.length === 0){
-        setPage((prev)=>prev)
+      if(posts.length === 14){
+        // setPage((prev)=>prev)
+        return
 
+      }
+      if (isLoading) {
+        setPage((prev)=>prev)
+        return "Loading...";
       }
     } catch (error) {
       console.log(error);
+    }finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handelInfiniteScroll);
     return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, []);
+  }, [loading]);
   console.log(posts);
 
-  const isLoading = useSelector((state) => state.post.isLoading);
 
-  if (isLoading) {
-    return "Loading...";
-  }
+  // if (isLoading) {
+  //   return "Loading...";
+  // }
 
   // if(error){
   //   return error;
@@ -65,14 +74,14 @@ function Post() {
       {posts && posts.length && posts?.map((content) => (
         <div key={content._id}>
           <Cards
-            // title={content.title}
-            // body={content.body}
-            // likes={content.likes}
-            // createdAt={content.createdAt}
-            // postId={content._id}
-            // images={content.images}
-            // email= {content.email}
-            // user={content.userid.email}
+            title={content.title}
+            body={content.body}
+            likes={content.likes}
+            createdAt={content.createdAt}
+            postId={content._id}
+            images={content.images}
+            email= {content.email}
+            user={content.userid.email}
             content={content}
           />
           {/* <h3>name : {content.name} </h3> */}
@@ -90,8 +99,8 @@ function Post() {
           {/* <h3 >comments : {content.comments} </h3>      */}
         </div>
       ))}
+      {loading && "Load"}
     </div>
-      // {isloading && <Loading>}
   );
 }
 

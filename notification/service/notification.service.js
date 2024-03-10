@@ -11,12 +11,21 @@ export const sendNotifications = async (req, res) => {
     }).save();
     return res.json(newNotifications)
 }
-export const getNotifications = async (req, res) => {
-    const { receiverId } = req.body;
+
+
+export const getNotifications = async (payload) => {
+    const  {receiverId}  = payload.body;
+    console.log("ggggggJJJhh",payload.body)
     console.log("----RECEIVERiD-----",receiverId)
     const getNotifications = await  notificationsModel.find({
         receiver: receiverId
     })
-    console.log(getNotifications)
-    return res.json(getNotifications)
+    console.log("GETNOTTTT",getNotifications)
+    return getNotifications;
 }
+
+const notificationService = {
+    getNotifications,
+    sendNotifications
+  };
+  export default notificationService;

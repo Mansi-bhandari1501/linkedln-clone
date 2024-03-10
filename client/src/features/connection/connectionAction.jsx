@@ -30,12 +30,12 @@ export const fetchPendingConnection = createAsyncThunk(
 export const rejectConnection = createAsyncThunk(
     CONNECTION_TYPE.REJECT_CONNECTION,
     async ({senderId, receiverId, status,token}) => {
-        // console.log({senderId, receiverId, status})
+        console.log({senderId, receiverId, status})
         const res = await axios.put(`http://localhost:8080/connections/remove/`,{senderId, receiverId, status},
         {headers:{Authorization: token}});
         const data =  res.data;
         console.log(data)
-        // console.log("connectionData",data.connection)
+        console.log("connectionData😬😬😬😬",data.connection)
         return data;
     }
 )

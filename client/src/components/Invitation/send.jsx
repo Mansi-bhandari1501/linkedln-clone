@@ -15,7 +15,7 @@ const Sent = () => {
   }, [dispatch])
 
   const connections = useSelector((state) => state?.connection?.connections.connection);
-  console.log(connections);
+  // console.log(connections);
 
   const handleWithdraw = (i) => {
     console.log(token)
@@ -25,7 +25,7 @@ const Sent = () => {
 
   return (
     <Stack sx={{ display: 'flex', flexDirection: 'column', height: "auto" }}>
-      {connections && connections?.map((content) => {
+      {connections && connections.map && connections?.map((content) => {
         return (
           <Box key={content?.receiver?._id}>
             <Stack sx={{ margin: '15px', width: "39vw" }} flexDirection={'row'}>

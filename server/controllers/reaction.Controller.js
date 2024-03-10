@@ -36,7 +36,12 @@ export const saveReactions = async (req, res) => {
 export const getReactions = async (req, res) => {
     try{
         const response = await reactionService.getReactions(req)
-        return res.status(200).json(response)
+        console.log(response)
+        return res.status(200).json(
+            {
+                
+                coutReaction :response.reactionsCount
+            })
     }catch(error){
         console.log(error)
         errorHandler(res,error);

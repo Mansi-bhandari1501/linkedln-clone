@@ -50,7 +50,7 @@ export const updatePost = async (payload) => {
   try {
     let data = await postModel.findByIdAndUpdate(payload.params, {
       $set: payload.body,
-    });
+    }).countDocuments();
     return { data };
   } catch (error) {
     throw error;
@@ -102,11 +102,13 @@ export const fetchAllPosts = async (payload) => {
     // console.log("HELLO",payload.user._id )
     console.log("payload------>>>>",payload.query)
       let page = Number(payload.query.page) ;
-      let resultsPerPage = 5;
+      let resultsPerPage = 2;
       console.log("PAGESS",page)
       // if(!page || page.trim() === '') {
       //   page = 0;
       // }
+     const postsCount = await postModel.find().count()
+    //  const postsCount = post.count();
      const posts = await postModel.find({})
           .sort({ createdAt: 'descending' })
           .populate('userid',"email firstName lasName")
@@ -114,7 +116,7 @@ export const fetchAllPosts = async (payload) => {
           .limit(resultsPerPage)
           .skip(page * resultsPerPage)
           // console.log(posts)
-     return posts
+     return {posts,postsCount}
   }
   catch (error) {
       throw error;

@@ -60,7 +60,9 @@ export const postSlice = createSlice({
             // const prevPosts =state.contents
             const newPosts = action.payload.posts
             console.log(newPosts,[...prevPosts,...newPosts]);
-            state.contents= action.payload.posts;
+            // state.contents= action.payload.posts;
+            state.contents.push(...action.payload?.posts)
+            console.log(state.contents)
         })
         builder.addCase(fetchPost.rejected,(state,action)=>{
             state.isLoading=false

@@ -4,7 +4,7 @@
     /* margin-top: 10vh; */
     background-color: rgb(255, 255, 255);
     font-size: 10px; 
-    height: 40px;
+    height: 42px;
     /* margin-top: 15vh; */
     /* position: absolute; */
     /* height: 50px; */
@@ -18,12 +18,13 @@
 
 .footer-content{
     padding-right: 100px;
+    padding-top: 0px;
     display: flex;
     flex-direction: row;
     gap:1%;
     justify-content: center;
     font-size: 12px;
-    align-items: flex-start;   
+    align-items:var(-2vh);   
      font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
     color:rgba(0, 0, 0, 0.9);
     height: fit-content;

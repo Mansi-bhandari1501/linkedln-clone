@@ -71,6 +71,7 @@ export const updateStatusConnection = async (req, res) => {
 export const deleteConnection = async (req, res) => {
     try {
       const response = await connectionService.deleteConnection(req);
+      console.log(response)
       return res.status(201).json({
         success: true,
         connection: response,

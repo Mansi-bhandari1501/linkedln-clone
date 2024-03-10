@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import "./card.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -31,8 +31,7 @@ import {
 } from "../../features/comment/commentAction";
 import Profile from "../../assets/profile.png"
 import { ReactionBarSelector } from '@charkour/react-reactions';
-import { addReaction, removeReaction } from "../../features/Reaction/reactionAction";
-import { ReactionCounter } from '@charkour/react-reactions';
+import { addReaction, getReactions, removeReaction } from "../../features/Reaction/reactionAction";
 
 
 const Cards = (props) => {
@@ -64,14 +63,24 @@ const images = props.content.images;
   const [emoji, setEmoji] = useState(defaultReaction);
   const [emojiType, setEmojiType] = useState('Like');
 
+  const postId = props.postId;
   let createdAt = props.content.createdAt;
   var date = new Date(createdAt)
 
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.userInfo);
+  const reaction = useSelector(state => state.reaction);
+  console.log("🫨🫨🫨",reaction.reactions.coutReaction
+  )
   const userId = useSelector((state) => state.user.userInfo._id);
   const [expanded, setExpanded] = React.useState(false);
   const [body, setBody] = useState("");
+
+  useEffect(()=>{
+    console.log("🤦‍♀️🤦‍♀️",postId)
+    dispatch(getReactions(postId))
+  },[dispatch])
+
   function handleOnEnter(body) {
     console.log("enter", body);
   }
@@ -80,7 +89,7 @@ const images = props.content.images;
     setExpanded(!expanded);
     dispatch(fetchComment(props.postId));
   };
-  const postId = props.postId;
+  // console.log("postttt",postId)
   const handleComment = () => {
     const commentData = {
       postId,
@@ -146,7 +155,13 @@ const images = props.content.images;
             </div>
           ))}
         </div>
+<Stack flexDirection={"row"} sx={{marginLeft:"10px",gap:"5px"}}>
+  <Typography sx={{fontFamily:"sysyem-ui",fontStyle:"normal",fontWeight:"400",fontSize:"14px"}}>
 
+{reaction.reactions.coutReaction} 
+  </Typography>   
+  <LikeIcon sx={{ height: "20px", width: "16px", marginRight: "4px", color: "#5E5E5E" }}/>
+</Stack>
         {/* {props.likes} */}
         <Divider sx={{ marginBottom: "5px" }} />
         <CardActions className="post-action" disableSpacing>

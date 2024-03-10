@@ -83,7 +83,7 @@ export const connectionSlice = createSlice({
         //rejectConnection
         builder.addCase(rejectConnection.pending,(state)=>{
             state.isLoading=true;
-            console.log(state)
+            // console.log(state)
         })
         builder.addCase(rejectConnection.fulfilled,(state,action)=>{
             state.isLoading=false
@@ -94,8 +94,15 @@ export const connectionSlice = createSlice({
                      return item.sender !== action.payload.connection.sender
                 })
                 state.requested = newReq
-                console.log(newReq)
+                console.log("NEWREQQQ",newReq)
             }
+            // if(action.payload.connection.status === 'rejected'){
+            //     const newReq = state.connections.filter((item) => {
+            //          return item.sender !== action.payload.connection.sender
+            //     })
+            //     state.requested = newReq
+            //     console.log(newReq)
+            // }
 
         })
         builder.addCase(rejectConnection.rejected,(state,action)=>{

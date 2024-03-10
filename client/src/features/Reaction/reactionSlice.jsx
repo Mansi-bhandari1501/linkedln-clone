@@ -19,6 +19,7 @@ export const reactionSlice = createSlice({
         })
         builder.addCase(getReactions.fulfilled, (state, action)=> {
             state.isLoading = false;
+            console.log("hhhhhh",action.payload)
             // state.reactions[action.payload[0].postId] = action.payload;
             state.reactions = action.payload
         })

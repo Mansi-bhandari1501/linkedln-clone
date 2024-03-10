@@ -54,8 +54,10 @@ export const getReactions = async (payload) => {
     try{
         console.log("PAYLOAD",payload.params)
         const {postId} = payload.params
-        const reactions = await reactionModel.find({postid:postId})
-        return reactions
+        // const reactions = await reactionModel.find({postid:postId})
+        const reactionsCount = await reactionModel.countDocuments({postid:postId})
+        // const reaction = {reactions,reactionsCount}
+        return {reactionsCount}
     }
     catch(error) {
         throw error;

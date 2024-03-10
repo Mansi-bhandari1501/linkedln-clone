@@ -1,10 +1,11 @@
 import express  from "express";
-import { getNotifications, sendNotifications } from "../service/notification.service.js";
+import {  sendNotifications } from "../service/notification.service.js";
+import { createNotification } from "../controller/notification.controller.js";
 
 const router = express.Router();
 
 router.post('/',sendNotifications);
-router.get('/',getNotifications);
+router.get('/',createNotification);
 
 
 export default router;

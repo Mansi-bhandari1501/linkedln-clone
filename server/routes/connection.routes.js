@@ -9,7 +9,7 @@ router.post('/',requireSignIn,sendConnection);
 router.patch('/',requireSignIn,updateStatusConnection);
 router.get('/:_id',requireSignIn,receivedConnection);
 router.put('/remove',requireSignIn,removeConnection);
-// router.delete('/:_id',requireSignIn,deleteConnection);
+router.delete('/:_id',deleteConnection);
 router.get('/pending/:_id',requireSignIn,pendingConnection);
 router.get('/active/:_id',requireSignIn,activeConnection);
 
