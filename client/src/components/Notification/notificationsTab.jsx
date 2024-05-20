@@ -65,6 +65,7 @@ const NotificationsTab = (props) => {
           paddingLeft: "30px",
           paddingTop: "16px",
           paddingBottom: "16px",
+          gap:"10px"
         }}
       >
         <Avatar></Avatar>
@@ -79,8 +80,8 @@ const NotificationsTab = (props) => {
               color: "#000000e6",
             }}
           >
-            hihiihigvdfgdfghfdbngnbfgbnfnfdnf dhbsdfhb tergebgfbsfkjbn
-            kdfffffffffbhkdjshbkdfjhdkjhbkdbk
+            Gaurvit and 2 other people viewed your 
+            and updated profile
           </Typography>
           <Typography
             sx={{
@@ -92,10 +93,10 @@ const NotificationsTab = (props) => {
               color: "#000000e6",
             }}
           >
-            hihiihi
+            
           </Typography>
         </Stack>
-        <Stack>
+        <Stack sx={{marginLeft:"30px"}}>
           <Typography
             sx={{
               fontSize: "12px",

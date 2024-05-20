@@ -386,7 +386,7 @@ const LoginComponent = () => {
                 <span>
                     <NavLink
                         style={{ color: "#0a66c2", textDecoration: "none", fontWeight: 600 }}
-                        to="/signup"
+                        to="/login"
                     >
                         Join now
                     </NavLink>

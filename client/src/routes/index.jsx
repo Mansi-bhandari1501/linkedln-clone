@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // import Signuppage from '../pages/Signup/sign-up';
 import LoginPage from '../pages/Login/login';
-import Dashboard from '../dashboard';
+// import Dashboard from '../dashboard';
 import HomePage from '../pages/Home/home';
 import Signuppage from '../pages/Signup/sign-up';
 import Profile from '../pages/Profile/profile';
@@ -28,7 +28,7 @@ const Router = () => {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/' element={<HomePage />} />
           {/* <Route path='/' element={<Example />} /> */}
-          <Route path='/dashboard' element={<Dashboard />} />
+          {/* <Route path='/dashboard' element={<Dashboard />} /> */}
           <Route path='/profile' element={<Profile />} />
           <Route path='/message' element={<Message socket={socket}/>} />
           <Route path='/mynetwork' element={<Network />} />
